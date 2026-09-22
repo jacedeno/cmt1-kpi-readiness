@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Planner screen 4 of 6: week close</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .wire .btn.off { border-color:#b9c3b8; color:#9aa39c; }
+  .prog { height:6px; background:#e8ede7; border-radius:3px; margin:4px 0 8px; position:relative; overflow:hidden; }
+  .prog i { position:absolute; left:0; top:0; bottom:0; background:#2d6a2e; }
+  .q { border:1px solid #e3e9e2; border-radius:5px; padding:4px 6px; margin-bottom:4px; background:#f6f8f4; display:flex; gap:6px; align-items:center; }
+  .q .w { flex:1; } .q .w small { display:block; color:#5c6862; }
+  .q code { font-family:ui-monospace, Menlo, monospace; color:#1e40af; font-size:9.5px; }
+  .q .r { display:flex; gap:3px; }
+  .q .r span { border:1px solid #d9e0d8; border-radius:3px; padding:1px 5px; background:#fff; color:#5c6862; }
+  .q .r span.on { background:#2d6a2e; color:#fff; border-color:#2d6a2e; }
+  .q.done { background:#dcf3df; border-color:#9fd3a8; }
+  .q.bi { border-left:3px solid #e8a817; } .q.nw { border-left:3px solid #d05252; } .q.ot { border-left:3px solid #7c4a03; } .q.ct { border-left:3px solid #3b6fd6; }
+  .grpname { font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; margin:6px 0 3px; font-weight:700; }
+  .kpi { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+  .kpi div { flex:1 1 90px; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .kpi b { display:block; font-size:8.5px; color:#5c6862; text-transform:uppercase; letter-spacing:.4px; }
+  .kpi span { font-size:13px; font-weight:700; }
+  .kpi small { display:block; color:#5c6862; }
+  table.rec { width:100%; border-collapse:collapse; }
+  table.rec th, table.rec td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.rec th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.rec td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.rec tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.rec td.mono { font-family:ui-monospace, Menlo, monospace; font-size:9.5px; color:#1e40af; }
+  .st { display:inline-block; border-radius:3px; padding:0 5px; font-weight:700; font-size:9px; }
+  .st.ok { background:#dcf3df; color:#14532d; } .st.part { background:#fbf0d3; color:#7c4a03; } .st.no { background:#fbdcdc; color:#8f1d1d; } .st.bi { background:#fbf0d3; color:#7c4a03; border:1px dashed #e8a817; }
+  td.pick { color:#9aa39c; border-style:dashed !important; }
+  .wiz { display:flex; gap:4px; margin-bottom:8px; }
+  .wiz div { flex:1; text-align:center; border:1px solid #d9e0d8; border-radius:4px; padding:3px 2px; color:#5c6862; font-size:9px; }
+  .wiz div.done { background:#dcf3df; border-color:#9fd3a8; color:#14532d; }
+  .wiz div.cur { background:#2d6a2e; border-color:#2d6a2e; color:#fff; font-weight:700; }
+  .panel { border:1px solid #e3e9e2; border-radius:6px; padding:6px 8px; background:#f6f8f4; }
+  .panel h5 { margin:0 0 4px; font-size:10.5px; color:#1e4d1f; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #e8a817; border-radius:4px; padding:3px 5px; margin-bottom:4px; display:flex; gap:6px; align-items:center; }
+  .card .w { flex:1; } .card small { display:block; color:#5c6862; }
+  .card select { font-size:9.5px; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+  .note b { color:#1e4d1f; }
+
+  .wire { overflow-x: auto; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Planner screen 4 of 6: week close</h1>
+    <p class="lede">Once the CATS hours of the week are in SAP, the week in transit is closed: the tool compares the frozen list with what was actually worked, asks the planner only for what SAP cannot know (the reason behind each break-in and each frozen order not worked, the overtime, the contractor hours, the headline) and writes the week's KPI record. This replaces the KPI tab and the paste into the KPI web app. Below are three ways to do it, each with the steps the planner follows. Nothing here is built yet; the example is week 38, closed Thursday 24 Sep 2026.</p>
+    <div class="meta"><span><b>Status</b> Mockup for discussion, 22 Sep 2026</span><span><b>Previous</b> <a href="week-board.html">1: week board</a> · <a href="daily-plan.html">2: daily plan</a> · <a href="freeze.html">3: freeze</a></span><span><b>Next screens</b> KPIs · Configuration</span></div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
+<h2>Week close: three ways to lay it out</h2>
+<p class="subtitle">Screen 4. Once the CATS hours of the week are in SAP, the week in transit is closed: the tool compares the frozen list with what was actually worked, asks the planner only for what SAP cannot know (the reason behind each break-in, each frozen order not worked, the overtime, the contractor hours, the week's headline) and writes the week's KPI record. This replaces the KPI tab and the paste into the KPI web app. Example: week 38 (14–18 Sep), closed Thursday 24 Sep from the CATS_DA export of that morning.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a-queue">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>The answer queue: only what needs a human, one click each</h3>
+      <p>The tool does the comparison and shows a queue of the items it cannot decide alone: each break-in needs a reason, each frozen order not worked needs a reason, the overtime needs its explanation confirmed, the contractor hours need a number. A progress bar counts the answers; Close week unlocks when the queue is empty. The KPI card below updates as answers come in.</p>
+      <ol class="steps">
+        <li>Upload the morning's <b>CATS_DA and ZEMR031 closed</b> exports. The tool matches hours to the frozen list of week 38.</li>
+        <li>The queue lists <b>break-ins</b> (orders with hours in the week that were not frozen): pick the reason, Production / Mechanical / Electrical / Good, one click.</li>
+        <li>Then <b>frozen orders not worked</b>: pick why (parts, not released by production, no people, deferred to week 39).</li>
+        <li>Then <b>overtime</b> above 40 h per person: confirm or edit the explanation typed at the freeze.</li>
+        <li>Then <b>contractor hours</b> (not in CATS): type the week's hours per contractor crew.</li>
+        <li>Type the <b>week headline</b> and press <b>Close week</b>. The KPI record is written; the KPI page shows week 38.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Close week 38 · 14–18 Sep</b> · CATS_DA of 24 Sep 07:10 · 583 h booked by 17 people</span><span><span class="btn off">Close week (4 left)</span></span></div>
+        <div class="prog"><i style="width:67%"></i></div>
+        <div class="grpname">Break-ins · 9 orders · 142 h · 5 answered</div>
+        <div class="q bi done"><div class="w"><code>4459362</code> CT-900 · System not removing heat · 9 h<small>Wed–Thu · 2 people</small></div><div class="r"><span class="on">Production</span><span>Mechanical</span><span>Electrical</span><span>Good</span></div></div>
+        <div class="q bi done"><div class="w"><code>4458342</code> DC-320A · Leaking diaphragm comp. 7 · 16 h</div><div class="r"><span>Production</span><span class="on">Mechanical</span><span>Electrical</span><span>Good</span></div></div>
+        <div class="q bi"><div class="w"><code>4458271</code> IC-360 · Remove cover (call-out) · 16 h<small>Tue night · overtime</small></div><div class="r"><span>Production</span><span>Mechanical</span><span>Electrical</span><span>Good</span></div></div>
+        <div class="q bi"><div class="w"><code>4458345</code> C-805 · Broken guard · 4 h</div><div class="r"><span>Production</span><span>Mechanical</span><span>Electrical</span><span>Good</span></div></div>
+        <div class="grpname">Frozen but not worked · 3 orders · 84 h · 2 answered</div>
+        <div class="q nw done"><div class="w"><code>4455559</code> C-55 · Tail pulley and counterweight · 60 h frozen · 0 h booked</div><div class="r"><span class="on">Parts</span><span>Not released</span><span>No people</span><span>Deferred</span></div></div>
+        <div class="q nw"><div class="w"><code>4443722</code> VG-310 · Inspect the flappers · 16 h frozen · 0 h booked</div><div class="r"><span>Parts</span><span>Not released</span><span>No people</span><span>Deferred</span></div></div>
+        <div class="grpname">Overtime · 61 h above 40 h/person · 1 to confirm</div>
+        <div class="q ot"><div class="w">Corrective · Mon–Tue · 46 h · "FM-9 down days, two shifts on the mill" (typed at the freeze)<small>Plus IC-360 call-out Tue night · 15 h · not planned</small></div><div class="r"><span>Confirm</span><span>Edit</span></div></div>
+        <div class="grpname">Contractor hours · not in CATS</div>
+        <div class="q ct done"><div class="w">Turkey · 2 people · <b>80 h</b> &nbsp; OCC · 2 people · <b>80 h</b></div></div>
+        <div class="kpi">
+          <div><b>5.4.3 Schedule compliance · h</b><span>78 %</span><small>401 of 512 frozen h</small></div>
+          <div><b>5.4.4 · orders</b><span>77 %</span><small>24 of 31 frozen orders</small></div>
+          <div><b>5.4.1 Reactive</b><span>19 %</span><small>P1 hours / all hours</small></div>
+          <div><b>5.5.8 Overtime</b><span>10.5 %</span><small>61 of 583 h</small></div>
+          <div><b>Break-ins</b><span>9</span><small>142 h · 24 % of hours</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-table">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Frozen vs actual, the whole week in one table</h3>
+      <p>One row per order that was frozen or worked, with frozen hours, booked hours, status and a reason cell where one is needed. It is the old KPI tab turned into a reconciliation: every number is computed from SAP, the only typing is in the reason column. The KPI figures sit at the top and change as reasons are filled in. Good for auditing a week and for explaining a number when someone asks.</p>
+      <ol class="steps">
+        <li>Upload the exports; the table fills: <b>frozen hours</b> from the snapshot, <b>booked hours</b> from CATS_DA per order, <b>status</b> computed (done, partial, not worked, break-in).</li>
+        <li>Filter to <b>"needs a reason"</b>: break-ins and not-worked rows show a dashed reason cell; pick from the list.</li>
+        <li>Rows with hours <b>above the estimate</b> are flagged for SMRP 5.3.5 (Planning Variance); no answer needed, just visible.</li>
+        <li>Below the table: <b>overtime lines</b> per person above 40 h with the explanation, and the <b>contractor hours</b> row.</li>
+        <li>Headline, then <b>Close week</b>. A closed week stays visible as this table forever; reopening requires a reason.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Week 38 · 14–18 Sep</b> · frozen Thu 10 Sep 10:35 · 31 orders · 512 h · booked 583 h</span><span><span class="btn">Needs a reason (4)</span><span class="btn off">Close week</span></span></div>
+        <div class="kpi" style="margin:0 0 6px">
+          <div><b>5.4.3 hours</b><span>78 %</span></div><div><b>5.4.4 orders</b><span>77 %</span></div><div><b>5.4.1 reactive</b><span>19 %</span></div><div><b>5.5.8 overtime</b><span>10.5 %</span></div><div><b>5.3.5 variance</b><span>1.4</span></div><div><b>5.5.72 contractor</b><span>160 h</span></div>
+        </div>
+        <table class="rec">
+          <tr><th>Order</th><th>Equipment · job</th><th>Frozen</th><th>Booked</th><th>Status</th><th style="width:22%">Reason</th></tr>
+          <tr class="grp"><td colspan="6">Finish mill 9 · down Mon–Tue</td></tr>
+          <tr><td class="mono">4452645</td><td>CP-900 · Pump inspection</td><td class="n">16</td><td class="n">14.5</td><td><span class="st ok">done</span></td><td></td></tr>
+          <tr><td class="mono">4457562</td><td>K-900 · Blind off outlet chute</td><td class="n">16</td><td class="n">22</td><td><span class="st ok">done · +6 h</span></td><td></td></tr>
+          <tr><td class="mono">4459362</td><td>CT-900 · Not removing heat</td><td class="n">—</td><td class="n">9</td><td><span class="st bi">break-in</span></td><td>Production</td></tr>
+          <tr class="grp"><td colspan="6">Raw mill / Kiln</td></tr>
+          <tr><td class="mono">4451397</td><td>RM-310A · Internal inspection</td><td class="n">16</td><td class="n">16</td><td><span class="st ok">done</span></td><td></td></tr>
+          <tr><td class="mono">4443722</td><td>VG-310 · Inspect the flappers</td><td class="n">16</td><td class="n">0</td><td><span class="st no">not worked</span></td><td class="pick">pick reason…</td></tr>
+          <tr><td class="mono">4458342</td><td>DC-320A · Leaking diaphragm</td><td class="n">—</td><td class="n">16</td><td><span class="st bi">break-in</span></td><td>Mechanical</td></tr>
+          <tr class="grp"><td colspan="6">Clinker / Conveyors</td></tr>
+          <tr><td class="mono">4455559</td><td>C-55 · Tail pulley and counterweight</td><td class="n">60</td><td class="n">0</td><td><span class="st no">not worked</span></td><td>Parts · to week 39</td></tr>
+          <tr><td class="mono">4441200</td><td>C-305 · Belt inspection</td><td class="n">16</td><td class="n">8</td><td><span class="st part">partial</span></td><td></td></tr>
+          <tr><td class="mono">4458271</td><td>IC-360 · Remove cover (call-out)</td><td class="n">—</td><td class="n">16</td><td><span class="st bi">break-in · OT</span></td><td class="pick">pick reason…</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-wizard">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>The guided close: five steps in the same order every week</h3>
+      <p>Closing is a ritual with five steps and a progress strip on top: exports, break-ins, not worked, hours and people, review and close. Each step shows only its own question and a Next button. Slower than A for an expert, but anyone can close the week the same way, and nothing is forgotten when the planner is on holiday.</p>
+      <ol class="steps">
+        <li><b>1 · Exports.</b> Drop CATS_DA and ZEMR031 closed; the tool confirms the week is fully booked (17 people, 5 days) and flags people with 0 h and no PTO.</li>
+        <li><b>2 · Break-ins.</b> One card per order worked but not frozen; choose the reason; the count and hours are shown.</li>
+        <li><b>3 · Not worked.</b> One card per frozen order with 0 h; choose the reason; "Deferred" moves it to next week's board.</li>
+        <li><b>4 · Hours and people.</b> Overtime per person with the explanation; contractor hours; PTO and absences as CATS shows them, corrected here only if CATS is wrong.</li>
+        <li><b>5 · Review and close.</b> The KPI card, the headline field, Close week. The record goes to the KPI page; the week is read-only from here.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Close week 38</b> · step 2 of 5</span><span><span class="btn">Back</span><span class="btn solid">Next</span></span></div>
+        <div class="wiz"><div class="done">1 · Exports ✓</div><div class="cur">2 · Break-ins</div><div>3 · Not worked</div><div>4 · Hours and people</div><div>5 · Review and close</div></div>
+        <div class="panel">
+          <h5>9 orders were worked in week 38 that were not in the frozen list · 142 h · pick the reason for each</h5>
+          <div class="card"><div class="w"><code>4459362</code> CT-900 · System not removing heat · 9 h<small>Wed–Thu · 2 people · P1</small></div><select><option>Production</option></select></div>
+          <div class="card"><div class="w"><code>4458342</code> DC-320A · Leaking diaphragm comp. 7 · 16 h<small>Wed · 2 people</small></div><select><option>Mechanical</option></select></div>
+          <div class="card"><div class="w"><code>4458271</code> IC-360 · Remove cover (call-out) · 16 h<small>Tue night · overtime · P1</small></div><select><option>reason…</option></select></div>
+          <div class="card"><div class="w"><code>4458345</code> C-805 · Broken guard · 4 h<small>Fri</small></div><select><option>reason…</option></select></div>
+          <div class="card"><div class="w"><code>4459404</code> BL-900 · Run cable for CA-950 · 8 h<small>Thu · Electrical</small></div><select><option>Electrical</option></select></div>
+          <div style="color:#5c6862;margin-top:2px">… 4 more</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: the inputs are the two SAP exports and the frozen list; the tool computes hours, statuses and every KPI; the planner types only reasons, contractor hours and the headline; Close week writes one immutable KPI record per week (5.4.3, 5.4.4, 5.4.1, 5.3.1, 5.4.5, 5.5.8, 5.5.72, break-in count and unplanned hours by reason) that the KPI page (screen 5) reads; reopening a closed week asks for a reason and is logged. The current KPI web app's history is imported as closed weeks in the same shape.</p>
+<div class="note"><b>The practical difference.</b> A answers only what needs answering, fastest for the planner who does this every week. B shows the whole week and is the one to open when a number is questioned. C walks anyone through the same five steps and is the one to leave for holidays and hand-overs. A and C produce B's table underneath; B can be the "details" view behind A or the review step of C. The choice is about who closes the week and how often they are asked "why is compliance 78 %".</div>
+
+</div>
+</body>
+</html>
