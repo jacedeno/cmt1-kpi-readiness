@@ -129,13 +129,12 @@
   <header>
     <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
     <h1>Planner screen 2 of 6: the daily plan per person</h1>
-    <p class="lede">Every morning the team prints who does what today. In the tool the jobs come from that day's column of the week board and the people come from SAP (roster and PTO), so the sheet is built by assigning, not by typing. Below are three ways to do the assignment, each with the steps the planner follows. Nothing here is built yet; the mockups use Wednesday of week 38 and role labels instead of names.</p>
+    <p class="lede">Every morning the team prints who does what today. In the tool the jobs come from that day's column of the week board and the people come from SAP (roster and PTO), so the sheet is built by assigning, not by typing. Below are three ways to do the assignment, each with the steps the planner follows. Nothing here is built yet; the example is the real Wednesday of week 38 as the team planned it, with the SAP orders the jobs should have carried.</p>
     <div class="meta"><span><b>Status</b> Mockup for discussion, 22 Sep 2026</span><span><b>Previous</b> <a href="week-board.html">Screen 1: week board</a></span><span><b>Next screens</b> Freeze · Week close · KPIs · Configuration</span></div>
   </header>
   <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
 <h2>Daily plan per person: three ways to lay it out</h2>
-<p class="subtitle">Screen 2. Every morning someone prints who does what today. The jobs come from the week board (that day's column); the people come from SAP (roster and PTO). What changes is whether the planner starts from the people, from the jobs, or from the paper sheet itself. Examples use Wednesday of week 38, with role labels instead of names.</p>
-
+<p class="subtitle">Screen 2. Every morning someone prints who does what today. The jobs come from the week board (that day's column); the people come from SAP (roster and PTO). What changes is whether the planner starts from the people, from the jobs, or from the paper sheet itself. The example is the real Wednesday of week 38 (16 Sep 2026) as the team planned it, with the SAP orders the jobs should have carried.</p>
 <div class="options">
 
   <div class="option" data-choice="a-people">
@@ -152,27 +151,37 @@
         <li>Mid-day change: <b>move the chip</b> and print again. The plan keeps the last version per day.</li>
       </ol>
       <div class="wire">
-        <div class="top"><span><b>Wednesday 16 Sep</b> · Corrective · 8 of 9 in</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="top"><span><b>Wednesday 16 Sep</b> · Mechanical, Reliability and contractors · 17 in</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
         <div class="row">
           <div class="jobs">
-            <h5>Today's jobs · 24 h on the board</h5>
-            <div class="card pm">4451394 · C-306<small>Belt inspection · 8 h</small><span class="done">covered</span></div>
-            <div class="card pm">4451397 · RM-310A<small>Internal inspection · 8 h</small><span class="done">covered</span></div>
-            <div class="card">4453211 · ID-310A<small>Oil leak · 8 h</small><span class="left">8 h left</span></div>
-            <div class="card">4452704 · C-1<small>Impact rollers · 24 h Thu</small><span class="done">pre-work 8 h</span></div>
-            <div class="card bi">4457558 · BN-24<small>Hole in chute · break-in · 8 h</small><span class="left">4 h left</span></div>
+            <h5>Today's jobs · from the week board</h5>
+            <div class="card">4458227 · CP-20A<small>Replace outboard bearing · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4458342 · DC-320A<small>Leaking diaphragm, comp. 7 · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4441200 · C-305 / C-55<small>Belt inspection · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4457562 · K-900<small>Blind off outlet chute · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4442388 · F-902/916/917<small>Build fan bearing guard · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4452641 · CA-950/951<small>Compressor inspection · 8 h</small><span class="done">covered</span></div>
+            <div class="card bi">— · FM-9<small>Internal repairs · no SAP order</small><span class="left">blocked</span></div>
           </div>
           <div class="people">
-            <h5>Crew · Corrective</h5>
-            <div class="person"><span class="who">Mech 1</span><span class="chip pm">C-306 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 2</span><span class="chip pm">RM-310A 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 3</span><span class="chip">C-1 rollers 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 4</span><span class="chip bi">BN-24 4</span><span class="chip">FM-9 dam 6</span><span class="h ot">10 h</span></div>
-            <div class="person"><span class="who">Mech 5</span><span class="chip">FM-9 dam 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 6</span><span class="chip">FM-9 dam 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 7</span><span class="chip">CP-900 pump 8</span><span class="h">8 h</span></div>
-            <div class="person"><span class="who">Mech 8</span><span class="h free">0 h · free</span></div>
-            <div class="person pto"><span class="who">Mech 9<small>PTO</small></span></div>
+            <h5>Crew</h5>
+            <div class="person"><span class="who">Jesse V.</span><span class="chip pm">CA-950/951 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Lou C.</span><span class="chip">F-902 guard 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Javier M.</span><span class="chip">CP-20A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Daniel M.</span><span class="chip">CP-20A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">David C.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Eugene L.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Brandon T.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">David H.</span><span class="chip">DC-320A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Adam Z.</span><span class="chip pm">C-305 belt 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Alexander V.</span><span class="chip">K-900 chute 8</span><span class="chip bi">BN-24 2</span><span class="h ot">10 h</span></div>
+            <div class="person"><span class="who">Juan R.<small>Reliability</small></span><span class="chip pm">Inspection route 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cesar V.<small>Reliability</small></span><span class="chip pm">Lube route 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cameron N.<small>Reliability</small></span><span class="chip">F-902 guard 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Nieves H.<small>Contract</small></span><span class="chip pm">C-305 belt 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Ruben H.<small>Contract</small></span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Irain<small>Contract</small></span><span class="chip">K-900 chute 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Eric M.<small>Contract</small></span><span class="chip">DC-320A 8</span><span class="h">8 h</span></div>
           </div>
         </div>
       </div>
@@ -192,14 +201,17 @@
         <li><b>Print</b> the sheet per person, same output as A; the tool turns the cards into the per-person list.</li>
       </ol>
       <div class="wire">
-        <div class="top"><span><b>Wednesday 16 Sep</b> · Corrective · 8 of 9 in · 1 job short</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="top"><span><b>Wednesday 16 Sep</b> · 17 in · 1 job without order</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
         <div class="slots">
-          <div class="slotcard pm"><div class="t">C-306 · Belt insp. <small>4451394 · 8 h</small></div><div class="slot f">Mech 1</div></div>
-          <div class="slotcard pm"><div class="t">RM-310A · Internal <small>4451397 · 8 h</small></div><div class="slot f">Mech 2</div></div>
-          <div class="slotcard"><div class="t">ID-310A · Oil leak <small>4453211 · 8 h</small></div><div class="slot">choose person</div><div class="miss">1 missing</div></div>
-          <div class="slotcard"><div class="t">FM-9 · Dam ring <small>— · 22 h</small></div><div class="slot f">Mech 5</div><div class="slot f">Mech 6</div><div class="slot f">Mech 4 · 6 h</div></div>
-          <div class="slotcard"><div class="t">C-1 · Rollers pre-work <small>4452704 · 8 h</small></div><div class="slot f">Mech 3</div></div>
-          <div class="slotcard" style="border-left:3px dashed #e8a817"><div class="t">BN-24 · Hole in chute <small>4457558 · break-in · 4 h</small></div><div class="slot f">Mech 4 · 4 h</div></div>
+          <div class="slotcard"><div class="t">CP-20A · Outboard bearing <small>4458227 · 16 h</small></div><div class="slot f">Javier M.</div><div class="slot f">Daniel M.</div></div>
+          <div class="slotcard"><div class="t">DC-320A · Diaphragm comp. 7 <small>4458342 · 16 h</small></div><div class="slot f">David H.</div><div class="slot f">Eric M.</div></div>
+          <div class="slotcard pm"><div class="t">C-305 / C-55 · Belt inspection <small>4441200 · 16 h</small></div><div class="slot f">Adam Z.</div><div class="slot f">Nieves H.</div></div>
+          <div class="slotcard"><div class="t">K-900 · Blind off outlet chute <small>4457562 · 16 h</small></div><div class="slot f">Alexander V.</div><div class="slot f">Irain</div></div>
+          <div class="slotcard"><div class="t">F-902/916/917 · Fan bearing guard <small>4442388 · 16 h</small></div><div class="slot f">Lou C.</div><div class="slot f">Cameron N.</div></div>
+          <div class="slotcard pm"><div class="t">CA-950/951 · Compressor inspection <small>4452641 · 8 h</small></div><div class="slot f">Jesse V.</div></div>
+          <div class="slotcard pm"><div class="t">Inspection route <small>4452656 · 8 h</small></div><div class="slot f">Juan R.</div></div>
+          <div class="slotcard pm"><div class="t">Lube route <small>4447032 · 8 h</small></div><div class="slot f">Cesar V.</div></div>
+          <div class="slotcard" style="border-left:3px dashed #e8a817"><div class="t">FM-9 · Internal repairs <small>no SAP order · 32 h</small></div><div class="slot">needs an order first</div><div class="miss">4 people waiting: David C., Eugene L., Brandon T., Ruben H.</div></div>
         </div>
       </div>
     </div>
@@ -220,16 +232,23 @@
       <div class="wire">
         <div class="top"><span><b>Daily Plan · Wednesday 16 Sep 2026</b> · printed 06:40</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
         <table class="sheet">
-          <tr><th style="width:15%">Person</th><th style="width:13%">Order</th><th style="width:14%">Equipment</th><th>Job</th><th style="width:7%">Hours</th><th style="width:22%">Notes</th></tr>
-          <tr class="grp"><td colspan="6">Corrective</td></tr>
-          <tr><td>Mech 1</td><td class="mono">4451394</td><td>C-306</td><td>Belt inspection</td><td class="n">8</td><td>Lockout with production</td></tr>
-          <tr><td>Mech 2</td><td class="mono">4451397</td><td>RM-310A</td><td>Internal inspection</td><td class="n">8</td><td>Confined space permit</td></tr>
-          <tr><td>Mech 3</td><td class="mono">4452704</td><td>C-1</td><td>Impact rollers, pre-work</td><td class="n">8</td><td></td></tr>
-          <tr><td rowspan="2">Mech 4</td><td class="mono">4457558</td><td>BN-24</td><td>Hole in chute (break-in)</td><td class="n">4</td><td>Then FM-9</td></tr>
-          <tr><td class="mono">—</td><td>FM-9</td><td>Replace dam ring</td><td class="n ot">6</td><td>Total 10 h</td></tr>
-          <tr><td>Mech 5</td><td class="mono">—</td><td>FM-9</td><td>Replace dam ring</td><td class="n">8</td><td></td></tr>
-          <tr><td>Mech 8</td><td class="pick">pick order…</td><td class="pick"></td><td class="pick">ID-310A oil leak still unassigned</td><td class="n"></td><td></td></tr>
-          <tr><td style="color:#9aa39c">Mech 9</td><td colspan="5" style="color:#9aa39c">PTO</td></tr>
+          <tr><th style="width:17%">Person</th><th style="width:12%">Order</th><th style="width:14%">Equipment</th><th>Job</th><th style="width:7%">Hours</th><th style="width:20%">Notes</th></tr>
+          <tr class="grp"><td colspan="6">Mechanical</td></tr>
+          <tr><td>Jesse V.</td><td class="mono">4452641</td><td>CA-950/951</td><td>Compressor inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td>Lou C.</td><td class="mono">4442388</td><td>F-902/916/917</td><td>Build fan bearing guard</td><td class="n">8</td><td>With Cameron N.</td></tr>
+          <tr><td>Javier M.</td><td class="mono">4458227</td><td>CP-20A</td><td>Replace outboard bearing assembly</td><td class="n">8</td><td>Lockout with production</td></tr>
+          <tr><td>Daniel M.</td><td class="mono">4458227</td><td>CP-20A</td><td>Replace outboard bearing assembly</td><td class="n">8</td><td></td></tr>
+          <tr><td>David C.</td><td class="pick">pick order…</td><td>FM-9</td><td class="pick">Internal repairs: no SAP order yet</td><td class="n"></td><td>Blocked until the order exists</td></tr>
+          <tr><td>David H.</td><td class="mono">4458342</td><td>DC-320A</td><td>Leaking diaphragm, compartment 7</td><td class="n">8</td><td></td></tr>
+          <tr><td>Adam Z.</td><td class="mono">4441200</td><td>C-305 / C-55</td><td>Belt inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td rowspan="2">Alexander V.</td><td class="mono">4457562</td><td>K-900</td><td>Blind off outlet chute</td><td class="n">8</td><td></td></tr>
+          <tr><td class="mono">4457558</td><td>BN-24</td><td>Hole in chute (break-in)</td><td class="n ot">2</td><td>Total 10 h</td></tr>
+          <tr class="grp"><td colspan="6">Reliability</td></tr>
+          <tr><td>Juan R.</td><td class="mono">4452656</td><td>DC route</td><td>Inspection route</td><td class="n">8</td><td></td></tr>
+          <tr><td>Cesar V.</td><td class="mono">4447032</td><td>Perma route</td><td>Lube route</td><td class="n">8</td><td></td></tr>
+          <tr class="grp"><td colspan="6">Contract</td></tr>
+          <tr><td>Nieves H.</td><td class="mono">4441200</td><td>C-305 / C-55</td><td>Belt inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td>Irain</td><td class="mono">4457562</td><td>K-900</td><td>Blind off outlet chute</td><td class="n">8</td><td></td></tr>
         </table>
       </div>
     </div>
@@ -238,7 +257,7 @@
 </div>
 
 <p class="subtitle" style="margin-top:14px">In all three: only orders from today's column of the week board, plus break-ins added from the backlog and marked gold; the roster and PTO come from SAP; hours add up per person, 8 h is the line, above it is planned overtime; the printed page carries the order number so that CATS hours are booked against it; and the plan can be redone at any time of day, the tool keeps the last version.</p>
-<div class="note"><b>The practical difference.</b> A starts from the people ("who is in today, what does each one do"), B starts from the jobs ("is every job staffed"), C is the paper sheet itself as a form. A and B are worked with the mouse and print a sheet; in C the screen is the sheet. A and C give the same printed page; B needs the tool to turn cards into lines. FM-9 without an order number appears on purpose: the rule "no order, no row" would block it, and that is the point.</div>
+<div class="note"><b>The practical difference.</b> A starts from the people ("who is in today, what does each one do"), B starts from the jobs ("is every job staffed"), C is the paper sheet itself as a form. A and B are worked with the mouse and print a sheet; in C the screen is the sheet. A and C give the same printed page; B needs the tool to turn cards into lines. FM-9 internal repairs appears on purpose: on 16 Sep four people worked on it with no SAP order, and the rule "no order, no row" would have stopped the sheet until the order was created.</div>
 
 </div>
 </body>
