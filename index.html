@@ -225,7 +225,7 @@
       <tr><td>"This order goes in week 39"</td><td><span class="pill p-both">SAP + tool</span></td><td>In SAP: scheduled start (and Revision or SCHD when available). In the tool: the week board reads the export; an order dragged in without the SAP marker is flagged.</td></tr>
       <tr><td>Planned hours per weekday</td><td><span class="pill p-tool">Tool</span></td><td>SAP holds one scheduled start per order; it does not split 24 h across Thursday and Friday. The tool keeps the split and prints the daily sheet from it.</td></tr>
       <tr><td>Actual hours, typed by hand</td><td><span class="pill p-sap">SAP</span></td><td>Typing disappears. Hours come from CATS_DA per order, person and date, complete because payroll depends on it.</td></tr>
-      <tr><td>Daily plan: who does what each day</td><td><span class="pill p-tool">Tool</span></td><td>SAP ECC does not assign people per day in practice. The tool lists the crew per day, assigns orders to each person, and prints.</td></tr>
+      <tr><td>Daily plan: who does what each day</td><td><span class="pill p-tool">Tool</span></td><td>Checked on 22 Sep: ZEMR018 carries a "Currently Assigned To" field that nobody has ever filled, and ZEME018C only builds a printed time card per work center from a pick list, with no person or date. Neither decides who goes to which job each morning. The tool lists the crew per day, assigns orders to each person, and prints.</td></tr>
       <tr><td>Available hours (people × 8 h × 5 days − PTO)</td><td><span class="pill p-both">SAP + tool</span></td><td>Roster and PTO from CATS_DA and ZEME047. The tool computes capacity per crew and day and marks anything above 40 h per person as planned overtime, visible while planning, not at the Thursday meeting.</td></tr>
       <tr><td>Unplanned jobs and their reason</td><td><span class="pill p-both">SAP + tool</span></td><td>Detected automatically: an order with CATS hours in the week that was not in the frozen plan is a break-in. The reason is chosen in the tool; SAP has no such field.</td></tr>
       <tr><td>KPI tab</td><td><span class="pill p-tool">Tool</span></td><td>Computed, never typed, with fixed SMRP formulas and a weekly history instead of a file per week.</td></tr>
@@ -311,7 +311,8 @@
         ['IW39 auth', 'Work Order List – authorization message', 'img/sap/iw39-no-authorization.png', '"You do not have authorization for all the selected objects": part of the selection is outside the role.'],
         ['IW39 variants', 'Work Order List – saved variants', 'img/sap/iw39-variants-menu.png', 'Menu → Goto → Variants: how a selection layout is saved and retrieved.'],
         ['IW41', 'Enter PM Order Confirmation', 'img/sap/iw41-order-confirmation.png', 'Time confirmation against an order operation. The Backlog menu on the left lists the transactions available to the role.'],
-        ['ZEMR018', 'Daily Work List Assignment Tool', 'img/sap/zemr018-daily-worklist.png', 'Assigns a daily work list to a mechanic by order type, equipment and priority. To evaluate against the daily plan in the tool.'],
+        ['ZEMR018', 'Daily Work List Assignment Tool', 'img/sap/zemr018-daily-worklist.png', 'One row per order operation (route steps, hours per operation) with Shift and "Currently Assigned To" fields. Checked 22 Sep: 1,977 operations, every assignment 0. The only source of operation-level data.'],
+        ['ZEME018C', 'Time Card Create & Print', 'img/sap/zeme018c-time-card.png', 'Builds and prints a time card per work center from a pick list of open orders (2,385 rows, Select checkbox). No person or date: it does not replace the daily plan.'],
         ['ZEMR059', 'Equipment Cost Report', 'img/sap/zemr059-equipment-cost.png', 'Cost and reported or metered hours per equipment. Not used by the KPIs yet.']
       ];
       var byCode = {};
@@ -341,7 +342,7 @@
       });
 
       // Turn transaction codes in the running text into links to their screenshot.
-      var re = /\b(ZEMR031|CATS_DA|ZEME047|ZEMR018|ZEMR059|IW41|IW39)\b/g;
+      var re = /\b(ZEMR031|CATS_DA|ZEME047|ZEMR018|ZEME018C|ZEMR059|IW41|IW39)\b/g;
       var root = document.querySelector('.wrap');
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: function (n) {
