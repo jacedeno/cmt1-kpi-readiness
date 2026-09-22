@@ -1,0 +1,172 @@
+<h2>Daily plan per person: three ways to lay it out</h2>
+<p class="subtitle">Screen 2. Every morning someone prints who does what today. The jobs come from the week board (that day's column); the people come from SAP (roster and PTO). What changes is whether the planner starts from the people, from the jobs, or from the paper sheet itself. The example is the real Wednesday of week 38 (16 Sep 2026) as the team planned it, with the SAP orders the jobs should have carried.</p>
+<style>
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .row { display:flex; gap:5px; }
+  .jobs { width:36%; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; }
+  .jobs h5, .people h5, .slotcard h5 { margin:0 0 4px; font-size:9.5px; color:#5c6862; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:4px; padding:3px 5px; margin-bottom:4px; }
+  .card.pm { border-left-color:#3b6fd6; } .card.p1 { border-left-color:#d05252; } .card.bi { border-left-color:#e8a817; border-style:dashed; }
+  .card small { display:block; color:#5c6862; }
+  .card .left { float:right; font-weight:700; color:#7c4a03; }
+  .card .done { float:right; font-weight:700; color:#14532d; }
+  .people { flex:1; }
+  .person { display:flex; align-items:center; gap:4px; border:1px solid #e3e9e2; border-radius:4px; padding:3px 4px; margin-bottom:3px; background:#fff; }
+  .person .who { width:64px; font-weight:600; }
+  .person .who small { display:block; font-weight:400; color:#5c6862; }
+  .person.pto { background:#f0f2ef; color:#9aa39c; }
+  .chip { border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:3px; padding:1px 5px; background:#fff; white-space:nowrap; }
+  .chip.pm { border-left-color:#3b6fd6; } .chip.p1 { border-left-color:#d05252; } .chip.bi { border-left-color:#e8a817; }
+  .person .h { margin-left:auto; font-weight:700; color:#5c6862; white-space:nowrap; }
+  .person .h.ot { color:#7c4a03; } .person .h.free { color:#8f1d1d; }
+  .slots { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+  .slotcard { background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:5px; }
+  .slotcard .t { font-weight:700; margin-bottom:2px; }
+  .slotcard .t small { font-weight:400; color:#5c6862; }
+  .slot { border:1px dashed #b9c3b8; border-radius:3px; padding:2px 4px; margin-top:3px; background:#fff; color:#9aa39c; }
+  .slot.f { border-style:solid; color:#1c2420; }
+  .slotcard.p1 { border-left:3px solid #d05252; } .slotcard.pm { border-left:3px solid #3b6fd6; }
+  .slotcard .miss { color:#8f1d1d; font-weight:700; margin-top:3px; }
+  table.sheet { width:100%; border-collapse:collapse; }
+  table.sheet th, table.sheet td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.sheet th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.sheet td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.sheet tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.sheet td.mono { font-family:ui-monospace, Menlo, monospace; font-size:9.5px; }
+  table.sheet td.pick { color:#9aa39c; border-style:dashed; }
+  table.sheet td.ot { color:#7c4a03; font-weight:700; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+  .note b { color:#1e4d1f; }
+</style>
+
+<div class="options">
+
+  <div class="option" data-choice="a-people" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>People first: one row per person, drag today's jobs onto them</h3>
+      <p>Left: today's jobs from the week board, each showing how many of its hours are still unassigned. Right: the crew for today, one row per person, PTO rows greyed out from SAP. The planner drags a job onto a person; the row adds up to 8 h and turns gold above it.</p>
+      <ol class="steps">
+        <li>Pick the day. The tool shows the <b>crew that is in</b> (PTO and absences from CATS_DA are greyed out, not deleted).</li>
+        <li>Left, <b>today's jobs</b> from the week board with hours to cover. A job that is not on the board can be added from the backlog and is marked as a break-in (gold, dashed).</li>
+        <li><b>Drag</b> a job onto a person. Two people on the same job: drag it twice; the job's "left to assign" counter goes down.</li>
+        <li>Each row <b>adds up to 8 h</b>. Below 8 h the row is marked "free hours"; above, planned overtime in gold.</li>
+        <li><b>Print</b>: one page per crew, one line per person with order number, equipment, job and hours. The order number is what the person books in SAP.</li>
+        <li>Mid-day change: <b>move the chip</b> and print again. The plan keeps the last version per day.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Wednesday 16 Sep</b> · 8 mechanics, 5 Reliability, 4 contractors · 17 in</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="row">
+          <div class="jobs">
+            <h5>Today's jobs · from the week board</h5>
+            <div class="card">4458227 · CP-20A<small>Replace outboard bearing · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4458342 · DC-320A<small>Leaking diaphragm, comp. 7 · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4441200 · C-305 / C-55<small>Belt inspection · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4457562 · K-900<small>Blind off outlet chute · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4442388 · F-902/916/917<small>Build fan bearing guard · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4452641 · CA-950/951<small>Compressor inspection · 8 h</small><span class="done">covered</span></div>
+            <div class="card bi">— · FM-9<small>Internal repairs · no SAP order</small><span class="left">blocked</span></div>
+          </div>
+          <div class="people">
+            <h5>Crew</h5>
+            <div class="person"><span class="who">Jesse V.</span><span class="chip pm">CA-950/951 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Lou C.<small>Reliability</small></span><span class="chip">F-902 guard 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Javier M.<small>Reliability</small></span><span class="chip">CP-20A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Daniel M.</span><span class="chip">CP-20A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">David C.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Eugene L.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Brandon T.</span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">David H.</span><span class="chip">DC-320A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Adam Z.</span><span class="chip pm">C-305 belt 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Alexander V.</span><span class="chip">K-900 chute 8</span><span class="chip bi">BN-24 2</span><span class="h ot">10 h</span></div>
+            <div class="person"><span class="who">Juan R.<small>Reliability</small></span><span class="chip pm">Inspection route 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cesar V.<small>Reliability</small></span><span class="chip pm">Lube route 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cameron N.<small>Reliability</small></span><span class="chip">F-902 guard 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Nieves H.<small>Contract</small></span><span class="chip pm">C-305 belt 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Ruben H.<small>Contract</small></span><span class="chip bi">FM-9 no order</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Irain<small>Contract</small></span><span class="chip">K-900 chute 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Eric M.<small>Contract</small></span><span class="chip">DC-320A 8</span><span class="h">8 h</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-jobs" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Jobs first: one card per job with slots for people</h3>
+      <p>Today's jobs are cards; each card has as many slots as the job needs (16 h on one day = two people). The planner fills the slots from the roster. An unstaffed job is red; a person used twice in the same hours is warned. Good when the question is "is every job covered?"</p>
+      <ol class="steps">
+        <li>Pick the day; today's jobs from the week board appear as <b>cards with empty slots</b> (hours ÷ 8 = slots, adjustable).</li>
+        <li>Click a slot and <b>pick a person</b> from the roster; people on PTO do not appear.</li>
+        <li>A card with an empty slot shows <b>"1 missing"</b> in red; a person assigned beyond 8 h turns gold.</li>
+        <li>A break-in job is added from the backlog and gets its own card, marked gold.</li>
+        <li><b>Print</b> the sheet per person, same output as A; the tool turns the cards into the per-person list.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Wednesday 16 Sep</b> · 17 in · 1 job without order</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="slots">
+          <div class="slotcard"><div class="t">CP-20A · Outboard bearing <small>4458227 · 16 h</small></div><div class="slot f">Javier M.</div><div class="slot f">Daniel M.</div></div>
+          <div class="slotcard"><div class="t">DC-320A · Diaphragm comp. 7 <small>4458342 · 16 h</small></div><div class="slot f">David H.</div><div class="slot f">Eric M.</div></div>
+          <div class="slotcard pm"><div class="t">C-305 / C-55 · Belt inspection <small>4441200 · 16 h</small></div><div class="slot f">Adam Z.</div><div class="slot f">Nieves H.</div></div>
+          <div class="slotcard"><div class="t">K-900 · Blind off outlet chute <small>4457562 · 16 h</small></div><div class="slot f">Alexander V.</div><div class="slot f">Irain</div></div>
+          <div class="slotcard"><div class="t">F-902/916/917 · Fan bearing guard <small>4442388 · 16 h</small></div><div class="slot f">Lou C.</div><div class="slot f">Cameron N.</div></div>
+          <div class="slotcard pm"><div class="t">CA-950/951 · Compressor inspection <small>4452641 · 8 h</small></div><div class="slot f">Jesse V.</div></div>
+          <div class="slotcard pm"><div class="t">Inspection route <small>4452656 · 8 h</small></div><div class="slot f">Juan R.</div></div>
+          <div class="slotcard pm"><div class="t">Lube route <small>4447032 · 8 h</small></div><div class="slot f">Cesar V.</div></div>
+          <div class="slotcard" style="border-left:3px dashed #e8a817"><div class="t">FM-9 · Internal repairs <small>no SAP order · 32 h</small></div><div class="slot">needs an order first</div><div class="miss">4 people waiting: David C., Eugene L., Brandon T., Ruben H.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-sheet" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>The printed sheet, editable: today's Daily Plan tab as a form</h3>
+      <p>The screen is the sheet that gets printed, one row per person, in the same shape as today's Daily Plan tab. The difference: the Order and Job cells are picked from today's board, not typed, and hours add up per person. What you see is what comes out of the printer.</p>
+      <ol class="steps">
+        <li>Pick the day; the sheet lists the <b>crew in rows</b>, grouped by crew, PTO rows greyed.</li>
+        <li>In each row, click the Order cell and <b>pick from today's jobs</b>; equipment and job text fill in. A second job for the same person adds a second line.</li>
+        <li>Type the <b>hours</b>; the row total and the "unassigned hours" line at the bottom update.</li>
+        <li>Free-text <b>Notes</b> column stays (tools, permits, "after lunch"), as on paper today.</li>
+        <li><b>Print</b> prints exactly this table, one page per crew.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Daily Plan · Wednesday 16 Sep 2026</b> · printed 06:40</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <table class="sheet">
+          <tr><th style="width:17%">Person</th><th style="width:12%">Order</th><th style="width:14%">Equipment</th><th>Job</th><th style="width:7%">Hours</th><th style="width:20%">Notes</th></tr>
+          <tr class="grp"><td colspan="6">Mechanical</td></tr>
+          <tr><td>Jesse V.</td><td class="mono">4452641</td><td>CA-950/951</td><td>Compressor inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td>Daniel M.</td><td class="mono">4458227</td><td>CP-20A</td><td>Replace outboard bearing assembly</td><td class="n">8</td><td></td></tr>
+          <tr><td>David C.</td><td class="pick">pick order…</td><td>FM-9</td><td class="pick">Internal repairs: no SAP order yet</td><td class="n"></td><td>Blocked until the order exists</td></tr>
+          <tr><td>David H.</td><td class="mono">4458342</td><td>DC-320A</td><td>Leaking diaphragm, compartment 7</td><td class="n">8</td><td></td></tr>
+          <tr><td>Adam Z.</td><td class="mono">4441200</td><td>C-305 / C-55</td><td>Belt inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td rowspan="2">Alexander V.</td><td class="mono">4457562</td><td>K-900</td><td>Blind off outlet chute</td><td class="n">8</td><td></td></tr>
+          <tr><td class="mono">4457558</td><td>BN-24</td><td>Hole in chute (break-in)</td><td class="n ot">2</td><td>Total 10 h</td></tr>
+          <tr class="grp"><td colspan="6">Reliability</td></tr>
+          <tr><td>Javier M.</td><td class="mono">4458227</td><td>CP-20A</td><td>Replace outboard bearing assembly</td><td class="n">8</td><td>Lockout with production</td></tr>
+          <tr><td>Lou C.</td><td class="mono">4442388</td><td>F-902/916/917</td><td>Build fan bearing guard</td><td class="n">8</td><td>With Cameron N.</td></tr>
+          <tr><td>Juan R.</td><td class="mono">4452656</td><td>DC route</td><td>Inspection route</td><td class="n">8</td><td></td></tr>
+          <tr><td>Cesar V.</td><td class="mono">4447032</td><td>Perma route</td><td>Lube route</td><td class="n">8</td><td></td></tr>
+          <tr class="grp"><td colspan="6">Contract</td></tr>
+          <tr><td>Nieves H.</td><td class="mono">4441200</td><td>C-305 / C-55</td><td>Belt inspection</td><td class="n">8</td><td></td></tr>
+          <tr><td>Irain</td><td class="mono">4457562</td><td>K-900</td><td>Blind off outlet chute</td><td class="n">8</td><td></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: only orders from today's column of the week board, plus break-ins added from the backlog and marked gold; the roster and PTO come from SAP; hours add up per person, 8 h is the line, above it is planned overtime; the printed page carries the order number so that CATS hours are booked against it; and the plan can be redone at any time of day, the tool keeps the last version.</p>
+<div class="note"><b>The practical difference.</b> A starts from the people ("who is in today, what does each one do"), B starts from the jobs ("is every job staffed"), C is the paper sheet itself as a form. A and B are worked with the mouse and print a sheet; in C the screen is the sheet. A and C give the same printed page; B needs the tool to turn cards into lines. FM-9 internal repairs appears on purpose: on 16 Sep four people worked on it with no SAP order, and the rule "no order, no row" would have stopped the sheet until the order was created.</div>

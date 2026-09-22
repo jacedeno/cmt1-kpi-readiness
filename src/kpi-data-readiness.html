@@ -1,0 +1,367 @@
+<title>CMT1 KPI Data Readiness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 20px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  h2 { font-size: 20px; margin: 36px 0 12px; font-weight: 700; }
+  h2 small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+  p { max-width: 70ch; }
+
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .sum { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 14px; }
+  .sum .k { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 9px; margin-bottom: 8px; letter-spacing: .02em; }
+  .sum ul { margin: 0; padding-left: 18px; line-height: 1.5; }
+  .sum li + li { margin-top: 4px; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; margin: 8px 0 14px; color: var(--muted); }
+  .s { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 9px; white-space: nowrap; }
+  .ok { background: var(--ok-bg); color: var(--ok-fg); }
+  .part { background: var(--part-bg); color: var(--part-fg); }
+  .no { background: var(--no-bg); color: var(--no-fg); }
+  .app { background: var(--app-bg); color: var(--app-fg); }
+
+  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13.5px; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--line); background: var(--surface); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-weight: 600; color: var(--code); white-space: nowrap; font-size: 12.5px; }
+  .grp td { background: var(--grp); font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--green-ink); padding: 8px 12px; }
+  td .s { margin-right: 4px; }
+  .nm { font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .checklist { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 16px 20px; }
+  .checklist ol { margin: 8px 0 0; padding-left: 22px; }
+  .checklist li { margin: 6px 0; }
+  .checklist li b { font-weight: 600; }
+  .flow { display: flex; align-items: stretch; flex-wrap: wrap; gap: 6px 0; margin: 10px 0 6px; }
+  .node { flex: 1 1 190px; max-width: 260px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; }
+  .node b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .node.sap { border-color: #3b6fd6; box-shadow: inset 4px 0 0 #3b6fd6; }
+  .node.manual { border-color: #d05252; box-shadow: inset 4px 0 0 #d05252; }
+  .node.tool { border-color: var(--green); box-shadow: inset 4px 0 0 var(--green); }
+  .arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 10px; color: var(--muted); font-size: 22px; line-height: 1; min-width: 96px; }
+  .arrow small { font-size: 11px; line-height: 1.3; text-align: center; margin-top: 4px; }
+  .cap { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 18px; }
+  .flownote { font-size: 13.5px; color: var(--muted); margin: 6px 0 0; max-width: 78ch; }
+  .weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 0; }
+  .wk { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; }
+  .wk .k { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 9px; margin-bottom: 6px; }
+  .wk ul { margin: 0; padding-left: 18px; line-height: 1.45; }
+  .split td:nth-child(2) { white-space: nowrap; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 9px; white-space: nowrap; }
+  .p-sap { background: #dbe6fb; color: #1e3a8a; } .p-tool { background: var(--green-soft); color: var(--green-ink); } .p-both { background: var(--gold-soft); color: #7c4a03; }
+  @media (max-width: 720px) { .arrow { min-width: 100%; padding: 2px 0; } .node { max-width: none; } }
+  a.tx { color: var(--code); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: .95em; font-weight: 600; text-decoration: underline dotted; text-underline-offset: 3px; cursor: zoom-in; }
+  a.tx:hover, a.tx:focus-visible { background: var(--gold-soft); outline: none; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .shot { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: zoom-in; display: flex; flex-direction: column; }
+  .shot img { display: block; width: 100%; aspect-ratio: 963 / 835; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line-soft); }
+  .shot .cap { padding: 10px 12px; font-size: 13px; line-height: 1.4; }
+  .shot .cap b { display: block; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; color: var(--code); margin-bottom: 2px; }
+  dialog.lb { border: none; border-radius: 12px; padding: 0; max-width: min(96vw, 1040px); width: 100%; background: var(--surface); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  dialog.lb::backdrop { background: rgba(10, 14, 12, .72); }
+  .lb-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .lb-head b { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; color: var(--code); }
+  .lb-head span { font-size: 13.5px; color: var(--muted); }
+  .lb-head button { border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; padding: 6px 12px; font: inherit; cursor: pointer; }
+  .lb-head button:focus-visible { outline: 2px solid var(--gold); }
+  dialog.lb img { display: block; width: 100%; height: auto; max-height: 82vh; object-fit: contain; background: #222; }
+  .stdnote { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .stdnote p { margin: 4px 0; }
+  a { color: var(--green); }
+  .cta { display: inline-flex; align-items: center; gap: 10px; margin: 6px 0 4px; padding: 10px 16px; background: var(--green); color: #fff; border-radius: 10px; font-weight: 600; text-decoration: none; }
+  .cta:hover { filter: brightness(1.08); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cta small { font-weight: 500; opacity: .85; }
+  @media (max-width: 520px) { .meta { flex-direction: column; gap: 4px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning</div>
+    <h1>Which SMRP indicators SAP can feed today</h1>
+    <p class="lede">We are adopting the <b>SMRP Best Practice Metrics</b> as the name and definition of every maintenance KPI. This page checks, indicator by indicator, whether the data SAP ECC already exports is enough to compute it, what is partial, and what only the planning tool can provide.</p>
+    <div class="meta">
+      <span><b>Sources reviewed</b> ZEMR031 open and closed orders · CATS_DA working times · ZEME047 mechanic time cards</span>
+      <span><b>Snapshot</b> 21 Sep 2026, 8 weeks of CATS_DA</span>
+      <span><b>Status</b> Draft for review</span>
+    </div>
+  </header>
+
+  <h2>What the verification tells us <small>Read this first; the table below is the evidence.</small></h2>
+  <div class="summary">
+    <div class="sum">
+      <span class="k ok">Computable now, no SAP change</span>
+      <ul>
+        <li>Reactive Work (5.4.1)</li>
+        <li>Standing Work Orders (5.4.5)</li>
+        <li>Planning Variance (5.3.4 / 5.3.5)</li>
+        <li>Backlog (5.4.8 / 5.4.9)</li>
+        <li>Overtime (5.5.8) and capacity net of PTO</li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">All from ZEMR031 open + closed orders and CATS_DA.</p>
+    </div>
+    <div class="sum">
+      <span class="k no">Need the frozen weekly schedule</span>
+      <ul>
+        <li>Schedule Compliance – Hours (5.4.3)</li>
+        <li>Schedule Compliance – Work Orders (5.4.4)</li>
+        <li>Break-ins (supporting measure)</li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">Even if IT enables the SCHD user status, ZEMR031 does not export user status or Revision, and IW39 in our role does not either. Until an export carries it, the freeze has to live in the planning tool. SCHD in SAP stays desirable as practice, but the tool cannot read it yet.</p>
+    </div>
+    <div class="sum">
+      <span class="k part">Partial because of how SAP is filled, not missing fields</span>
+      <ul>
+        <li>Planned Work (5.3.1)</li>
+        <li>Preventive Maintenance Hours (5.1.4)</li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">ZP01 preventive orders carry 0 estimated hours, and preventive labour seems to be posted to internal Y-orders instead of the ZP01 order.</p>
+    </div>
+    <div class="sum">
+      <span class="k app">SAP has no field; the tool must keep it</span>
+      <ul>
+        <li>Crew of each person (CATS_DA covers the whole plant, 275 people)</li>
+        <li>Contractor hours (Turkey, OCC crews)</li>
+        <li>Reason for each break-in</li>
+        <li>Split of an order's hours across weekdays</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>How we work today <small>One Excel workbook per week in Teams, three of them alive at any time.</small></h2>
+  <div class="flow">
+    <div class="node sap"><b>SAP ECC</b>Work orders (ZEMR031), hours per person, order and date (CATS, mandatory for payroll), PTO, roster.</div>
+    <div class="arrow">→<small>typed by hand</small></div>
+    <div class="node manual"><b>Weekly plan workbook</b>One file per week. Plan by area, planned and actual hours per weekday, a daily plan per person, a KPI tab.</div>
+    <div class="arrow">→<small>copy and paste</small></div>
+    <div class="node manual"><b>KPI block</b>Copied from the KPI tab on Thursday morning before the 10:00 planning meeting.</div>
+    <div class="arrow">→<small>paste parser</small></div>
+    <div class="node tool"><b>KPI dashboard (current web app)</b>Weekly history and trends by crew. What management sees.</div>
+  </div>
+  <p class="flownote">Three manual steps. SAP Data Explorer exists today but only browses the backlog; it takes no part in the weekly cycle.</p>
+
+  <div class="weeks">
+    <div class="wk"><span class="k no">Last week · closed</span><ul><li>KPI tab: personnel per crew, available hours, planned and executed hours, unplanned hours by reason.</li><li>Plan Attainment and Planning Rate computed by spreadsheet formulas.</li></ul></div>
+    <div class="wk"><span class="k part">This week · in transit</span><ul><li>Actual hours typed per job and weekday, Monday to Thursday 9:30.</li><li>Emergency jobs added as "unplanned" rows.</li><li>Every morning: the daily plan for the day (one row per person, free text) is printed.</li></ul></div>
+    <div class="wk"><span class="k ok">Next week · being built</span><ul><li>The workbook is copied, the week changed, every job typed again.</li><li>Presented at the Thursday 10:00 planning meeting.</li></ul></div>
+  </div>
+  <p class="flownote">What the week-38 workbook showed: 40 of 94 jobs had no SAP work order, preventive orders never reached the file, the daily plan was not linked to the weekly rows, and a broken SUM range understated planned hours in the KPI tab. None of this is carelessness; it is what a copied spreadsheet does over 38 weeks.</p>
+
+  <h2>How we will work <small>Planner and KPIs in the same application, fed by SAP.</small></h2>
+  <div class="flow">
+    <div class="node sap"><b>SAP ECC</b>Same data, plus the practice changes: every task has a work order, estimated hours on each order, scheduled start for the committed day, TECO when finished.</div>
+    <div class="arrow">→<small>weekly exports<br>ZEMR031 · CATS_DA · ZEME047</small></div>
+    <div class="node tool"><b>SAP Data Explorer · Planner</b>Weekly board built from SAP orders, hours split across weekdays, daily plan per person printed from the tool, capacity and planned overtime visible while planning, freeze of the week, reason for each break-in.</div>
+    <div class="arrow">→<small>computed, same app</small></div>
+    <div class="node tool"><b>SAP Data Explorer · KPIs</b>SMRP indicators per week, history and trends by crew, fixed formulas. The current KPI dashboard is absorbed and its history imported.</div>
+  </div>
+  <p class="flownote">One manual step: upload the exports. The weekly workbook disappears, actual hours are never typed again, and the KPI block is never copied again.</p>
+  <p class="ctas"><a class="cta" href="week-board.html">Planner mockup 1: week board <small>3 layouts · steps per layout</small></a><a class="cta" href="daily-plan.html">Planner mockup 2: daily plan per person <small>3 layouts · real Wednesday of week 38</small></a><a class="cta" href="freeze.html">Planner mockup 3: the Thursday freeze <small>3 layouts · what the KPIs measure against</small></a><a class="cta" href="week-close.html">Planner mockup 4: week close <small>3 layouts · replaces the KPI tab and the paste</small></a></p>
+
+  <h2>Who owns what <small>Rule: whatever SAP can do is done in SAP; the tool covers only what SAP cannot.</small></h2>
+  <div class="tablewrap">
+  <table class="split">
+    <thead><tr><th style="width:30%">Today in the workbook</th><th style="width:12%">Owner</th><th>How it works with the system</th></tr></thead>
+    <tbody>
+      <tr><td>Job row: equipment, order, description</td><td><span class="pill p-sap">SAP</span></td><td>Every row of the plan <b>is</b> a SAP order. No order, no row. Routes and shop work use existing standing orders.</td></tr>
+      <tr><td>Preventive orders that never reached the file</td><td><span class="pill p-sap">SAP</span></td><td>ZP01 orders appear by themselves in the tool's backlog; the planner drags them into the week like any other.</td></tr>
+      <tr><td>Planned hours of a job</td><td><span class="pill p-sap">SAP</span></td><td>The order's Estimated Hours, corrected in SAP, not in a spreadsheet. ZP01 task lists need work values.</td></tr>
+      <tr><td>"This order goes in week 39"</td><td><span class="pill p-both">SAP + tool</span></td><td>In SAP: scheduled start (and Revision or SCHD when available). In the tool: the week board reads the export; an order dragged in without the SAP marker is flagged.</td></tr>
+      <tr><td>Planned hours per weekday</td><td><span class="pill p-tool">Tool</span></td><td>SAP holds one scheduled start per order; it does not split 24 h across Thursday and Friday. The tool keeps the split and prints the daily sheet from it.</td></tr>
+      <tr><td>Actual hours, typed by hand</td><td><span class="pill p-sap">SAP</span></td><td>Typing disappears. Hours come from CATS_DA per order, person and date, complete because payroll depends on it.</td></tr>
+      <tr><td>Daily plan: who does what each day</td><td><span class="pill p-tool">Tool</span></td><td>Checked on 22 Sep: ZEMR018 carries a "Currently Assigned To" field that nobody has ever filled, and ZEME018C only builds a printed time card per work center from a pick list, with no person or date. Neither decides who goes to which job each morning. The tool lists the crew per day, assigns orders to each person, and prints.</td></tr>
+      <tr><td>Available hours (people × 8 h × 5 days − PTO)</td><td><span class="pill p-both">SAP + tool</span></td><td>Roster and PTO from CATS_DA and ZEME047. The tool computes capacity per crew and day and marks anything above 40 h per person as planned overtime, visible while planning, not at the Thursday meeting.</td></tr>
+      <tr><td>Unplanned jobs and their reason</td><td><span class="pill p-both">SAP + tool</span></td><td>Detected automatically: an order with CATS hours in the week that was not in the frozen plan is a break-in. The reason is chosen in the tool; SAP has no such field.</td></tr>
+      <tr><td>KPI tab</td><td><span class="pill p-tool">Tool</span></td><td>Computed, never typed, with fixed SMRP formulas and a weekly history instead of a file per week.</td></tr>
+      <tr><td>Summary tab and file name ("FM-9, RM-310A")</td><td><span class="pill p-tool">Tool</span></td><td>The week gets a headline (the down days) and the list by area is generated for the meeting.</td></tr>
+      <tr><td>Shift schedule and on-call rotation</td><td><span class="pill p-tool">Tool</span></td><td>On-call pair per week kept in the tool; shifts are fixed and need no repetition.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Indicator by indicator <small>What each SMRP metric needs and where the data comes from today.</small></h2>
+  <div class="legend">
+    <span class="s ok">SAP provides it</span>
+    <span class="s part">Partial: confirm or complete</span>
+    <span class="s no">SAP does not provide it today</span>
+    <span class="s app">Entered in the tool or by the planner</span>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th style="width:9%">SMRP</th><th style="width:20%">Indicator</th><th style="width:32%">Data it needs</th><th>Where it comes from today</th></tr>
+    </thead>
+    <tbody>
+      <tr class="grp"><td colspan="4">Headline · Schedule compliance</td></tr>
+      <tr><td class="code">5.4.3</td><td class="nm">Schedule Compliance – Hours</td><td>Frozen schedule for the week (orders + hours) · actual hours per order in the week</td><td><span class="s no">Freeze</span> SCHD / Revision are not in ZEMR031 nor in IW39 for this role → snapshot in the tool · <span class="s ok">CATS_DA</span> hours per order and date</td></tr>
+      <tr><td class="code">5.4.4</td><td class="nm">Schedule Compliance – Work Orders</td><td>Same freeze · which orders received hours</td><td><span class="s no">Freeze</span> · <span class="s ok">CATS_DA</span></td></tr>
+      <tr><td class="code">5.4.14</td><td class="nm">PM &amp; PdM Compliance</td><td>PM orders (ZP01) with due date · completion date</td><td><span class="s ok">ZEMR031</span> ZP01 + Maintenance Plan · <span class="s part">Due date</span> the Date column is not yet confirmed as basic start or finish · <span class="s ok">Closed export</span> Date Completed</td></tr>
+
+      <tr class="grp"><td colspan="4">Headline · Planned vs reactive</td></tr>
+      <tr><td class="code">5.4.1</td><td class="nm">Reactive Work</td><td>Hours per order · reactive flag (priority 1 today; outside the freeze once it exists)</td><td><span class="s ok">CATS_DA + ZEMR031 Priority</span> already computed: about <span class="num">28 %</span> over 8 weeks</td></tr>
+      <tr><td class="code">5.3.1</td><td class="nm">Planned Work</td><td>Planned hours per order · total hours in the week</td><td><span class="s part">Estimated Hours</span> good on ZP02, 0 on ZP01 until task lists carry work values · <span class="s ok">CATS_DA</span></td></tr>
+      <tr><td class="code">5.1.4</td><td class="nm">Preventive Maintenance Hours</td><td>Actual hours on ZP01 orders / total</td><td><span class="s part">CATS_DA</span> shows 0–10 %; trace whether PM time is posted to internal Y-orders instead of the ZP01 order</td></tr>
+      <tr><td class="code">5.4.5</td><td class="nm">Standing Work Orders</td><td>Hours on standing orders (routes, "inspections and reports", Z3GA) / total</td><td><span class="s ok">ZEMR031 Order Type + CATS_DA</span> · <span class="s app">List of standing orders</span> flagged once by the planner</td></tr>
+
+      <tr class="grp"><td colspan="4">Headline · Planning quality and backlog</td></tr>
+      <tr><td class="code">5.3.4 / 5.3.5</td><td class="nm">Actual Hours to Planning Estimate · Planning Variance Index</td><td>Estimated and actual hours per closed order, by closing week</td><td><span class="s ok">ZEMR031 closed</span> 5,695 orders with Date Completed; current actual / estimate ratio about <span class="num">1.76</span></td></tr>
+      <tr><td class="code">5.4.8 / 5.4.9</td><td class="nm">Planned Backlog · Ready Backlog</td><td>Open estimated hours · weekly crew capacity · whether the order is ready (parts)</td><td><span class="s ok">ZEMR031 + CATS_DA REG</span> · <span class="s part">Parts Status @08@</span> only distinguishes "awaiting parts"</td></tr>
+      <tr><td class="code">5.4.6</td><td class="nm">Work Order Aging</td><td>Creation date per order</td><td><span class="s part">Date</span> meaning still to confirm; the tool's first-seen date as fallback</td></tr>
+
+      <tr class="grp"><td colspan="4">Headline · Capacity and people</td></tr>
+      <tr><td class="code">5.5.8</td><td class="nm">Overtime Maintenance Hours</td><td>Hours per person and week · 40 h threshold (8 h/day)</td><td><span class="s ok">CATS_DA REG</span> there is no "OT" attendance type; it is computed. Mechanics booked <span class="num">40.7–64.1 h</span> last week. <span class="s part">Verify</span> what SDOT, SNCE, CLND, CLNO mean and a few days above 24 h (duplicates)</td></tr>
+      <tr><td class="code">—</td><td class="nm">Available hours per crew (denominator)</td><td>Crew roster · PTO / holidays per person</td><td><span class="s ok">CATS_DA</span> PTO, HOLI, PTOB, CALO per person and day · <span class="s app">Crew of each person</span> CATS covers 275 people plant-wide; Corrective / Reliability / Electrical does not exist in SAP</td></tr>
+      <tr><td class="code">5.5.72</td><td class="nm">Contractor Hours</td><td>Contractor hours (Turkey, OCC)</td><td><span class="s no">Not in CATS</span> · <span class="s app">Entered by the planner</span> or from invoices later</td></tr>
+
+      <tr class="grp"><td colspan="4">Supporting measures (no SMRP code)</td></tr>
+      <tr><td class="code">—</td><td class="nm">Break-ins (count) · Schedule Utilization / Efficiency</td><td>Freeze + CATS_DA</td><td><span class="s no">Freeze</span> · <span class="s ok">CATS_DA</span></td></tr>
+      <tr><td class="code">—</td><td class="nm">Daily task compliance</td><td>Freeze per day + CATS_DA by date</td><td><span class="s app">Per-day split</span> lives in the tool · <span class="s ok">CATS_DA</span> already carries the date</td></tr>
+      <tr><td class="code">—</td><td class="nm">Unplanned by reason (Production / Mechanical / Electrical / Good)</td><td>Reason per break-in</td><td><span class="s app">Chosen by the planner</span> when closing the week</td></tr>
+      <tr><td class="code">3.5.1 / 3.5.2</td><td class="nm">MTBF · MTTR (later phase)</td><td>Failure events with start and end of stoppage per equipment</td><td><span class="s no">Not from SAP</span> IW28 / IW29 notifications are restricted for our role · <span class="s part">Plant stoppage system (PDM Foresight)</span> records stoppages per equipment with start and end; to be joined by equipment tag in a later phase</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>To verify in SAP, besides SCHD <small>Seven questions. The first one decides the most.</small></h2>
+  <div class="checklist">
+    <ol>
+      <li><b>Revision / user status / scheduled start.</b> Can ZEMR031 or the IW39 layout of this role include them? If not, the freeze lives only in the tool until S/4HANA.</li>
+      <li><b>Meaning of the Date column</b> in ZEMR031 (creation, basic start or basic finish). It decides Aging, Overdue and PM Compliance.</li>
+      <li><b>Work values on ZP01 task lists.</b> Without them, Planned Work and Backlog ignore preventive work.</li>
+      <li><b>Where PM time is posted:</b> ZP01 orders or internal Y-orders. CATS_DA shows it.</li>
+      <li><b>Attendance types</b> SDOT, SNCE, CLND, CLNO, PTOB, UPML, UPFM, and the days with more than 24 h in CATS_DA.</li>
+      <li><b>Contractors.</b> Whether any SAP source (PO, service entry sheet) carries their hours; otherwise manual entry.</li>
+      <li><b>Electrical and Reliability rosters.</b> ZEME047 only lists the 13 mechanics.</li>
+    </ol>
+  </div>
+
+  <h2 id="transactions">SAP transactions referenced <small>Screens as seen in the NetWeaver Business Client on 21 Sep 2026. Click any transaction code on this page, or any thumbnail, to see it.</small></h2>
+  <div class="gallery" id="gallery"></div>
+
+  <dialog class="lb" id="lightbox" aria-label="Transaction screenshot">
+    <div class="lb-head"><div><b id="lb-code"></b> <span id="lb-title"></span></div><button type="button" id="lb-close">Close</button></div>
+    <img id="lb-img" alt="">
+  </dialog>
+
+  <script>
+    (function () {
+      var TX = [
+        ['ZEMR031', 'Maintenance Order / Backlog Report', 'img/sap/zemr031-selection.png', 'Selection screen: plant CMT1, order status Open or Closed, display variant /DEFAULT. Produces the 30-column export the tool ingests.'],
+        ['CATS_DA', 'Display Working Times', 'img/sap/cats-da-selection.png', 'Time sheet data per person and date: hours, attendance type and the receiving order. Source of actual hours and PTO.'],
+        ['ZEME047', 'Mechanical Time Entry dashboard', 'img/sap/zeme047-selection.png', 'Weekly time card per mechanic by time card reviewer and week-ending date. Doubles as the mechanic roster.'],
+        ['IW39', 'Work Order List – Standard', 'img/sap/iw39-selection.png', 'Standard order list. In this role it exposes about 16 columns and no user status, priority or scheduled dates.'],
+        ['IW39 list', 'Work Order List – results', 'img/sap/iw39-order-list.png', 'Example output: preventive ZP01 orders generated by the maintenance plan run.'],
+        ['IW39 auth', 'Work Order List – authorization message', 'img/sap/iw39-no-authorization.png', '"You do not have authorization for all the selected objects": part of the selection is outside the role.'],
+        ['IW39 variants', 'Work Order List – saved variants', 'img/sap/iw39-variants-menu.png', 'Menu → Goto → Variants: how a selection layout is saved and retrieved.'],
+        ['IW41', 'Enter PM Order Confirmation', 'img/sap/iw41-order-confirmation.png', 'Time confirmation against an order operation. The Backlog menu on the left lists the transactions available to the role.'],
+        ['ZEMR018', 'Daily Work List Assignment Tool', 'img/sap/zemr018-daily-worklist.png', 'One row per order operation (route steps, hours per operation) with Shift and "Currently Assigned To" fields. Checked 22 Sep: 1,977 ZP01 operations, every assignment 0; ZP02 orders come as one operation each with priority. The only source of PM route steps. Run it per order type: the wide query times out in the web client.'],
+        ['ZEME018C', 'Time Card Create & Print', 'img/sap/zeme018c-time-card.png', 'Builds and prints a time card per work center from a pick list of open orders (2,385 rows, Select checkbox). No person or date: it does not replace the daily plan.'],
+        ['ZEMR059', 'Equipment Cost Report', 'img/sap/zemr059-equipment-cost.png', 'Cost and reported or metered hours per equipment. Not used by the KPIs yet.']
+      ];
+      var byCode = {};
+      TX.forEach(function (t) { byCode[t[0]] = t; });
+      var aliases = { 'IW29': null, 'IW28': null };
+
+      var dlg = document.getElementById('lightbox');
+      var img = document.getElementById('lb-img');
+      function open(code) {
+        var t = byCode[code]; if (!t) return;
+        document.getElementById('lb-code').textContent = t[0];
+        document.getElementById('lb-title').textContent = t[1];
+        img.src = t[2]; img.alt = t[0] + ' – ' + t[1];
+        if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+      }
+      document.getElementById('lb-close').addEventListener('click', function () { dlg.close(); });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+      var gal = document.getElementById('gallery');
+      TX.forEach(function (t) {
+        var fig = document.createElement('figure'); fig.className = 'shot'; fig.tabIndex = 0;
+        fig.innerHTML = '<img loading="lazy" src="' + t[2] + '" alt="' + t[0] + ' – ' + t[1] + '"><figcaption class="cap"><b>' + t[0] + '</b>' + t[1] + '<br><span style="color:var(--muted)">' + t[3] + '</span></figcaption>';
+        fig.style.margin = '0';
+        fig.addEventListener('click', function () { open(t[0]); });
+        fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(t[0]); } });
+        gal.appendChild(fig);
+      });
+
+      // Turn transaction codes in the running text into links to their screenshot.
+      var re = /\b(ZEMR031|CATS_DA|ZEME047|ZEMR018|ZEME018C|ZEMR059|IW41|IW39)\b/g;
+      var root = document.querySelector('.wrap');
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          var p = n.parentNode;
+          while (p && p !== root) {
+            if (/^(A|SCRIPT|STYLE|FIGURE|DIALOG|H1)$/.test(p.nodeName) || p.id === 'gallery') return NodeFilter.FILTER_REJECT;
+            p = p.parentNode;
+          }
+          return re.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+      });
+      var nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (n) {
+        var frag = document.createDocumentFragment(); var last = 0; var m; re.lastIndex = 0; var s = n.nodeValue;
+        while ((m = re.exec(s))) {
+          frag.appendChild(document.createTextNode(s.slice(last, m.index)));
+          var a = document.createElement('a'); a.className = 'tx'; a.href = '#transactions'; a.textContent = m[0]; a.title = 'Show the ' + m[0] + ' screen';
+          a.addEventListener('click', function (code) { return function (e) { e.preventDefault(); open(code); }; }(m[0]));
+          frag.appendChild(a); last = m.index + m[0].length;
+        }
+        frag.appendChild(document.createTextNode(s.slice(last)));
+        n.parentNode.replaceChild(frag, n);
+      });
+    })();
+  </script>
+
+  <div class="stdnote">
+    <p><b>About the standard.</b> SMRP Best Practice Metrics (Society for Maintenance &amp; Reliability Professionals, 6th edition) is the US reference and the basis of the CMRP certification. EN 15341:2019 is the European CEN standard. SMRP and EFNMS published jointly "Global Maintenance and Reliability Indicators", which maps 40 EN 15341 indicators to 36 SMRP metrics, so the codes on this page have a documented European equivalent.</p>
+  </div>
+</div>
