@@ -91,6 +91,24 @@
   .checklist ol { margin: 8px 0 0; padding-left: 22px; }
   .checklist li { margin: 6px 0; }
   .checklist li b { font-weight: 600; }
+  .flow { display: flex; align-items: stretch; flex-wrap: wrap; gap: 6px 0; margin: 10px 0 6px; }
+  .node { flex: 1 1 190px; max-width: 260px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; }
+  .node b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .node.sap { border-color: #3b6fd6; box-shadow: inset 4px 0 0 #3b6fd6; }
+  .node.manual { border-color: #d05252; box-shadow: inset 4px 0 0 #d05252; }
+  .node.tool { border-color: var(--green); box-shadow: inset 4px 0 0 var(--green); }
+  .arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 10px; color: var(--muted); font-size: 22px; line-height: 1; min-width: 96px; }
+  .arrow small { font-size: 11px; line-height: 1.3; text-align: center; margin-top: 4px; }
+  .cap { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 18px; }
+  .flownote { font-size: 13.5px; color: var(--muted); margin: 6px 0 0; max-width: 78ch; }
+  .weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 0; }
+  .wk { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; }
+  .wk .k { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 9px; margin-bottom: 6px; }
+  .wk ul { margin: 0; padding-left: 18px; line-height: 1.45; }
+  .split td:nth-child(2) { white-space: nowrap; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 9px; white-space: nowrap; }
+  .p-sap { background: #dbe6fb; color: #1e3a8a; } .p-tool { background: var(--green-soft); color: var(--green-ink); } .p-both { background: var(--gold-soft); color: #7c4a03; }
+  @media (max-width: 720px) { .arrow { min-width: 100%; padding: 2px 0; } .node { max-width: none; } }
   .stdnote { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
   .stdnote p { margin: 4px 0; }
   a { color: var(--green); }
@@ -150,6 +168,56 @@
         <li>Split of an order's hours across weekdays</li>
       </ul>
     </div>
+  </div>
+
+  <h2>How we work today <small>One Excel workbook per week in Teams, three of them alive at any time.</small></h2>
+  <div class="flow">
+    <div class="node sap"><b>SAP ECC</b>Work orders (ZEMR031), hours per person, order and date (CATS, mandatory for payroll), PTO, roster.</div>
+    <div class="arrow">→<small>typed by hand</small></div>
+    <div class="node manual"><b>Weekly plan workbook</b>One file per week. Plan by area, planned and actual hours per weekday, a daily plan per person, a KPI tab.</div>
+    <div class="arrow">→<small>copy and paste</small></div>
+    <div class="node manual"><b>KPI block</b>Copied from the KPI tab on Thursday morning before the 10:00 planning meeting.</div>
+    <div class="arrow">→<small>paste parser</small></div>
+    <div class="node tool"><b>KPI dashboard (current web app)</b>Weekly history and trends by crew. What management sees.</div>
+  </div>
+  <p class="flownote">Three manual steps. SAP Data Explorer exists today but only browses the backlog; it takes no part in the weekly cycle.</p>
+
+  <div class="weeks">
+    <div class="wk"><span class="k no">Last week · closed</span><ul><li>KPI tab: personnel per crew, available hours, planned and executed hours, unplanned hours by reason.</li><li>Plan Attainment and Planning Rate computed by spreadsheet formulas.</li></ul></div>
+    <div class="wk"><span class="k part">This week · in transit</span><ul><li>Actual hours typed per job and weekday, Monday to Thursday 9:30.</li><li>Emergency jobs added as "unplanned" rows.</li><li>Every morning: the daily plan for the day (one row per person, free text) is printed.</li></ul></div>
+    <div class="wk"><span class="k ok">Next week · being built</span><ul><li>The workbook is copied, the week changed, every job typed again.</li><li>Presented at the Thursday 10:00 planning meeting.</li></ul></div>
+  </div>
+  <p class="flownote">What the week-38 workbook showed: 40 of 94 jobs had no SAP work order, preventive orders never reached the file, the daily plan was not linked to the weekly rows, and a broken SUM range understated planned hours in the KPI tab. None of this is carelessness; it is what a copied spreadsheet does over 38 weeks.</p>
+
+  <h2>How we will work <small>Planner and KPIs in the same application, fed by SAP.</small></h2>
+  <div class="flow">
+    <div class="node sap"><b>SAP ECC</b>Same data, plus the practice changes: every task has a work order, estimated hours on each order, scheduled start for the committed day, TECO when finished.</div>
+    <div class="arrow">→<small>weekly exports<br>ZEMR031 · CATS_DA · ZEME047</small></div>
+    <div class="node tool"><b>SAP Data Explorer · Planner</b>Weekly board built from SAP orders, hours split across weekdays, daily plan per person printed from the tool, capacity and planned overtime visible while planning, freeze of the week, reason for each break-in.</div>
+    <div class="arrow">→<small>computed, same app</small></div>
+    <div class="node tool"><b>SAP Data Explorer · KPIs</b>SMRP indicators per week, history and trends by crew, fixed formulas. The current KPI dashboard is absorbed and its history imported.</div>
+  </div>
+  <p class="flownote">One manual step: upload the exports. The weekly workbook disappears, actual hours are never typed again, and the KPI block is never copied again.</p>
+
+  <h2>Who owns what <small>Rule: whatever SAP can do is done in SAP; the tool covers only what SAP cannot.</small></h2>
+  <div class="tablewrap">
+  <table class="split">
+    <thead><tr><th style="width:30%">Today in the workbook</th><th style="width:12%">Owner</th><th>How it works with the system</th></tr></thead>
+    <tbody>
+      <tr><td>Job row: equipment, order, description</td><td><span class="pill p-sap">SAP</span></td><td>Every row of the plan <b>is</b> a SAP order. No order, no row. Routes and shop work use existing standing orders.</td></tr>
+      <tr><td>Preventive orders that never reached the file</td><td><span class="pill p-sap">SAP</span></td><td>ZP01 orders appear by themselves in the tool's backlog; the planner drags them into the week like any other.</td></tr>
+      <tr><td>Planned hours of a job</td><td><span class="pill p-sap">SAP</span></td><td>The order's Estimated Hours, corrected in SAP, not in a spreadsheet. ZP01 task lists need work values.</td></tr>
+      <tr><td>"This order goes in week 39"</td><td><span class="pill p-both">SAP + tool</span></td><td>In SAP: scheduled start (and Revision or SCHD when available). In the tool: the week board reads the export; an order dragged in without the SAP marker is flagged.</td></tr>
+      <tr><td>Planned hours per weekday</td><td><span class="pill p-tool">Tool</span></td><td>SAP holds one scheduled start per order; it does not split 24 h across Thursday and Friday. The tool keeps the split and prints the daily sheet from it.</td></tr>
+      <tr><td>Actual hours, typed by hand</td><td><span class="pill p-sap">SAP</span></td><td>Typing disappears. Hours come from CATS_DA per order, person and date, complete because payroll depends on it.</td></tr>
+      <tr><td>Daily plan: who does what each day</td><td><span class="pill p-tool">Tool</span></td><td>SAP ECC does not assign people per day in practice. The tool lists the crew per day, assigns orders to each person, and prints.</td></tr>
+      <tr><td>Available hours (people × 8 h × 5 days − PTO)</td><td><span class="pill p-both">SAP + tool</span></td><td>Roster and PTO from CATS_DA and ZEME047. The tool computes capacity per crew and day and marks anything above 40 h per person as planned overtime, visible while planning, not at the Thursday meeting.</td></tr>
+      <tr><td>Unplanned jobs and their reason</td><td><span class="pill p-both">SAP + tool</span></td><td>Detected automatically: an order with CATS hours in the week that was not in the frozen plan is a break-in. The reason is chosen in the tool; SAP has no such field.</td></tr>
+      <tr><td>KPI tab</td><td><span class="pill p-tool">Tool</span></td><td>Computed, never typed, with fixed SMRP formulas and a weekly history instead of a file per week.</td></tr>
+      <tr><td>Summary tab and file name ("FM-9, RM-310A")</td><td><span class="pill p-tool">Tool</span></td><td>The week gets a headline (the down days) and the list by area is generated for the meeting.</td></tr>
+      <tr><td>Shift schedule and on-call rotation</td><td><span class="pill p-tool">Tool</span></td><td>On-call pair per week kept in the tool; shifts are fixed and need no repetition.</td></tr>
+    </tbody>
+  </table>
   </div>
 
   <h2>Indicator by indicator <small>What each SMRP metric needs and where the data comes from today.</small></h2>
