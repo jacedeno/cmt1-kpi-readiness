@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Planner screen 3 of 6: the Thursday freeze</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .wire .btn.off { border-color:#b9c3b8; color:#9aa39c; }
+  .check { border:1px solid #e3e9e2; border-radius:5px; padding:4px 6px; margin-bottom:4px; display:flex; gap:6px; align-items:flex-start; background:#f6f8f4; }
+  .check i { font-style:normal; font-weight:700; width:14px; text-align:center; }
+  .check.block { border-color:#d05252; background:#fbdcdc; } .check.block i { color:#8f1d1d; }
+  .check.warn { border-color:#e8a817; background:#fbf0d3; } .check.warn i { color:#7c4a03; }
+  .check.ok { border-color:#9fd3a8; background:#dcf3df; } .check.ok i { color:#14532d; }
+  .check small { display:block; color:#5c6862; }
+  .bar { display:flex; gap:6px; margin:6px 0; }
+  .cap { flex:1; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .cap b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; }
+  .meter { height:6px; background:#e8ede7; border-radius:3px; margin-top:3px; position:relative; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#2d6a2e; }
+  .meter i.ot { background:#e8a817; }
+  .lock { display:inline-block; background:#1e4d1f; color:#fff; border-radius:3px; padding:1px 6px; font-weight:700; }
+  .slide { background:#fff; border:1px solid #d9e0d8; border-radius:6px; padding:8px 10px; }
+  .slide h4 { margin:0 0 4px; font-size:13px; color:#1e4d1f; }
+  .slide h4 small { color:#5c6862; font-weight:400; font-size:9.5px; margin-left:6px; }
+  .area { margin-bottom:5px; }
+  .area b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; margin-bottom:2px; }
+  .area ul { margin:0; padding-left:14px; }
+  .area li { margin-bottom:1px; }
+  .area li code { font-family:ui-monospace, Menlo, monospace; color:#1e40af; font-size:9px; }
+  .two { display:flex; gap:8px; } .two > div { flex:1; }
+  .kpi { display:flex; gap:6px; margin-top:6px; }
+  .kpi div { flex:1; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .kpi b { display:block; font-size:9px; color:#5c6862; text-transform:uppercase; letter-spacing:.4px; }
+  .kpi span { font-size:13px; font-weight:700; }
+  .tl { border-left:2px solid #d9e0d8; margin-left:6px; padding-left:10px; }
+  .ev { position:relative; margin-bottom:5px; }
+  .ev::before { content:""; position:absolute; left:-15px; top:3px; width:8px; height:8px; border-radius:50%; background:#2d6a2e; }
+  .ev.add::before { background:#e8a817; } .ev.rm::before { background:#d05252; } .ev.lock::before { background:#1e4d1f; }
+  .ev b { font-weight:700; } .ev small { display:block; color:#5c6862; }
+  table.diff { width:100%; border-collapse:collapse; margin-top:4px; }
+  table.diff th, table.diff td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; }
+  table.diff th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.diff td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.diff tr.add td { background:#fbf0d3; } table.diff tr.rm td { background:#fbdcdc; text-decoration:line-through; color:#8f1d1d; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+  .note b { color:#1e4d1f; }
+
+  .wire { overflow-x: auto; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Planner screen 3 of 6: the Thursday freeze</h1>
+    <p class="lede">On Thursday at 10:00 the next week is agreed and locked. The frozen list is what the Schedule Compliance indicators (SMRP 5.4.3 and 5.4.4) measure against, and anything worked later that was not in it is a break-in. SAP cannot hold this snapshot for us today, so the freeze lives in the tool. Below are three ways to do it, each with the steps the planner follows. Nothing here is built yet; the example is week 39 frozen on Thursday 17 Sep 2026.</p>
+    <div class="meta"><span><b>Status</b> Mockup for discussion, 22 Sep 2026</span><span><b>Previous</b> <a href="week-board.html">Screen 1: week board</a> · <a href="daily-plan.html">Screen 2: daily plan</a></span><span><b>Next screens</b> Week close · KPIs · Configuration</span></div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
+<h2>The Thursday freeze: three ways to lay it out</h2>
+<p class="subtitle">Screen 3. On Thursday at 10:00 the next week is agreed and locked. The frozen list is what SMRP 5.4.3 and 5.4.4 (Schedule Compliance) measure against, and anything worked later that was not in it is a break-in. SAP cannot hold this snapshot for us today (the exports carry neither Revision nor user status), so the freeze lives in the tool. Example: week 39, frozen Thursday 17 Sep 2026 during the planning meeting.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a-gate">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Readiness gate: a checklist that must be clean before the button unlocks</h3>
+      <p>The freeze is a gate. The tool checks the week and lists what blocks it (red), what is allowed but must be seen (gold) and what is fine (green). The Freeze button stays off while a red item exists. Once frozen, the week shows a lock with the time and the snapshot becomes the reference for the KPIs.</p>
+      <ol class="steps">
+        <li>Open next week (39) on Thursday morning. The tool runs the <b>checks</b>: every row has a SAP order, every order has estimated hours, parts status, crew load, orders without the SAP week marker.</li>
+        <li><b>Red items block</b>: fix them in SAP (create the order, put the hours) and re-upload, or take the row out of the week.</li>
+        <li><b>Gold items do not block</b>: planned overtime, parts not confirmed, a job on the same day as a down day. They are shown so the meeting sees them.</li>
+        <li>Press <b>Freeze</b>. The tool stores the snapshot: orders, hours per day, crew, capacity. The week gets a lock badge with date, time and who froze it.</li>
+        <li>The <b>meeting summary</b> (list by area, week headline, overtime lines) is generated from the snapshot, ready to project or print.</li>
+        <li>Until Sunday night the planner can <b>unfreeze and freeze again</b> with a reason; from Monday, every change is a break-in or a deferral with a reason.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Week 39 · 21–25 Sep</b> · draft · Thursday 17 Sep 09:40</span><span><span class="btn">Summary</span><span class="btn off">Freeze (2 blockers)</span></span></div>
+        <div class="check block"><i>✕</i><div>2 rows without a SAP order<small>FM-9 · Internal repairs (24 h) · P-139 · Cooling system (24 h). Create the orders in SAP or remove the rows.</small></div></div>
+        <div class="check block"><i>✕</i><div>1 order with 0 estimated hours<small>4443722 · VG-310 · Inspect the flappers. Put the hours on the order in SAP.</small></div></div>
+        <div class="check warn"><i>!</i><div>Corrective over capacity on Monday and Tuesday<small>110 / 72 h and 88 / 72 h: 54 h of planned overtime. Allowed; will be reported under SMRP 5.5.8.</small></div></div>
+        <div class="check warn"><i>!</i><div>3 orders with parts not confirmed<small>4455559 · C-55 tail pulley · 4456154 · DC-320A bags · 4458227 · CP-20A bearing. Parts Status still @00@.</small></div></div>
+        <div class="check warn"><i>!</i><div>7 orders without the SAP week marker<small>Scheduled start not set to week 39 in SAP. The tool accepts them; SAP will not show them as scheduled.</small></div></div>
+        <div class="check ok"><i>✓</i><div>27 orders, 486 h planned, 3 crews, 2 down days (RM-310A Thu, FM-9 Mon–Tue)</div></div>
+        <div class="bar">
+          <div class="cap"><b>Corrective · 9</b>312 / 352 h<div class="meter"><i style="width:89%"></i></div></div>
+          <div class="cap"><b>Reliability · 5</b>154 / 200 h<div class="meter"><i style="width:77%"></i></div></div>
+          <div class="cap"><b>Electrical · 5</b>49 / 192 h<div class="meter"><i style="width:26%"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-meeting">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>The meeting screen: the summary tab as a slide, frozen at the end of the meeting</h3>
+      <p>The freeze is the last click of the Thursday meeting. The screen is what gets projected: week headline, down days, the list by area with order numbers and hours, crew load, and the open points. Changes agreed in the room are made on the spot; when everyone agrees, the planner presses Freeze in front of the group.</p>
+      <ol class="steps">
+        <li>Thursday 10:00, project the <b>week summary</b>: headline ("RM-310A down Thursday, FM-9 Mon–Tue"), list by area, crew load.</li>
+        <li>Walk the list; <b>edit in place</b> what the room changes (move a job, drop one, add one from the backlog). The blockers of A appear inline in red next to the row.</li>
+        <li>Check the <b>overtime lines</b> and say why they stay (the reason is typed here and travels to the KPI page).</li>
+        <li>Press <b>Freeze</b> in front of the group: snapshot stored, lock badge, the summary becomes the printed minutes of the meeting.</li>
+        <li>After the meeting, the week board and the daily plans read from the frozen list; the KPI page starts computing 5.4.3 / 5.4.4 for week 39 as CATS hours arrive.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Planning meeting · Thursday 17 Sep 10:00</b></span><span><span class="btn">Print minutes</span><span class="btn solid">Freeze week 39</span></span></div>
+        <div class="slide">
+          <h4>Week 39 · 21–25 Sep <small>RM-310A down Thursday · FM-9 down Monday–Tuesday · 27 orders · 486 h</small></h4>
+          <div class="two">
+            <div>
+              <div class="area"><b>Raw mill / Kiln</b><ul><li><code>4451397</code> RM-310A internal inspection · 16 h · Thu</li><li><code>4443673</code> RM-310A triple gate hydraulics · 8 h · Thu</li><li><code>4456931</code> ID-310A heat exchanger oil leak · 8 h · Thu</li><li><code>4443722</code> VG-310 flappers · <span style="color:#8f1d1d;font-weight:700">0 h, fix in SAP</span></li></ul></div>
+              <div class="area"><b>Finish mill 9</b><ul><li>FM-9 internal repairs · 24 h · Mon–Tue · <span style="color:#8f1d1d;font-weight:700">no order</span></li><li><code>4452645</code> CP-900 pump inspection · 16 h · Mon</li><li><code>4457562</code> K-900 outlet chute · 16 h · Tue</li></ul></div>
+            </div>
+            <div>
+              <div class="area"><b>Clinker / Conveyors</b><ul><li><code>4455559</code> C-55 tail pulley and counterweight · 60 h · Wed–Fri · parts @00@</li><li><code>4441200</code> C-305 belt inspection · 16 h · Wed</li><li><code>4456500</code> C-805 1M inspection · 8 h · Fri</li></ul></div>
+              <div class="area"><b>Overtime to explain</b><ul><li>Corrective Mon +38 h, Tue +16 h: FM-9 down days, two shifts on the mill</li></ul></div>
+            </div>
+          </div>
+          <div class="kpi"><div><b>Corrective</b><span>312 / 352 h</span></div><div><b>Reliability</b><span>154 / 200 h</span></div><div><b>Electrical</b><span>49 / 192 h</span></div><div><b>Planned OT</b><span style="color:#7c4a03">54 h</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-ledger">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>The week ledger: freeze as an event, then every change on record with its reason</h3>
+      <p>The screen is the history of the week: draft, frozen, and every change after the freeze as a line with who, when and why. Added after freeze = break-in with reason; removed = deferred with reason; moved = moved. Next to it, the frozen list against the current list, so on Friday the Schedule Compliance figure has no surprises.</p>
+      <ol class="steps">
+        <li>Thursday: press <b>Freeze</b> (same checks as A, shown as a short list). The event goes on the ledger with the snapshot.</li>
+        <li>From Monday, <b>adding</b> an order to the week asks for a reason (Production, Mechanical, Electrical, Good) and marks it as break-in; <b>removing</b> one asks for a deferral reason; moving between days is just recorded.</li>
+        <li>The <b>frozen vs current</b> table shows each order's frozen hours, current hours and CATS actuals as they arrive.</li>
+        <li>The <b>compliance preview</b> at the top updates daily: scheduled hours worked / frozen hours (5.4.3) and frozen orders touched / frozen orders (5.4.4).</li>
+        <li>At week close (screen 4) the ledger is already the list of break-ins with reasons; nothing to type again.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Week 39 · 21–25 Sep</b> · <span class="lock">FROZEN</span> Thu 17 Sep 10:42 · 27 orders · 486 h</span><span><span class="btn">Frozen list</span><span class="btn">Add with reason</span></span></div>
+        <div class="two">
+          <div class="tl">
+            <div class="ev lock"><b>Frozen</b> · Thu 17 Sep 10:42 · 27 orders · 486 h<small>Planning meeting. 54 h planned overtime: FM-9 down days.</small></div>
+            <div class="ev add"><b>Added</b> · Mon 21 Sep 07:15 · <code>4459362</code> CT-900 not removing heat · 8 h<small>Break-in · Production · FM-9 restart blocked</small></div>
+            <div class="ev rm"><b>Deferred</b> · Tue 22 Sep 09:00 · <code>4455559</code> C-55 tail pulley · 60 h<small>Parts not on site · moved to week 40</small></div>
+            <div class="ev"><b>Moved</b> · Tue 22 Sep 09:05 · <code>4441200</code> C-305 belt inspection · Wed → Thu</div>
+            <div class="ev add"><b>Added</b> · Wed 23 Sep 06:50 · <code>4458342</code> DC-320A diaphragm · 16 h<small>Break-in · Mechanical · found on route</small></div>
+          </div>
+          <div>
+            <div class="kpi" style="margin:0 0 6px"><div><b>5.4.3 hours</b><span>—</span><small style="color:#5c6862">Friday</small></div><div><b>5.4.4 orders</b><span>—</span></div><div><b>Break-ins</b><span style="color:#7c4a03">2 · 24 h</span></div><div><b>Deferred</b><span style="color:#8f1d1d">1 · 60 h</span></div></div>
+            <table class="diff">
+              <tr><th>Order</th><th>Job</th><th>Frozen</th><th>Now</th><th>CATS</th></tr>
+              <tr><td>4451397</td><td>RM-310A internal</td><td class="n">16</td><td class="n">16</td><td class="n">—</td></tr>
+              <tr><td>4452645</td><td>CP-900 pump insp.</td><td class="n">16</td><td class="n">16</td><td class="n">14.5</td></tr>
+              <tr class="rm"><td>4455559</td><td>C-55 tail pulley</td><td class="n">60</td><td class="n">0</td><td class="n">—</td></tr>
+              <tr class="add"><td>4459362</td><td>CT-900 heat</td><td class="n">—</td><td class="n">8</td><td class="n">9</td></tr>
+              <tr class="add"><td>4458342</td><td>DC-320A diaphragm</td><td class="n">—</td><td class="n">16</td><td class="n">—</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: the freeze stores the same snapshot (orders, hours per day, crew, capacity) and that snapshot is the only thing the Schedule Compliance KPIs read; the freeze can be redone until Sunday night with a reason; from Monday every addition is a break-in and every removal a deferral, each with a reason; and the checks are the same (order present, estimated hours present, parts status, crew load, SAP week marker), only where they are shown changes.</p>
+<div class="note"><b>The practical difference.</b> A is a gate (check, then lock, then meet). B is the meeting itself (meet, adjust, lock in front of everyone). C is a ledger (lock, then watch every change with its reason). They stack naturally: A's checks appear inline in B and as a short list in C; C is what week close (screen 4) reads. The real choice is <b>when</b> the lock happens: before the meeting, at the end of it, or as an event you keep amending on record.</div>
+
+</div>
+</body>
+</html>
