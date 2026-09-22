@@ -127,6 +127,9 @@
   .stdnote { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
   .stdnote p { margin: 4px 0; }
   a { color: var(--green); }
+  .cta { display: inline-flex; align-items: center; gap: 10px; margin: 6px 0 4px; padding: 10px 16px; background: var(--green); color: #fff; border-radius: 10px; font-weight: 600; text-decoration: none; }
+  .cta:hover { filter: brightness(1.08); }
+  .cta small { font-weight: 500; opacity: .85; }
   @media (max-width: 520px) { .meta { flex-direction: column; gap: 4px; } }
 </style>
 </head>
@@ -213,6 +216,7 @@
     <div class="node tool"><b>SAP Data Explorer · KPIs</b>SMRP indicators per week, history and trends by crew, fixed formulas. The current KPI dashboard is absorbed and its history imported.</div>
   </div>
   <p class="flownote">One manual step: upload the exports. The weekly workbook disappears, actual hours are never typed again, and the KPI block is never copied again.</p>
+  <p><a class="cta" href="week-board.html">See the Planner mockups: week board <small>3 layouts · steps per layout</small></a></p>
 
   <h2>Who owns what <small>Rule: whatever SAP can do is done in SAP; the tool covers only what SAP cannot.</small></h2>
   <div class="tablewrap">

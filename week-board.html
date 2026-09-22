@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Planner Week Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .wire { overflow-x: auto; }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .bar { display:flex; gap:6px; margin-bottom:6px; }
+  .cap { flex:1; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .cap b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; }
+  .meter { height:6px; background:#e8ede7; border-radius:3px; margin-top:3px; position:relative; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#2d6a2e; }
+  .meter i.ot { background:#e8a817; }
+  .cols { display:flex; gap:5px; }
+  .col { flex:1; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; min-height:120px; }
+  .col h5 { margin:0 0 4px; font-size:9.5px; text-align:center; color:#5c6862; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:4px; padding:3px 5px; margin-bottom:4px; }
+  .card.pm { border-left-color:#3b6fd6; } .card.p1 { border-left-color:#d05252; }
+  .card small { display:block; color:#5c6862; }
+  .backlog { width:34%; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; margin-right:5px; }
+  .backlog h5 { margin:0 0 4px; font-size:9.5px; color:#5c6862; }
+  .backlog .f { display:flex; gap:3px; margin-bottom:4px; } .backlog .f span { flex:1; border:1px solid #d9e0d8; border-radius:3px; padding:1px 3px; background:#fff; color:#9aa39c; }
+  .row { display:flex; }
+  table.sheet { width:100%; border-collapse:collapse; }
+  table.sheet th, table.sheet td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; }
+  table.sheet th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.sheet td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.sheet tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.sheet tr.tot td { background:#fbf0d3; font-weight:700; }
+  td.ot { color:#7c4a03; font-weight:700; }
+  .lanes { display:grid; grid-template-columns: 70px repeat(5, 1fr); gap:3px; }
+  .lanes .h { font-size:9px; color:#5c6862; text-align:center; padding:2px; }
+  .lanes .crew { font-size:9.5px; font-weight:700; color:#1e4d1f; padding:4px 2px; }
+  .lanes .cell { background:#f6f8f4; border:1px solid #e3e9e2; border-radius:4px; padding:3px; min-height:46px; }
+  .lanes .cell em { display:block; font-style:normal; font-size:8.5px; color:#5c6862; text-align:right; }
+  .lanes .cell em.ot { color:#7c4a03; font-weight:700; }
+  .wire .drawer { position:absolute; right:0; top:0; bottom:0; width:30%; background:#fff; border-left:2px solid #2d6a2e; padding:4px; box-shadow:-4px 0 10px rgba(0,0,0,.08); }
+  .wire.rel { position:relative; overflow:hidden; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+
+  .wire { overflow-x: auto; }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Planner screen 1 of 6: the week board</h1>
+    <p class="lede">The week board is where the planner builds the week from SAP work orders. Below are three ways to lay out the same information, each with the steps the planner follows. Nothing here is built yet; the mockups use real week-38 jobs and no names.</p>
+    <div class="meta">
+      <span><b>Status</b> Mockup for discussion, 22 Sep 2026</span>
+      <span><b>Next screens</b> Daily plan per person · Freeze · Week close · KPIs · Configuration</span>
+    </div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime</span></div>
+<h2>Week board: three ways to lay it out</h2>
+<p class="subtitle">Same information in all three (SAP orders, day, hours, capacity per crew, overtime). What changes is how the planner moves things. Examples use real week-38 jobs. The layout is chosen with the planning team; the three are shown so the choice can be discussed.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a-days">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Backlog and week by day: drag each order to its day</h3>
+      <p>Left: the SAP backlog with filters. Right: five columns, one per day, one card per order with its hours. On top, capacity per crew with overtime in gold. The most visual layout; each card moves between days with the mouse.</p>
+      <ol class="steps">
+        <li><b>Upload</b> the SAP export; every open order appears in the backlog on the left.</li>
+        <li><b>Filter</b> by planner group, priority or type (corrective / preventive).</li>
+        <li><b>Drag</b> each order onto the column of the day it will be done. The card carries the estimated hours from SAP.</li>
+        <li>If an order takes more than one day, <b>split</b> it: same hours spread over two or three days.</li>
+        <li>The bars on top show <b>hours vs crew capacity</b> in real time. Past the limit, the bar turns gold: planned overtime.</li>
+        <li>On Thursday, press <b>Freeze</b>: the week is locked and that snapshot is what the KPIs measure.</li>
+      </ol>
+      <div class="wire">
+        <div class="bar">
+          <div class="cap"><b>Corrective · 9</b>312 / 360 h<div class="meter"><i style="width:87%"></i></div></div>
+          <div class="cap"><b>Reliability · 5</b>154 / 200 h<div class="meter"><i style="width:77%"></i></div></div>
+          <div class="cap"><b>Electrical · 5</b>49 / 192 h<div class="meter"><i style="width:26%"></i></div></div>
+        </div>
+        <div class="row">
+          <div class="backlog">
+            <h5>Backlog · 795 orders</h5>
+            <div class="f"><span>Planner grp</span><span>Prio</span><span>Type</span></div>
+            <div class="card p1">4457558 · BN-24<small>Hole in chute · P1 · 8 h</small></div>
+            <div class="card">4457472 · SILO-12<small>Air cut in manifold · P3 · 8 h</small></div>
+            <div class="card pm">4443720 · DC-310<small>1M Inspection · PM · 8 h</small></div>
+            <div class="card">4452704 · C-1<small>Impact rollers · P2 · 24 h</small></div>
+            <div class="card pm">4451397 · RM-310A<small>Internal inspection · PM</small></div>
+          </div>
+          <div class="cols" style="flex:1">
+            <div class="col"><h5>Mon 14</h5><div class="card">FM-9 · Dam ring<small>16 h</small></div><div class="card">FM-9 · Scatter ring<small>16 h</small></div><div class="card">CP-900 · Pump insp.<small>16 h</small></div></div>
+            <div class="col"><h5>Tue 15</h5><div class="card">FM-9 · Housing holes<small>8 h</small></div><div class="card">K-900 · Cooler insp.<small>16 h</small></div><div class="card">BE-906 · Hole 1st fl.<small>8 h</small></div></div>
+            <div class="col"><h5>Wed 16</h5><div class="card pm">C-306 · Belt insp.<small>8 h</small></div><div class="card pm">RM-310A · Internal<small>8 h</small></div><div class="card">ID-310A · Oil leak<small>8 h</small></div></div>
+            <div class="col"><h5>Thu 17</h5><div class="card">C-1 · Impact rollers<small>24 h</small></div><div class="card">IC-14 · Grease seal<small>16 h</small></div></div>
+            <div class="col"><h5>Fri 18</h5><div class="card pm">C-805 · Belt insp.<small>8 h</small></div><div class="card">P-139 · Cooling sys.<small>24 h</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-sheet">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Plan sheet: the Excel table, but with SAP orders and totals that never break</h3>
+      <p>One row per order, grouped by area as today, Mon–Fri columns with planned hours. Totals per day and per area are computed, with a capacity row and a "remaining to plan" row underneath. The backlog opens as a side drawer to add rows. The closest to how the team works today.</p>
+      <ol class="steps">
+        <li><b>Open the week</b>; it looks like the Excel: rows by area, Monday to Friday columns.</li>
+        <li>To add a job, open the <b>backlog drawer</b> and pick the order. A row cannot be typed without a SAP order.</li>
+        <li><b>Type the hours</b> of each day in the cell, as today.</li>
+        <li>Totals per day, per area and the <b>"remaining / overtime"</b> row are computed. No more SUM ranges that stop short.</li>
+        <li><b>Freeze</b> on Thursday, same as in A.</li>
+      </ol>
+      <div class="wire rel">
+        <table class="sheet">
+          <tr><th>Equipment</th><th>Order</th><th>Job</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>Σ</th></tr>
+          <tr class="grp"><td colspan="9">Kiln / Raw Mill / Quarry</td></tr>
+          <tr><td>C-306</td><td>4451394</td><td>Belt inspection</td><td></td><td></td><td class="n">8</td><td></td><td></td><td class="n">8</td></tr>
+          <tr><td>RM-310A</td><td>4451397</td><td>Internal inspection</td><td></td><td></td><td class="n">8</td><td></td><td></td><td class="n">8</td></tr>
+          <tr><td>C-1</td><td>4452704</td><td>Impact rollers</td><td></td><td></td><td></td><td class="n">24</td><td></td><td class="n">24</td></tr>
+          <tr class="grp"><td colspan="9">Finish Mill 9</td></tr>
+          <tr><td>FM-9</td><td>—</td><td>Replace dam ring</td><td class="n">16</td><td class="n">8</td><td></td><td></td><td></td><td class="n">24</td></tr>
+          <tr><td>CP-900</td><td>4456917</td><td>Pump inspection</td><td class="n">16</td><td></td><td></td><td></td><td></td><td class="n">16</td></tr>
+          <tr class="tot"><td colspan="3">Corrective · planned</td><td class="n">110</td><td class="n">88</td><td class="n">24</td><td class="n">50</td><td class="n">40</td><td class="n">312</td></tr>
+          <tr><td colspan="3">Capacity (9 × 8 h − PTO)</td><td class="n">72</td><td class="n">72</td><td class="n">72</td><td class="n">72</td><td class="n">64</td><td class="n">352</td></tr>
+          <tr><td colspan="3">Remaining / overtime</td><td class="n ot">−38</td><td class="n ot">−16</td><td class="n">48</td><td class="n">22</td><td class="n">24</td><td class="n">40</td></tr>
+        </table>
+        <div class="drawer"><h5 style="margin:0 0 4px;font-size:9.5px;color:#5c6862">Add from backlog</h5><div class="card p1">BN-24 · Hole in chute<small>P1 · 8 h</small></div><div class="card">SILO-12 · Air cut<small>P3 · 8 h</small></div><div class="card pm">DC-310 · 1M Insp.<small>PM</small></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-lanes">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Crew lanes: Corrective / Reliability / Electrical rows, one column per day</h3>
+      <p>Each cell is "this crew, this day" and shows its hours against its daily capacity; overtime shows cell by cell. The backlog is a side drawer. The most faithful to capacity, and the one that best separates the three crews that today are three blocks of the Excel.</p>
+      <ol class="steps">
+        <li>The screen has three fixed rows, <b>Corrective, Reliability, Electrical</b>, and five day columns.</li>
+        <li>From the backlog drawer, <b>drag</b> the order onto the cell "this crew, this day".</li>
+        <li>Each cell shows <b>hours vs that crew's capacity for that day</b>. Past 72 h in Corrective on Monday, the cell turns gold.</li>
+        <li>At a glance you see <b>which crew is overloaded and on which day</b>, and move jobs between days to level the load.</li>
+        <li><b>Freeze</b> on Thursday.</li>
+      </ol>
+      <div class="wire">
+        <div class="lanes">
+          <div></div><div class="h">Mon 14</div><div class="h">Tue 15</div><div class="h">Wed 16</div><div class="h">Thu 17</div><div class="h">Fri 18</div>
+          <div class="crew">Corrective<br><small style="font-weight:400;color:#5c6862">9 · 72 h/day</small></div>
+          <div class="cell"><div class="card">FM-9 · Dam ring 16</div><div class="card">CP-900 · Pump 16</div><em class="ot">110 / 72 h</em></div>
+          <div class="cell"><div class="card">FM-9 · Housing 8</div><div class="card">K-900 · Cooler 16</div><em class="ot">88 / 72 h</em></div>
+          <div class="cell"><div class="card pm">C-306 · Belt 8</div><div class="card">ID-310A · Leak 8</div><em>24 / 72 h</em></div>
+          <div class="cell"><div class="card">C-1 · Rollers 24</div><em>50 / 72 h</em></div>
+          <div class="cell"><div class="card">P-139 · Cooling 24</div><em>40 / 64 h</em></div>
+          <div class="crew">Reliability<br><small style="font-weight:400;color:#5c6862">5 · 40 h/day</small></div>
+          <div class="cell"><div class="card pm">KL-330 route 4</div><div class="card pm">Lube route 8</div><em>24 / 40 h</em></div>
+          <div class="cell"><div class="card pm">RM-310 route 4</div><div class="card">CA-951 align 8</div><em>36 / 40 h</em></div>
+          <div class="cell"><div class="card pm">FM-9 route 8</div><em>32 / 40 h</em></div>
+          <div class="cell"><div class="card pm">RM-310 route 6</div><em>30 / 40 h</em></div>
+          <div class="cell"><div class="card pm">Lube route 8</div><em>32 / 40 h</em></div>
+          <div class="crew">Electrical<br><small style="font-weight:400;color:#5c6862">5 · 40 h/day</small></div>
+          <div class="cell"><div class="card">CP-22 · Commission 2</div><em>2 / 32 h</em></div>
+          <div class="cell"><div class="card">CEMS-320 · Checks 2</div><em>5 / 40 h</em></div>
+          <div class="cell"><div class="card">SWH · Switch house 5</div><em>12 / 40 h</em></div>
+          <div class="cell"><div class="card">KL-330 · Camera PM 2</div><em>11 / 40 h</em></div>
+          <div class="cell"><div class="card">AN-331 · Analyzer 2</div><em>19 / 40 h</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: the card carries the SAP order number (no order, no card), the colour marks priority 1 (red) and preventive (blue), and gold is planned overtime, allowed but visible.</p>
+<div class="note"><b>The practical difference.</b> A and C are worked with the mouse, dragging cards. B is worked by typing hours, as in Excel. C makes you decide the crew while planning; A and B infer it from the order's planner group. They can be combined: for example B to build the week and C to review it by crew.</div>
+
+</div>
+</body>
+</html>
