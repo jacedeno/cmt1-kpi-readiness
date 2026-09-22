@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Planner screen 2 of 6: the daily plan per person</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .row { display:flex; gap:5px; }
+  .jobs { width:36%; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; }
+  .jobs h5, .people h5, .slotcard h5 { margin:0 0 4px; font-size:9.5px; color:#5c6862; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:4px; padding:3px 5px; margin-bottom:4px; }
+  .card.pm { border-left-color:#3b6fd6; } .card.p1 { border-left-color:#d05252; } .card.bi { border-left-color:#e8a817; border-style:dashed; }
+  .card small { display:block; color:#5c6862; }
+  .card .left { float:right; font-weight:700; color:#7c4a03; }
+  .card .done { float:right; font-weight:700; color:#14532d; }
+  .people { flex:1; }
+  .person { display:flex; align-items:center; gap:4px; border:1px solid #e3e9e2; border-radius:4px; padding:3px 4px; margin-bottom:3px; background:#fff; }
+  .person .who { width:64px; font-weight:600; }
+  .person .who small { display:block; font-weight:400; color:#5c6862; }
+  .person.pto { background:#f0f2ef; color:#9aa39c; }
+  .chip { border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:3px; padding:1px 5px; background:#fff; white-space:nowrap; }
+  .chip.pm { border-left-color:#3b6fd6; } .chip.p1 { border-left-color:#d05252; } .chip.bi { border-left-color:#e8a817; }
+  .person .h { margin-left:auto; font-weight:700; color:#5c6862; white-space:nowrap; }
+  .person .h.ot { color:#7c4a03; } .person .h.free { color:#8f1d1d; }
+  .slots { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+  .slotcard { background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:5px; }
+  .slotcard .t { font-weight:700; margin-bottom:2px; }
+  .slotcard .t small { font-weight:400; color:#5c6862; }
+  .slot { border:1px dashed #b9c3b8; border-radius:3px; padding:2px 4px; margin-top:3px; background:#fff; color:#9aa39c; }
+  .slot.f { border-style:solid; color:#1c2420; }
+  .slotcard.p1 { border-left:3px solid #d05252; } .slotcard.pm { border-left:3px solid #3b6fd6; }
+  .slotcard .miss { color:#8f1d1d; font-weight:700; margin-top:3px; }
+  table.sheet { width:100%; border-collapse:collapse; }
+  table.sheet th, table.sheet td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.sheet th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.sheet td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.sheet tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.sheet td.mono { font-family:ui-monospace, Menlo, monospace; font-size:9.5px; }
+  table.sheet td.pick { color:#9aa39c; border-style:dashed; }
+  table.sheet td.ot { color:#7c4a03; font-weight:700; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+  .note b { color:#1e4d1f; }
+
+  .wire { overflow-x: auto; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Planner screen 2 of 6: the daily plan per person</h1>
+    <p class="lede">Every morning the team prints who does what today. In the tool the jobs come from that day's column of the week board and the people come from SAP (roster and PTO), so the sheet is built by assigning, not by typing. Below are three ways to do the assignment, each with the steps the planner follows. Nothing here is built yet; the mockups use Wednesday of week 38 and role labels instead of names.</p>
+    <div class="meta"><span><b>Status</b> Mockup for discussion, 22 Sep 2026</span><span><b>Previous</b> <a href="week-board.html">Screen 1: week board</a></span><span><b>Next screens</b> Freeze · Week close · KPIs · Configuration</span></div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
+<h2>Daily plan per person: three ways to lay it out</h2>
+<p class="subtitle">Screen 2. Every morning someone prints who does what today. The jobs come from the week board (that day's column); the people come from SAP (roster and PTO). What changes is whether the planner starts from the people, from the jobs, or from the paper sheet itself. Examples use Wednesday of week 38, with role labels instead of names.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a-people">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>People first: one row per person, drag today's jobs onto them</h3>
+      <p>Left: today's jobs from the week board, each showing how many of its hours are still unassigned. Right: the crew for today, one row per person, PTO rows greyed out from SAP. The planner drags a job onto a person; the row adds up to 8 h and turns gold above it.</p>
+      <ol class="steps">
+        <li>Pick the day. The tool shows the <b>crew that is in</b> (PTO and absences from CATS_DA are greyed out, not deleted).</li>
+        <li>Left, <b>today's jobs</b> from the week board with hours to cover. A job that is not on the board can be added from the backlog and is marked as a break-in (gold, dashed).</li>
+        <li><b>Drag</b> a job onto a person. Two people on the same job: drag it twice; the job's "left to assign" counter goes down.</li>
+        <li>Each row <b>adds up to 8 h</b>. Below 8 h the row is marked "free hours"; above, planned overtime in gold.</li>
+        <li><b>Print</b>: one page per crew, one line per person with order number, equipment, job and hours. The order number is what the person books in SAP.</li>
+        <li>Mid-day change: <b>move the chip</b> and print again. The plan keeps the last version per day.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Wednesday 16 Sep</b> · Corrective · 8 of 9 in</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="row">
+          <div class="jobs">
+            <h5>Today's jobs · 24 h on the board</h5>
+            <div class="card pm">4451394 · C-306<small>Belt inspection · 8 h</small><span class="done">covered</span></div>
+            <div class="card pm">4451397 · RM-310A<small>Internal inspection · 8 h</small><span class="done">covered</span></div>
+            <div class="card">4453211 · ID-310A<small>Oil leak · 8 h</small><span class="left">8 h left</span></div>
+            <div class="card">4452704 · C-1<small>Impact rollers · 24 h Thu</small><span class="done">pre-work 8 h</span></div>
+            <div class="card bi">4457558 · BN-24<small>Hole in chute · break-in · 8 h</small><span class="left">4 h left</span></div>
+          </div>
+          <div class="people">
+            <h5>Crew · Corrective</h5>
+            <div class="person"><span class="who">Mech 1</span><span class="chip pm">C-306 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 2</span><span class="chip pm">RM-310A 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 3</span><span class="chip">C-1 rollers 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 4</span><span class="chip bi">BN-24 4</span><span class="chip">FM-9 dam 6</span><span class="h ot">10 h</span></div>
+            <div class="person"><span class="who">Mech 5</span><span class="chip">FM-9 dam 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 6</span><span class="chip">FM-9 dam 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 7</span><span class="chip">CP-900 pump 8</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Mech 8</span><span class="h free">0 h · free</span></div>
+            <div class="person pto"><span class="who">Mech 9<small>PTO</small></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-jobs">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Jobs first: one card per job with slots for people</h3>
+      <p>Today's jobs are cards; each card has as many slots as the job needs (16 h on one day = two people). The planner fills the slots from the roster. An unstaffed job is red; a person used twice in the same hours is warned. Good when the question is "is every job covered?"</p>
+      <ol class="steps">
+        <li>Pick the day; today's jobs from the week board appear as <b>cards with empty slots</b> (hours ÷ 8 = slots, adjustable).</li>
+        <li>Click a slot and <b>pick a person</b> from the roster; people on PTO do not appear.</li>
+        <li>A card with an empty slot shows <b>"1 missing"</b> in red; a person assigned beyond 8 h turns gold.</li>
+        <li>A break-in job is added from the backlog and gets its own card, marked gold.</li>
+        <li><b>Print</b> the sheet per person, same output as A; the tool turns the cards into the per-person list.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Wednesday 16 Sep</b> · Corrective · 8 of 9 in · 1 job short</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <div class="slots">
+          <div class="slotcard pm"><div class="t">C-306 · Belt insp. <small>4451394 · 8 h</small></div><div class="slot f">Mech 1</div></div>
+          <div class="slotcard pm"><div class="t">RM-310A · Internal <small>4451397 · 8 h</small></div><div class="slot f">Mech 2</div></div>
+          <div class="slotcard"><div class="t">ID-310A · Oil leak <small>4453211 · 8 h</small></div><div class="slot">choose person</div><div class="miss">1 missing</div></div>
+          <div class="slotcard"><div class="t">FM-9 · Dam ring <small>— · 22 h</small></div><div class="slot f">Mech 5</div><div class="slot f">Mech 6</div><div class="slot f">Mech 4 · 6 h</div></div>
+          <div class="slotcard"><div class="t">C-1 · Rollers pre-work <small>4452704 · 8 h</small></div><div class="slot f">Mech 3</div></div>
+          <div class="slotcard" style="border-left:3px dashed #e8a817"><div class="t">BN-24 · Hole in chute <small>4457558 · break-in · 4 h</small></div><div class="slot f">Mech 4 · 4 h</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-sheet">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>The printed sheet, editable: today's Daily Plan tab as a form</h3>
+      <p>The screen is the sheet that gets printed, one row per person, in the same shape as today's Daily Plan tab. The difference: the Order and Job cells are picked from today's board, not typed, and hours add up per person. What you see is what comes out of the printer.</p>
+      <ol class="steps">
+        <li>Pick the day; the sheet lists the <b>crew in rows</b>, grouped by crew, PTO rows greyed.</li>
+        <li>In each row, click the Order cell and <b>pick from today's jobs</b>; equipment and job text fill in. A second job for the same person adds a second line.</li>
+        <li>Type the <b>hours</b>; the row total and the "unassigned hours" line at the bottom update.</li>
+        <li>Free-text <b>Notes</b> column stays (tools, permits, "after lunch"), as on paper today.</li>
+        <li><b>Print</b> prints exactly this table, one page per crew.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Daily Plan · Wednesday 16 Sep 2026</b> · printed 06:40</span><span><span class="btn">Add from backlog</span><span class="btn solid">Print</span></span></div>
+        <table class="sheet">
+          <tr><th style="width:15%">Person</th><th style="width:13%">Order</th><th style="width:14%">Equipment</th><th>Job</th><th style="width:7%">Hours</th><th style="width:22%">Notes</th></tr>
+          <tr class="grp"><td colspan="6">Corrective</td></tr>
+          <tr><td>Mech 1</td><td class="mono">4451394</td><td>C-306</td><td>Belt inspection</td><td class="n">8</td><td>Lockout with production</td></tr>
+          <tr><td>Mech 2</td><td class="mono">4451397</td><td>RM-310A</td><td>Internal inspection</td><td class="n">8</td><td>Confined space permit</td></tr>
+          <tr><td>Mech 3</td><td class="mono">4452704</td><td>C-1</td><td>Impact rollers, pre-work</td><td class="n">8</td><td></td></tr>
+          <tr><td rowspan="2">Mech 4</td><td class="mono">4457558</td><td>BN-24</td><td>Hole in chute (break-in)</td><td class="n">4</td><td>Then FM-9</td></tr>
+          <tr><td class="mono">—</td><td>FM-9</td><td>Replace dam ring</td><td class="n ot">6</td><td>Total 10 h</td></tr>
+          <tr><td>Mech 5</td><td class="mono">—</td><td>FM-9</td><td>Replace dam ring</td><td class="n">8</td><td></td></tr>
+          <tr><td>Mech 8</td><td class="pick">pick order…</td><td class="pick"></td><td class="pick">ID-310A oil leak still unassigned</td><td class="n"></td><td></td></tr>
+          <tr><td style="color:#9aa39c">Mech 9</td><td colspan="5" style="color:#9aa39c">PTO</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: only orders from today's column of the week board, plus break-ins added from the backlog and marked gold; the roster and PTO come from SAP; hours add up per person, 8 h is the line, above it is planned overtime; the printed page carries the order number so that CATS hours are booked against it; and the plan can be redone at any time of day, the tool keeps the last version.</p>
+<div class="note"><b>The practical difference.</b> A starts from the people ("who is in today, what does each one do"), B starts from the jobs ("is every job staffed"), C is the paper sheet itself as a form. A and B are worked with the mouse and print a sheet; in C the screen is the sheet. A and C give the same printed page; B needs the tool to turn cards into lines. FM-9 without an order number appears on purpose: the rule "no order, no row" would block it, and that is the point.</div>
+
+</div>
+</body>
+</html>
