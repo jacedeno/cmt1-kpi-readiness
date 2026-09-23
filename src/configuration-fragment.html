@@ -1,5 +1,5 @@
 <h2>Configuration: three ways to lay it out</h2>
-<p class="subtitle">Screen 6. What SAP cannot know and the other five screens need: who belongs to which crew, the capacity rules and the 40 h line, which orders are standing orders, the reasons picked at the close, the target and display name of each SMRP code, and the on-call pair. Only editors change it. Every change applies from a week onwards; a closed week keeps the configuration it was closed with. Example: the crews of week 38. <b>Electrician names are pending; the standing-order rows and the crew change in C are examples.</b></p>
+<p class="subtitle">Screen 6. What SAP cannot know and the other five screens need: who belongs to which crew, the capacity rules and the 40 h line, which orders are standing orders, the reasons picked at the close, the target and display name of each SMRP code, and the on-call pair. Only editors change it. Every change applies from a week onwards; a closed week keeps the configuration it was closed with. Example: the crews of week 38. <b>The standing-order rows and the crew change in C are examples.</b></p>
 
 <style>
   .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
@@ -73,14 +73,14 @@
       <p>A classic settings page. Six sections on the left; each one is a plain table edited in place. The tool marks the sections that need attention, such as people who booked hours on maintenance orders but belong to no crew.</p>
       <ol class="steps">
         <li>Open <b>Configuration</b>. A gold mark on a section means something needs attention; here, <b>Crews</b>.</li>
-        <li>In <b>Crews</b>, each person has a crew, a "counts in capacity" flag and the week the membership starts. The two leads are listed but do not count in capacity.</li>
+        <li>In <b>Crews</b>, each person has a crew, a "counts in capacity" flag and the week the membership starts. The three leads (two planners and the electrical supervisor) are listed but do not count in capacity.</li>
         <li>The gold banner lists people found in <b>CATS_DA</b> with hours on maintenance orders and no crew: assign them or mark them "not maintenance".</li>
         <li><b>Capacity</b>: hours per day, days per week, the 40 h overtime line, and which CATS attendance types count as absence (PTO, HOLI, CALO, plus any code confirmed as absence).</li>
         <li><b>Standing orders</b>, <b>Reasons</b>, <b>KPI targets and names</b> and <b>On-call</b> work the same way: a table, edit a cell, save.</li>
         <li>Every save asks for the <b>week it starts</b> (default: the next week not yet frozen).</li>
       </ol>
       <div class="wire">
-        <div class="top"><span><b>Configuration · Crews</b> · 24 people · 22 count in capacity</span><span><span class="btn">Add person</span><span class="btn solid">Save · from week 40</span></span></div>
+        <div class="top"><span><b>Configuration · Crews</b> · 25 people · 22 count in capacity</span><span><span class="btn">Add person</span><span class="btn solid">Save · from week 40</span></span></div>
         <div class="sgrid">
           <div class="nav">
             <div class="on">Crews<small>4 crews · 1 to review</small></div>
@@ -102,14 +102,15 @@
               <tr><td>Cameron N.</td><td class="edit">Reliability</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
               <tr><td colspan="5" style="color:#5c6862">… Lou C., Cesar V., Javier M., Juan R.</td></tr>
               <tr class="grp"><td colspan="5">Electrical · 5</td></tr>
-              <tr><td class="pend">Electrician 1 · name pending</td><td class="edit">Electrical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
-              <tr><td colspan="5" style="color:#5c6862">… 4 more, names pending</td></tr>
+              <tr><td>Robert B.</td><td class="edit">Electrical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">… Jason G., Eduardo V., Eric M., Eric W.</td></tr>
               <tr class="grp"><td colspan="5">Contract · 4 · hours typed at the close</td></tr>
               <tr><td>Nieves H.</td><td class="edit">Contract · Turkey</td><td>Yes</td><td class="n">38</td><td>Typed · 40 h default</td></tr>
               <tr><td colspan="5" style="color:#5c6862">… Ruben H. (Turkey), Irain M. and Eric M. (OCC)</td></tr>
               <tr class="grp"><td colspan="5">Leads · not in capacity</td></tr>
               <tr><td>Jose C.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
               <tr><td>Victor S.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
+              <tr><td>James D.</td><td class="edit">Lead · Electrical supervisor</td><td>No</td><td class="n">38</td><td>—</td></tr>
             </table>
           </div>
         </div>
@@ -153,8 +154,11 @@
             <div class="pc">… 2 more</div>
           </div>
           <div class="col"><h5>Electrical · 5</h5><div class="cap">200 h</div><div class="capbar"><i style="width:100%"></i></div>
-            <div class="pc pend">Electrician 1–5</div>
-            <div class="pc pend">names pending</div>
+            <div class="pc">Robert B.</div>
+            <div class="pc">Jason G.</div>
+            <div class="pc">Eduardo V.</div>
+            <div class="pc">Eric M.</div>
+            <div class="pc">Eric W.</div>
           </div>
           <div class="col"><h5>Contract · 4</h5><div class="cap">160 h typed at the close</div><div class="capbar"><i style="width:100%"></i></div>
             <div class="pc">Nieves H. <small>Turkey · 40 h</small></div>
@@ -163,7 +167,7 @@
             <div class="pc">Eric M. <small>OCC · 40 h</small></div>
           </div>
           <div class="col lead"><h5>Leads</h5><div class="cap">not in capacity</div>
-            <div class="pc">Jose C.</div><div class="pc">Victor S.</div>
+            <div class="pc">Jose C.</div><div class="pc">Victor S.</div><div class="pc">James D. <small>Electrical</small></div>
           </div>
         </div>
         <div class="panels">
@@ -201,7 +205,7 @@
           <div class="ev next"><span class="wk">Week 41 · scheduled</span> Person A moves Mechanical → Reliability<small>draft above · not saved</small></div>
           <div class="ev"><span class="wk">Week 40</span> 5.4.3 target set to 85 % · name "Plan Attainment" kept as alias<small>Jose C. · 23 Sep · "same target as the current KPI web app"</small></div>
           <div class="ev"><span class="wk">Week 40</span> Standing order flagged: Inspections and reports <small>Jose C. · 23 Sep · counts in 5.4.5 from week 40; weeks 31–39 recomputed only if chosen</small></div>
-          <div class="ev"><span class="wk">Week 38</span> Initial set-up: Mechanical 8, Reliability 5, Electrical 5, Contract 4, 2 leads<small>imported with the history · electrician names pending</small></div>
+          <div class="ev"><span class="wk">Week 38</span> Initial set-up: Mechanical 8, Reliability 5, Electrical 5, Contract 4, 3 leads<small>James D. supervises Electrical and reviews its time cards</small></div>
         </div>
         <div class="grpname">Current values of the KPI targets and names</div>
         <table class="cfg">

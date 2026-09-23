@@ -218,7 +218,7 @@
     <div class="node tool"><b>SAP Data Explorer · KPIs</b>SMRP indicators per week, history and trends by crew, fixed formulas. The current KPI dashboard is absorbed and its history imported.</div>
   </div>
   <p class="flownote">One manual step: upload the exports. The weekly workbook disappears, actual hours are never typed again, and the KPI block is never copied again.</p>
-  <p class="ctas"><a class="cta" href="week-board.html">Planner mockup 1: week board <small>3 layouts · steps per layout</small></a><a class="cta" href="daily-plan.html">Planner mockup 2: daily plan per person <small>3 layouts · real Wednesday of week 38</small></a><a class="cta" href="freeze.html">Planner mockup 3: the Thursday freeze <small>3 layouts · what the KPIs measure against</small></a><a class="cta" href="week-close.html">Planner mockup 4: week close <small>3 layouts · replaces the KPI tab and the paste</small></a><a class="cta" href="kpis.html">Planner mockup 5: the KPI page <small>3 layouts · SMRP codes, trends, drill-down</small></a><a class="cta" href="configuration.html">Planner mockup 6: configuration <small>3 layouts · crews, capacity, reasons, targets</small></a></p>
+  <p class="ctas"><a class="cta" href="week-board.html">Planner mockup 1: week board <small>3 layouts · steps per layout</small></a><a class="cta" href="daily-plan.html">Planner mockup 2: daily plan per person <small>3 layouts · real Wednesday of week 38</small></a><a class="cta" href="freeze.html">Planner mockup 3: the Thursday freeze <small>3 layouts · what the KPIs measure against</small></a><a class="cta" href="week-close.html">Planner mockup 4: week close <small>3 layouts · replaces the KPI tab and the paste</small></a><a class="cta" href="kpis.html">Planner mockup 5: the KPI page <small>3 layouts · SMRP codes, trends, drill-down</small></a><a class="cta" href="configuration.html">Planner mockup 6: configuration <small>3 layouts · crews, capacity, reasons, targets</small></a><a class="cta" href="s4hana.html">S/4HANA: what carries over <small>screen by screen · questions</small></a></p>
 
   <h2>Who owns what <small>Rule: whatever SAP can do is done in SAP; the tool covers only what SAP cannot.</small></h2>
   <div class="tablewrap">
@@ -285,7 +285,7 @@
   </table>
   </div>
 
-  <h2>To verify in SAP <small>Six open questions. Two more were answered after the first draft (at the end of this list).</small></h2>
+  <h2>To verify in SAP <small>Five open questions. Three more were answered after the first draft (at the end of this list).</small></h2>
   <div class="checklist">
     <ol>
       <li><b>Date column in ZEMR031: basic start or basic finish?</b> It is a basic date, not the creation date. Compare it with both dates of an order whose two dates differ (IW33). It decides the due date for PM Compliance and whether the planner's committed day can be read from the export.</li>
@@ -293,11 +293,12 @@
       <li><b>Where PM time is posted:</b> ZP01 orders or internal Y-orders. CATS_DA shows it.</li>
       <li id="attendance"><b>Attendance types in CATS_DA.</b> Explained below.</li>
       <li><b>Contractors.</b> Whether any SAP source (PO, service entry sheet) carries their hours; otherwise manual entry.</li>
-      <li><b>Electrical and Reliability rosters.</b> ZEME047 only lists the 13 mechanics.</li>
+      
     </ol>
     <p style="margin:12px 0 6px"><b>Answered since the first draft</b></p>
     <ul style="margin:0;padding-left:22px">
       <li><b>SCHD, user status, Revision.</b> SCHD is not configured in our system and never appeared in an export; no export shows user status or Revision. The freeze lives in the tool and does not need SCHD. No request to IT.</li>
+      <li><b>Crew rosters.</b> The 13 mechanics (Mechanical 8, Reliability 5) come from ZEME047; the 5 electricians have their own time-card reviewer, the electrical supervisor. Which crew each person belongs to is kept in the tool.</li>
       <li><b>Date column is not the creation date.</b> Preventive orders generated on 31 Aug 2026 carry 22 Jan 2027, the same as their basic start and finish. Work Order Aging uses the tool's first-seen date.</li>
     </ul>
   </div>

@@ -1,0 +1,62 @@
+<h2>Screen by screen</h2>
+<p class="subtitle">IT has announced SAP S/4HANA for December 2026. The design of the Planner and the KPIs does not change; what can change is how much the tool keeps. The rule stays the same: whatever the new system can hold and export is done in SAP, and the tool covers only the rest.</p>
+
+<style>
+  .s4wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  table.s4 { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13.5px; }
+  table.s4 th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--line); }
+  table.s4 td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.s4 tr:last-child td { border-bottom: none; }
+  table.s4 td:first-child { font-weight: 600; white-space: nowrap; }
+  table.s4 td.sap { background: var(--green-soft); }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 9px; margin-right: 4px; white-space: nowrap; }
+  .tag.tool { background: var(--gold-soft); color: var(--ink); }
+  .tag.sap { background: var(--green); color: #fff; }
+  .floor { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 16px 0 0; }
+  .floor > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+  .floor b { display: block; margin-bottom: 4px; color: var(--green-ink); }
+  ol.qs { margin: 8px 0 0; padding-left: 22px; max-width: 78ch; }
+  ol.qs li { margin: 0 0 12px; }
+  ol.qs li b { display: block; }
+  ol.qs small { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  .urgent { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 9px; background: var(--gold-soft); margin-left: 6px; }
+  ul.prep { max-width: 78ch; padding-left: 22px; }
+  ul.prep li { margin-bottom: 6px; }
+</style>
+
+<div class="s4wrap">
+<table class="s4">
+  <thead><tr><th style="width:15%">Screen</th><th style="width:25%">Today (ECC)</th><th style="width:32%">On S/4HANA, if the new system provides it</th><th>If it is not provided</th></tr></thead>
+  <tbody>
+    <tr><td><a href="week-board.html">1 Week board</a></td><td><span class="tag tool">Tool</span> built from the ZEMR031 export</td><td class="sap"><span class="tag sap">SAP</span> Maintenance Scheduling Board: orders dispatched to a work center and a day inside SAP; the tool reads them</td><td>Tool, from the new order export</td></tr>
+    <tr><td><a href="daily-plan.html">2 Daily plan</a></td><td><span class="tag tool">Tool</span> SAP's "Currently Assigned To" field exists but has never been used</td><td class="sap"><span class="tag sap">SAP</span> only if an app that assigns a person to each job is activated (the Scheduling Board plans by work center and day); the tool prints the sheet</td><td>Tool</td></tr>
+    <tr><td><a href="freeze.html">3 Freeze</a></td><td><span class="tag tool">Tool</span> no export shows a scheduled status; the order's basic date is the cross-check in SAP</td><td class="sap"><span class="tag sap">SAP</span> the snapshot is read from SAP if the order list can show the scheduled start date or the order status (question 3)</td><td>Tool, as today</td></tr>
+    <tr><td><a href="week-close.html">4 Week close</a></td><td><span class="tag tool">Tool</span> from CATS_DA hours and closed orders</td><td>Same, from the new time-sheet and order exports. The reason behind each break-in and each order not worked stays in the tool: SAP has no field for it</td><td>Same</td></tr>
+    <tr><td><a href="kpis.html">5 KPIs</a></td><td><span class="tag tool">Tool</span></td><td>Tool. The new system's built-in analytics can compute some figures, but not the SMRP formulas on the frozen list, the reasons or the imported history</td><td>Tool</td></tr>
+    <tr><td><a href="configuration.html">6 Configuration</a></td><td><span class="tag tool">Tool</span></td><td>Crews could come from SAP work centers and personnel assignment; targets, display names and reasons stay in the tool</td><td>Tool</td></tr>
+    <tr><td>Data load</td><td>Three reports exported by hand each week</td><td class="sap"><span class="tag sap">SAP</span> read-only access (OData): the tool loads by itself (question 5)</td><td>Weekly export, as today</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="floor">
+  <div><b>If the new system arrives like today's</b>Nothing is lost: every screen already works with the tool on the weekly exports, and the KPI history lives in the tool.</div>
+  <div><b>If it brings the Scheduling Board and a read-only feed</b>Screens 1 to 3 move back to SAP; the tool keeps the week close, the KPIs and the history.</div>
+</div>
+
+<h2 style="margin-top:32px">The questions we would ask</h2>
+<p class="subtitle">Only what the weekly process needs from the system as users: which screens, which columns, which history. Questions 1 and 2 matter before December; 3 to 5 can wait until the new system is configured.</p>
+<ol class="qs">
+  <li><b>Will the Equipment Manager menu keep the reports we export each week, or their equivalents, with export to Excel? <span class="urgent">before December</span></b>Maintenance Backlog Report (ZEMR031), Display Working Times (CATS_DA), Mechanical Time Entry (ZEME047).<small>Every maintenance KPI comes from these three exports: which orders exist, their planned hours, and the hours each person booked to each order on each day. If one changes name or screen, we want to know the new one so the weekly process does not stop.</small></li>
+  <li><b>Will closed orders and the hours booked before the change still be readable and exportable afterwards? <span class="urgent">before December</span></b><small>Trends compare weeks, and several indicators are computed on the orders closed in the week. If the history stays in the old system only, we export it before the change.</small></li>
+  <li><b>In the new system, could the order list we export include the scheduled start date and the order's status?</b><small>The compliance indicators compare what was committed for the week with what was executed. Today no export shows it, so the commitment is recorded in the tool. If the new list shows it, the commitment can live in SAP.</small></li>
+  <li><b>Will the Maintenance Scheduling Board be available to our role?</b><small>It records which orders are scheduled for which day inside SAP, which is what question 3 is about. If it is not planned, the answer to question 3 is enough.</small></li>
+  <li><b>Will there be a read-only path, such as OData, for orders and working times?</b><small>Today the files are exported and uploaded by hand each week. Read-only access would remove that step. Not urgent, and nothing is written to SAP.</small></li>
+</ol>
+
+<h2 style="margin-top:28px">What we do on our side before December</h2>
+<ul class="prep">
+  <li><b>Freeze and KPI history in the tool</b> from the first week, so the history exists when the new system arrives.</li>
+  <li><b>Data entered in standard fields</b>, which carries over in any case: the committed day as the order's basic date, hours entered with the real date and the order, orders completed (TECO) when finished, work values on the preventive task lists.</li>
+  <li><b>Export the full history before the change</b>: all closed CMT1 orders and as many weeks of working times as the report allows, whatever the answer to question 2.</li>
+</ul>
