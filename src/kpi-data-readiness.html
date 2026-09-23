@@ -131,6 +131,7 @@
     <div class="meta">
       <span><b>Sources reviewed</b> ZEMR031 open and closed orders · CATS_DA working times · ZEME047 mechanic time cards</span>
       <span><b>Snapshot</b> 21 Sep 2026, 8 weeks of CATS_DA</span>
+      <span><b>Updated</b> 23 Sep 2026: SCHD question closed, Date column</span>
       <span><b>Status</b> Draft for review</span>
     </div>
   </header>
@@ -155,7 +156,7 @@
         <li>Schedule Compliance – Work Orders (5.4.4)</li>
         <li>Break-ins (supporting measure)</li>
       </ul>
-      <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">Even if IT enables the SCHD user status, ZEMR031 does not export user status or Revision, and IW39 in our role does not either. Until an export carries it, the freeze has to live in the planning tool. SCHD in SAP stays desirable as practice, but the tool cannot read it yet.</p>
+      <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">No SAP export available to us carries the weekly commitment: the SCHD user status is not configured in our system (it never appeared in any export), and ZEMR031 and IW39 show no user status or Revision. So the freeze lives in the planning tool, and it does not need SCHD. What SAP can hold without any change is the order's basic date (the Date column of ZEMR031), which the planner can set to the committed day.</p>
     </div>
     <div class="sum">
       <span class="k part">Partial because of how SAP is filled, not missing fields</span>
@@ -197,7 +198,7 @@
 
   <h2>How we will work <small>Planner and KPIs in the same application, fed by SAP.</small></h2>
   <div class="flow">
-    <div class="node sap"><b>SAP ECC</b>Same data, plus the practice changes: every task has a work order, estimated hours on each order, scheduled start for the committed day, TECO when finished.</div>
+    <div class="node sap"><b>SAP ECC</b>Same data, plus the practice changes: every task has a work order, estimated hours on each order, the basic date set to the committed day, TECO when finished.</div>
     <div class="arrow">→<small>weekly exports<br>ZEMR031 · CATS_DA · ZEME047</small></div>
     <div class="node tool"><b>SAP Data Explorer · Planner</b>Weekly board built from SAP orders, hours split across weekdays, daily plan per person printed from the tool, capacity and planned overtime visible while planning, freeze of the week, reason for each break-in.</div>
     <div class="arrow">→<small>computed, same app</small></div>
@@ -214,8 +215,8 @@
       <tr><td>Job row: equipment, order, description</td><td><span class="pill p-sap">SAP</span></td><td>Every row of the plan <b>is</b> a SAP order. No order, no row. Routes and shop work use existing standing orders.</td></tr>
       <tr><td>Preventive orders that never reached the file</td><td><span class="pill p-sap">SAP</span></td><td>ZP01 orders appear by themselves in the tool's backlog; the planner drags them into the week like any other.</td></tr>
       <tr><td>Planned hours of a job</td><td><span class="pill p-sap">SAP</span></td><td>The order's Estimated Hours, corrected in SAP, not in a spreadsheet. ZP01 task lists need work values.</td></tr>
-      <tr><td>"This order goes in week 39"</td><td><span class="pill p-both">SAP + tool</span></td><td>In SAP: scheduled start (and Revision or SCHD when available). In the tool: the week board reads the export; an order dragged in without the SAP marker is flagged.</td></tr>
-      <tr><td>Planned hours per weekday</td><td><span class="pill p-tool">Tool</span></td><td>SAP holds one scheduled start per order; it does not split 24 h across Thursday and Friday. The tool keeps the split and prints the daily sheet from it.</td></tr>
+      <tr><td>"This order goes in week 39"</td><td><span class="pill p-both">SAP + tool</span></td><td>In SAP: the order's basic date set to the committed day (standard field, shown in the Date column of ZEMR031; no ticket needed). In the tool: the week board reads the export; an order dragged in without the SAP marker is flagged.</td></tr>
+      <tr><td>Planned hours per weekday</td><td><span class="pill p-tool">Tool</span></td><td>SAP holds one basic date per order; it does not split 24 h across Thursday and Friday. The tool keeps the split and prints the daily sheet from it.</td></tr>
       <tr><td>Actual hours, typed by hand</td><td><span class="pill p-sap">SAP</span></td><td>Typing disappears. Hours come from CATS_DA per order, person and date, complete because payroll depends on it.</td></tr>
       <tr><td>Daily plan: who does what each day</td><td><span class="pill p-tool">Tool</span></td><td>Checked on 22 Sep: ZEMR018 carries a "Currently Assigned To" field that nobody has ever filled, and ZEME018C only builds a printed time card per work center from a pick list, with no person or date. Neither decides who goes to which job each morning. The tool lists the crew per day, assigns orders to each person, and prints.</td></tr>
       <tr><td>Available hours (people × 8 h × 5 days − PTO)</td><td><span class="pill p-both">SAP + tool</span></td><td>Roster and PTO from CATS_DA and ZEME047. The tool computes capacity per crew and day and marks anything above 40 h per person as planned overtime, visible while planning, not at the Thursday meeting.</td></tr>
@@ -242,9 +243,9 @@
     </thead>
     <tbody>
       <tr class="grp"><td colspan="4">Headline · Schedule compliance</td></tr>
-      <tr><td class="code">5.4.3</td><td class="nm">Schedule Compliance – Hours</td><td>Frozen schedule for the week (orders + hours) · actual hours per order in the week</td><td><span class="s no">Freeze</span> SCHD / Revision are not in ZEMR031 nor in IW39 for this role → snapshot in the tool · <span class="s ok">CATS_DA</span> hours per order and date</td></tr>
+      <tr><td class="code">5.4.3</td><td class="nm">Schedule Compliance – Hours</td><td>Frozen schedule for the week (orders + hours) · actual hours per order in the week</td><td><span class="s no">Freeze</span> SCHD is not configured and no export shows user status or Revision → snapshot in the tool; the basic date in SAP as a cross-check · <span class="s ok">CATS_DA</span> hours per order and date</td></tr>
       <tr><td class="code">5.4.4</td><td class="nm">Schedule Compliance – Work Orders</td><td>Same freeze · which orders received hours</td><td><span class="s no">Freeze</span> · <span class="s ok">CATS_DA</span></td></tr>
-      <tr><td class="code">5.4.14</td><td class="nm">PM &amp; PdM Compliance</td><td>PM orders (ZP01) with due date · completion date</td><td><span class="s ok">ZEMR031</span> ZP01 + Maintenance Plan · <span class="s part">Due date</span> the Date column is not yet confirmed as basic start or finish · <span class="s ok">Closed export</span> Date Completed</td></tr>
+      <tr><td class="code">5.4.14</td><td class="nm">PM &amp; PdM Compliance</td><td>PM orders (ZP01) with due date · completion date</td><td><span class="s ok">ZEMR031</span> ZP01 + Maintenance Plan · <span class="s part">Due date</span> the Date column is a basic date (confirmed 23 Sep); start or finish still to confirm · <span class="s ok">Closed export</span> Date Completed</td></tr>
 
       <tr class="grp"><td colspan="4">Headline · Planned vs reactive</td></tr>
       <tr><td class="code">5.4.1</td><td class="nm">Reactive Work</td><td>Hours per order · reactive flag (priority 1 today; outside the freeze once it exists)</td><td><span class="s ok">CATS_DA + ZEMR031 Priority</span> already computed: about <span class="num">28 %</span> over 8 weeks</td></tr>
@@ -255,11 +256,11 @@
       <tr class="grp"><td colspan="4">Headline · Planning quality and backlog</td></tr>
       <tr><td class="code">5.3.4 / 5.3.5</td><td class="nm">Actual Hours to Planning Estimate · Planning Variance Index</td><td>Estimated and actual hours per closed order, by closing week</td><td><span class="s ok">ZEMR031 closed</span> 5,695 orders with Date Completed; current actual / estimate ratio about <span class="num">1.76</span></td></tr>
       <tr><td class="code">5.4.8 / 5.4.9</td><td class="nm">Planned Backlog · Ready Backlog</td><td>Open estimated hours · weekly crew capacity · whether the order is ready (parts)</td><td><span class="s ok">ZEMR031 + CATS_DA REG</span> · <span class="s part">Parts Status @08@</span> only distinguishes "awaiting parts"</td></tr>
-      <tr><td class="code">5.4.6</td><td class="nm">Work Order Aging</td><td>Creation date per order</td><td><span class="s part">Date</span> meaning still to confirm; the tool's first-seen date as fallback</td></tr>
+      <tr><td class="code">5.4.6</td><td class="nm">Work Order Aging</td><td>Creation date per order</td><td><span class="s no">Creation date</span> not exported: the Date column is a basic date, not the creation date (confirmed 23 Sep) · <span class="s app">First-seen date</span> kept by the tool from the first import</td></tr>
 
       <tr class="grp"><td colspan="4">Headline · Capacity and people</td></tr>
-      <tr><td class="code">5.5.8</td><td class="nm">Overtime Maintenance Hours</td><td>Hours per person and week · 40 h threshold (8 h/day)</td><td><span class="s ok">CATS_DA REG</span> there is no "OT" attendance type; it is computed. Mechanics booked <span class="num">40.7–64.1 h</span> last week. <span class="s part">Verify</span> what SDOT, SNCE, CLND, CLNO mean and a few days above 24 h (duplicates)</td></tr>
-      <tr><td class="code">—</td><td class="nm">Available hours per crew (denominator)</td><td>Crew roster · PTO / holidays per person</td><td><span class="s ok">CATS_DA</span> PTO, HOLI, PTOB, CALO per person and day · <span class="s app">Crew of each person</span> CATS covers 275 people plant-wide; Corrective / Reliability / Electrical does not exist in SAP</td></tr>
+      <tr><td class="code">5.5.8</td><td class="nm">Overtime Maintenance Hours</td><td>Hours per person and week · 40 h threshold (8 h/day)</td><td><span class="s ok">CATS_DA REG</span> there is no "OT" attendance type; it is computed. Mechanics booked <span class="num">40.7–64.1 h</span> last week. <span class="s part">Verify</span> seven attendance codes and a few days above 24 h (see <a href="#attendance">attendance types</a> below)</td></tr>
+      <tr><td class="code">—</td><td class="nm">Available hours per crew (denominator)</td><td>Crew roster · PTO / holidays per person</td><td><span class="s ok">CATS_DA</span> PTO, HOLI, CALO per person and day (PTOB and six other codes to confirm, see below) · <span class="s app">Crew of each person</span> CATS covers 275 people plant-wide; Corrective / Reliability / Electrical does not exist in SAP</td></tr>
       <tr><td class="code">5.5.72</td><td class="nm">Contractor Hours</td><td>Contractor hours (Turkey, OCC)</td><td><span class="s no">Not in CATS</span> · <span class="s app">Entered by the planner</span> or from invoices later</td></tr>
 
       <tr class="grp"><td colspan="4">Supporting measures (no SMRP code)</td></tr>
@@ -271,18 +272,48 @@
   </table>
   </div>
 
-  <h2>To verify in SAP, besides SCHD <small>Seven questions. The first one decides the most.</small></h2>
+  <h2>To verify in SAP <small>Six open questions. Two more were answered after the first draft (at the end of this list).</small></h2>
   <div class="checklist">
     <ol>
-      <li><b>Revision / user status / scheduled start.</b> Can ZEMR031 or the IW39 layout of this role include them? If not, the freeze lives only in the tool until S/4HANA.</li>
-      <li><b>Meaning of the Date column</b> in ZEMR031 (creation, basic start or basic finish). It decides Aging, Overdue and PM Compliance.</li>
-      <li><b>Work values on ZP01 task lists.</b> Without them, Planned Work and Backlog ignore preventive work.</li>
+      <li><b>Date column in ZEMR031: basic start or basic finish?</b> It is a basic date, not the creation date. Compare it with both dates of an order whose two dates differ (IW33). It decides the due date for PM Compliance and whether the planner's committed day can be read from the export.</li>
+      <li><b>Work values on ZP01 task lists.</b> Without them, Planned Work and Backlog ignore preventive work (every ZP01 order shows 0.00 estimated hours).</li>
       <li><b>Where PM time is posted:</b> ZP01 orders or internal Y-orders. CATS_DA shows it.</li>
-      <li><b>Attendance types</b> SDOT, SNCE, CLND, CLNO, PTOB, UPML, UPFM, and the days with more than 24 h in CATS_DA.</li>
+      <li id="attendance"><b>Attendance types in CATS_DA.</b> Explained below.</li>
       <li><b>Contractors.</b> Whether any SAP source (PO, service entry sheet) carries their hours; otherwise manual entry.</li>
       <li><b>Electrical and Reliability rosters.</b> ZEME047 only lists the 13 mechanics.</li>
     </ol>
+    <p style="margin:12px 0 6px"><b>Answered since the first draft</b></p>
+    <ul style="margin:0;padding-left:22px">
+      <li><b>SCHD, user status, Revision.</b> SCHD is not configured in our system and never appeared in an export; no export shows user status or Revision. The freeze lives in the tool and does not need SCHD. No request to IT.</li>
+      <li><b>Date column is not the creation date.</b> Preventive orders generated on 31 Aug 2026 carry 22 Jan 2027, the same as their basic start and finish. Work Order Aging uses the tool's first-seen date.</li>
+    </ul>
   </div>
+
+  <h2>Attendance types: what the codes are and why they matter <small>Needed for overtime (5.5.8) and for each crew's available hours.</small></h2>
+  <p>Every line of time in CATS_DA carries an <b>attendance or absence type</b>: a four-letter code that says what those hours were. The KPIs have to put each line in one of three buckets:</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th style="width:22%">Bucket</th><th style="width:38%">What it feeds</th><th>Codes known today</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">Worked time</td><td>Total maintenance hours; above 40 h per person and week, overtime (5.5.8)</td><td><span class="code">REG</span> regular hours worked</td></tr>
+      <tr><td class="nm">Absence</td><td>Reduces the crew's available hours (the capacity used when planning)</td><td><span class="code">PTO</span> paid time off · <span class="code">HOLI</span> holiday · <span class="code">CALO</span> (treated as absence in the first analysis; meaning to confirm)</td></tr>
+      <tr><td class="nm">Neither</td><td>Ignored by the KPIs</td><td>none identified yet</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="margin-top:14px">Seven more codes appear in the export and we do not know what they mean, so their hours cannot be placed in a bucket yet. The reading of the letters below is a guess to be confirmed, not a definition:</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th style="width:12%">Code</th><th style="width:40%">Reading of the letters (to confirm)</th><th>What we need to know</th></tr></thead>
+    <tbody>
+      <tr><td class="code">PTOB</td><td>A variant of PTO</td><td>Is it absence, like PTO?</td></tr>
+      <tr><td class="code">UPML · UPFM</td><td>Start with "UP": possibly unpaid leave of two kinds</td><td>Are they absence?</td></tr>
+      <tr><td class="code">CLND · CLNO</td><td>Same stem: a pair, perhaps day and night variants of one thing</td><td>Worked time or absence? If worked, is it paid as overtime?</td></tr>
+      <tr><td class="code">SDOT · SNCE</td><td>No reading</td><td>Worked time or absence? Is either one overtime?</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="margin-top:14px">The answer does not need IT: the plant's time administrator or payroll knows these codes. A related check: a few people show <b>more than 24 hours on a single day</b>, which can only be duplicated lines or hours posted to the wrong date. Until explained, those hours would inflate overtime, so the tool will flag such days instead of counting them.</p>
 
   <h2 id="transactions">SAP transactions referenced <small>Screens as seen in the NetWeaver Business Client on 21 Sep 2026. Click any transaction code on this page, or any thumbnail, to see it.</small></h2>
   <div class="gallery" id="gallery"></div>
