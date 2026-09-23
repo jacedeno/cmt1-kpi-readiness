@@ -30,7 +30,7 @@
   <tbody>
     <tr><td><a href="week-board.html">1 Week board</a></td><td><span class="tag tool">Tool</span> built from the ZEMR031 export</td><td class="sap"><span class="tag sap">SAP</span> Maintenance Scheduling Board: orders dispatched to a work center and a day inside SAP; the tool reads them</td><td>Tool, from the new order export</td></tr>
     <tr><td><a href="daily-plan.html">2 Daily plan</a></td><td><span class="tag tool">Tool</span> SAP's "Currently Assigned To" field exists but has never been used</td><td class="sap"><span class="tag sap">SAP</span> only if an app that assigns a person to each job is activated (the Scheduling Board plans by work center and day); the tool prints the sheet</td><td>Tool</td></tr>
-    <tr><td><a href="freeze.html">3 Freeze</a></td><td><span class="tag tool">Tool</span> no export shows a scheduled status; the order's basic date is the cross-check in SAP</td><td class="sap"><span class="tag sap">SAP</span> the snapshot is read from SAP if the order list can show the scheduled start date or the order status (question 3)</td><td>Tool, as today</td></tr>
+    <tr><td><a href="freeze.html">3 Freeze</a></td><td><span class="tag tool">Tool</span> no export shows a scheduled status; the order's basic start date is the cross-check in SAP</td><td class="sap"><span class="tag sap">SAP</span> the snapshot is read from SAP if the order list can show the scheduled start date or the order status (question 3)</td><td>Tool, as today</td></tr>
     <tr><td><a href="week-close.html">4 Week close</a></td><td><span class="tag tool">Tool</span> from CATS_DA hours and closed orders</td><td>Same, from the new time-sheet and order exports. The reason behind each break-in and each order not worked stays in the tool: SAP has no field for it</td><td>Same</td></tr>
     <tr><td><a href="kpis.html">5 KPIs</a></td><td><span class="tag tool">Tool</span></td><td>Tool. The new system's built-in analytics can compute some figures, but not the SMRP formulas on the frozen list, the reasons or the imported history</td><td>Tool</td></tr>
     <tr><td><a href="configuration.html">6 Configuration</a></td><td><span class="tag tool">Tool</span></td><td>Crews could come from SAP work centers and personnel assignment; targets, display names and reasons stay in the tool</td><td>Tool</td></tr>
@@ -57,6 +57,6 @@
 <h2 style="margin-top:28px">What we do on our side before December</h2>
 <ul class="prep">
   <li><b>Freeze and KPI history in the tool</b> from the first week, so the history exists when the new system arrives.</li>
-  <li><b>Data entered in standard fields</b>, which carries over in any case: the committed day as the order's basic date, hours entered with the real date and the order, orders completed (TECO) when finished, work values on the preventive task lists.</li>
+  <li><b>Data entered in standard fields</b>, which carries over in any case: the committed day as the order's basic start date, hours entered with the real date and the order, orders completed (TECO) when finished, work values on the preventive task lists.</li>
   <li><b>Export the full history before the change</b>: all closed CMT1 orders and as many weeks of working times as the report allows, whatever the answer to question 2.</li>
 </ul>
