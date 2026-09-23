@@ -272,10 +272,9 @@
   </table>
   </div>
 
-  <h2>To verify in SAP <small>Four open questions. Four more were answered after the first draft (at the end of this list).</small></h2>
+  <h2>To verify in SAP <small>Three open questions. Five more were answered after the first draft (at the end of this list).</small></h2>
   <div class="checklist">
     <ol>
-      <li><b>Work values on ZP01 task lists.</b> Without them, Planned Work and Backlog ignore preventive work (every ZP01 order shows 0.00 estimated hours).</li>
       <li><b>Where PM time is posted:</b> ZP01 orders or internal Y-orders. CATS_DA shows it.</li>
       <li id="attendance"><b>Attendance types in CATS_DA.</b> Explained below.</li>
       <li><b>Contractors.</b> Whether any SAP source (PO, service entry sheet) carries their hours; otherwise manual entry.</li>
@@ -285,6 +284,7 @@
     <ul style="margin:0;padding-left:22px">
       <li><b>SCHD, user status, Revision.</b> SCHD is not configured in our system and never appeared in an export; no export shows user status or Revision. The freeze lives in the tool and does not need SCHD. No request to IT.</li>
       <li><b>Crew rosters.</b> The 13 mechanics (Mechanical 8, Reliability 5) come from ZEME047; the 5 electricians have their own time-card reviewer, the electrical supervisor. Which crew each person belongs to is kept in the tool.</li>
+      <li><b>Preventive task lists carry no work values.</b> Checked on a ZP01 order and its task list: Work is 0 on both, so the hours were never loaded (not an export problem). They are loaded on the task lists in SAP, starting with the most frequent routes; until then Planned Work and Backlog leave preventive work out, and the tool says so.</li>
       <li><b>Date column in ZEMR031 = basic start date.</b> Not the creation date: preventive orders generated on 31 Aug 2026 carry 22 Jan 2027. Corrective orders leave the basic finish empty (checked on two orders), so the Date column can only be the basic start. The planner sets it to the committed day in IW32 and the export carries it; PM Compliance uses it as the due date; Work Order Aging uses the tool's first-seen date.</li>
     </ul>
   </div>
