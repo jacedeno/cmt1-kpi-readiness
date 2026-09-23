@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Planner screen 6 of 6: configuration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { display:inline-block; border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .wire code { font-family:ui-monospace, Menlo, monospace; color:#1e40af; font-size:9.5px; }
+  .sgrid { display:grid; grid-template-columns:118px 1fr; gap:8px; }
+  .nav div { border:1px solid #e3e9e2; border-radius:4px; padding:3px 5px; margin-bottom:3px; color:#5c6862; }
+  .nav div.on { background:#2d6a2e; border-color:#2d6a2e; color:#fff; font-weight:700; }
+  .nav div small { display:block; font-size:8px; opacity:.85; }
+  .nav div.warn { border-color:#e8a817; }
+  table.cfg { width:100%; border-collapse:collapse; }
+  table.cfg th, table.cfg td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.cfg th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.cfg td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.cfg tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.cfg td.pend { color:#9aa39c; font-style:italic; }
+  table.cfg td.lock { color:#5c6862; }
+  table.cfg td.edit { border-style:dashed; border-color:#b9c3b8; }
+  .alert { border:1px solid #e8a817; border-left:3px solid #e8a817; background:#fbf0d3; border-radius:4px; padding:3px 6px; margin-bottom:6px; color:#7c4a03; }
+  .alert b { color:#7c4a03; }
+  .grpname { font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; margin:8px 0 3px; font-weight:700; }
+  .board { display:grid; grid-template-columns:repeat(auto-fit, minmax(118px, 1fr)); gap:6px; }
+  .col { border:1px solid #d9e0d8; border-radius:5px; padding:4px; background:#f6f8f4; }
+  .col h5 { margin:0 0 2px; font-size:10px; color:#1e4d1f; }
+  .col .cap { font-size:8.5px; color:#5c6862; margin-bottom:4px; }
+  .col .capbar { height:5px; background:#e8ede7; border-radius:3px; overflow:hidden; margin-bottom:4px; }
+  .col .capbar i { display:block; height:100%; background:#2d6a2e; }
+  .col .capbar i.over { background:#e8a817; }
+  .col.pool { background:#fff; border-style:dashed; border-color:#e8a817; }
+  .col.lead { background:#fff; border-style:dashed; }
+  .pc { background:#fff; border:1px solid #d9e0d8; border-radius:4px; padding:2px 4px; margin-bottom:3px; display:flex; justify-content:space-between; gap:4px; }
+  .pc small { color:#5c6862; font-variant-numeric:tabular-nums; }
+  .pc.pto { background:#f3f5f2; color:#9aa39c; }
+  .pc.ot small { color:#7c4a03; font-weight:700; }
+  .pc.pend { border-style:dashed; color:#9aa39c; font-style:italic; }
+  .pc.drag { border-color:#2d6a2e; box-shadow:0 1px 3px rgba(0,0,0,.18); transform:rotate(-2deg); }
+  .panels { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:6px; margin-top:6px; }
+  .panels > div { border:1px solid #e3e9e2; border-radius:5px; padding:4px 6px; }
+  .panels b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.3px; color:#5c6862; margin-bottom:2px; }
+  .chip { display:inline-block; border:1px solid #d9e0d8; border-radius:9px; padding:0 6px; margin:1px 2px 1px 0; background:#fff; }
+  .chip.off { color:#9aa39c; text-decoration:line-through; }
+  .tl { border-left:2px solid #d9e0d8; margin-left:6px; padding-left:8px; }
+  .ev { position:relative; margin-bottom:6px; }
+  .ev::before { content:""; position:absolute; left:-13px; top:3px; width:8px; height:8px; border-radius:50%; background:#2d6a2e; }
+  .ev.next::before { background:#fff; border:2px solid #e8a817; width:6px; height:6px; }
+  .ev .wk { font-weight:700; color:#1e4d1f; }
+  .ev.next .wk { color:#7c4a03; }
+  .ev small { display:block; color:#5c6862; }
+  .form { border:1px solid #cfd6cf; border-radius:5px; padding:5px 6px; background:#f6f8f4; margin-bottom:6px; }
+  .form .row { display:flex; gap:6px; align-items:center; margin-bottom:3px; flex-wrap:wrap; }
+  .form .row span.f { border:1px solid #b9c3b8; border-radius:3px; background:#fff; padding:1px 5px; min-width:70px; }
+  .impact { border:1px dashed #2d6a2e; border-radius:4px; padding:3px 6px; background:#fff; margin-top:4px; }
+  .impact b { color:#1e4d1f; }
+  .steps { margin:6px 0 8px; padding-left:18px; font-size:12px; line-height:1.4; }
+  .steps li { margin-bottom:2px; }
+  .steps b { color:#1e4d1f; }
+  .note { margin-top:14px; color:#1c2420; background:#f6f8f4; border-left:4px solid #e8a817; border-radius:6px; padding:10px 12px; font-size:13px; line-height:1.45; }
+  .note b { color:#1e4d1f; }
+
+  .wire { overflow-x: auto; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Planner screen 6 of 6: configuration</h1>
+    <p class="lede">What SAP cannot know and the other five screens need: crews and who belongs to each, capacity and the 40 h overtime line, standing orders, the reasons picked at the close, the target and display name of each SMRP code, and the on-call pair. Below are three ways to lay it out, each with the steps the planner follows. Nothing here is built yet; the crews are those of week 38.</p>
+    <div class="meta"><span><b>Status</b> Mockup for discussion, 23 Sep 2026</span><span><b>Previous</b> <a href="week-board.html">1: week board</a> · <a href="daily-plan.html">2: daily plan</a> · <a href="freeze.html">3: freeze</a> · <a href="week-close.html">4: week close</a> · <a href="kpis.html">5: KPIs</a></span><span><b>Pending</b> Electrician names</span></div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
+<h2>Configuration: three ways to lay it out</h2>
+<p class="subtitle">Screen 6. What SAP cannot know and the other five screens need: who belongs to which crew, the capacity rules and the 40 h line, which orders are standing orders, the reasons picked at the close, the target and display name of each SMRP code, and the on-call pair. Only editors change it. Every change applies from a week onwards; a closed week keeps the configuration it was closed with. Example: the crews of week 38. <b>Electrician names are pending; the standing-order rows and the crew change in C are examples.</b></p>
+
+<div class="options">
+
+  <div class="option" data-choice="a-sections">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Settings by section: one list on the left, one table per topic</h3>
+      <p>A classic settings page. Six sections on the left; each one is a plain table edited in place. The tool marks the sections that need attention, such as people who booked hours on maintenance orders but belong to no crew.</p>
+      <ol class="steps">
+        <li>Open <b>Configuration</b>. A gold mark on a section means something needs attention; here, <b>Crews</b>.</li>
+        <li>In <b>Crews</b>, each person has a crew, a "counts in capacity" flag and the week the membership starts. The two leads are listed but do not count in capacity.</li>
+        <li>The gold banner lists people found in <b>CATS_DA</b> with hours on maintenance orders and no crew: assign them or mark them "not maintenance".</li>
+        <li><b>Capacity</b>: hours per day, days per week, the 40 h overtime line, and which CATS attendance types count as absence (PTO, HOLI, PTOB, CALO).</li>
+        <li><b>Standing orders</b>, <b>Reasons</b>, <b>KPI targets and names</b> and <b>On-call</b> work the same way: a table, edit a cell, save.</li>
+        <li>Every save asks for the <b>week it starts</b> (default: the next week not yet frozen).</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Configuration · Crews</b> · 24 people · 22 count in capacity</span><span><span class="btn">Add person</span><span class="btn solid">Save · from week 40</span></span></div>
+        <div class="sgrid">
+          <div class="nav">
+            <div class="on">Crews<small>4 crews · 1 to review</small></div>
+            <div>Capacity<small>8 h × 5 d · OT above 40 h</small></div>
+            <div>Standing orders<small>3 flagged</small></div>
+            <div>Reasons<small>break-in 4 · not worked 4</small></div>
+            <div>KPI targets and names<small>7 codes</small></div>
+            <div>On-call<small>pair per week</small></div>
+          </div>
+          <div>
+            <div class="alert"><b>2 people booked hours on CMT1 maintenance orders in week 38 and belong to no crew.</b> Assign them or mark them "not maintenance".</div>
+            <table class="cfg">
+              <tr><th>Person</th><th>Crew</th><th>Counts in capacity</th><th>From week</th><th>Hours source</th></tr>
+              <tr class="grp"><td colspan="5">Mechanical · 8</td></tr>
+              <tr><td>Jesse V.</td><td class="edit">Mechanical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
+              <tr><td>David C.</td><td class="edit">Mechanical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">… Eugene L., Brandon T., David H., Adam Z., Daniel M., Alexander V.</td></tr>
+              <tr class="grp"><td colspan="5">Reliability · 5</td></tr>
+              <tr><td>Cameron N.</td><td class="edit">Reliability</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">… Lou C., Cesar V., Javier M., Juan R.</td></tr>
+              <tr class="grp"><td colspan="5">Electrical · 5</td></tr>
+              <tr><td class="pend">Electrician 1 · name pending</td><td class="edit">Electrical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">… 4 more, names pending</td></tr>
+              <tr class="grp"><td colspan="5">Contract · 4 · hours typed at the close</td></tr>
+              <tr><td>Nieves H.</td><td class="edit">Contract · Turkey</td><td>Yes</td><td class="n">38</td><td>Typed · 40 h default</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">… Ruben H. (Turkey), Irain M. and Eric M. (OCC)</td></tr>
+              <tr class="grp"><td colspan="5">Leads · not in capacity</td></tr>
+              <tr><td>Jose C.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
+              <tr><td>Victor S.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b-board">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>The crew board: people as cards, crews as columns, the rest in panels below</h3>
+      <p>Crews are columns and each person is a card showing the week's CATS hours. The pool on the left holds the people CATS_DA found with no crew. Dragging a card moves the person, and the crew's capacity bar updates at once. The other settings are compact panels under the board.</p>
+      <ol class="steps">
+        <li>Open <b>Configuration</b>. The board shows the crews for the week being planned (week 40); the <b>pool</b> holds people with hours on maintenance orders and no crew.</li>
+        <li><b>Drag</b> a card into a crew. The top of each column shows people × 40 h minus that week's PTO, so the planner sees the capacity effect before saving.</li>
+        <li>Each card can show the person's CATS hours of the last closed week: <b>gold</b> above 40 h, <b>grey</b> on PTO in the week shown (hidden in this public mockup).</li>
+        <li><b>Leads</b> have their own column and never count in capacity. <b>Contract</b> cards carry the default weekly hours that pre-fill the close.</li>
+        <li>The panels below hold <b>capacity rules</b>, <b>standing orders</b>, <b>reasons</b>, <b>KPI targets and names</b> and <b>on-call</b>; each opens in place.</li>
+        <li><b>Save</b> asks for the week it starts, as in A.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Configuration · Crews for week 40</b> · CATS_DA of week 38</span><span><span class="btn solid">Save · from week 40</span></span></div>
+        <div class="board">
+          <div class="col pool"><h5>No crew · 2</h5><div class="cap">booked on CMT1 maintenance orders</div>
+            <div class="pc drag">Person A <small>12 h</small></div>
+            <div class="pc">Person B <small>6 h</small></div>
+            <div class="pc ot">Example <small>46 h</small></div>
+            <div class="pc pto">Example <small>PTO Fri</small></div>
+          </div>
+          <div class="col"><h5>Mechanical · 8</h5><div class="cap">320 h · 312 after 1 PTO day</div><div class="capbar"><i style="width:97%"></i></div>
+            <div class="pc">Jesse V.</div>
+            <div class="pc">David C.</div>
+            <div class="pc">Eugene L.</div>
+            <div class="pc">Brandon T.</div>
+            <div class="pc">… 4 more</div>
+          </div>
+          <div class="col"><h5>Reliability · 5</h5><div class="cap">200 h</div><div class="capbar"><i style="width:100%"></i></div>
+            <div class="pc">Cameron N.</div>
+            <div class="pc">Lou C.</div>
+            <div class="pc">Cesar V.</div>
+            <div class="pc">… 2 more</div>
+          </div>
+          <div class="col"><h5>Electrical · 5</h5><div class="cap">200 h</div><div class="capbar"><i style="width:100%"></i></div>
+            <div class="pc pend">Electrician 1–5</div>
+            <div class="pc pend">names pending</div>
+          </div>
+          <div class="col"><h5>Contract · 4</h5><div class="cap">160 h typed at the close</div><div class="capbar"><i style="width:100%"></i></div>
+            <div class="pc">Nieves H. <small>Turkey · 40 h</small></div>
+            <div class="pc">Ruben H. <small>Turkey · 40 h</small></div>
+            <div class="pc">Irain M. <small>OCC · 40 h</small></div>
+            <div class="pc">Eric M. <small>OCC · 40 h</small></div>
+          </div>
+          <div class="col lead"><h5>Leads</h5><div class="cap">not in capacity</div>
+            <div class="pc">Jose C.</div><div class="pc">Victor S.</div>
+          </div>
+        </div>
+        <div class="panels">
+          <div><b>Capacity rules</b>8 h/day · 5 days · overtime above <b>40 h</b>/person/week · absence: PTO, HOLI, PTOB, CALO</div>
+          <div><b>Standing orders · 5.4.5</b>Routes (1W Safety Audit) · Inspections and reports · Shop work <small style="color:#5c6862">(examples; 93 h in week 38)</small></div>
+          <div><b>Reasons</b>Break-in: <span class="chip">Production</span><span class="chip">Mechanical</span><span class="chip">Electrical</span><span class="chip">Good</span><br>Not worked: <span class="chip">Parts</span><span class="chip">Not released</span><span class="chip">No people</span><span class="chip">Deferred</span></div>
+          <div><b>On-call</b>One pair per week, picked from Mechanical and Reliability <small style="color:#5c6862">(the rota is entered here)</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c-changes">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Changes by week: every edit is a dated entry, with its effect shown before saving</h3>
+      <p>Configuration is kept as a timeline. The current state is on top; below it are the changes already applied and the changes scheduled for future weeks. A change is written as a short form (what, from which week, why), and before saving the tool shows what it moves: capacity, the overtime line, a KPI.</p>
+      <ol class="steps">
+        <li>Open <b>Configuration</b>. The timeline shows the latest changes and any <b>scheduled</b> ones (gold) for weeks not yet frozen.</li>
+        <li>Press <b>New change</b>, pick the kind: person joins, leaves or moves crew; capacity rule; standing order; reason; KPI target or name; on-call.</li>
+        <li>Fill <b>what</b>, <b>from week</b> and <b>why</b>. The week defaults to the next one not yet frozen; a closed week cannot be chosen.</li>
+        <li>The <b>impact box</b> shows the effect before saving: "Mechanical capacity week 41: 320 → 280 h; Reliability 200 → 240 h".</li>
+        <li><b>Save</b>. The entry joins the timeline with who and when; the week board and the daily plan use it from that week.</li>
+        <li>The KPI page reads the configuration of each week, so a crew change never rewrites a closed week.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Configuration · Changes</b> · current: 4 crews, 22 people in capacity, target 5.4.3 85 %</span><span><span class="btn solid">New change</span></span></div>
+        <div class="form">
+          <div class="row"><b>New change</b> · Person moves crew</div>
+          <div class="row">Person <span class="f">Person A</span> From <span class="f">Mechanical</span> To <span class="f">Reliability</span> From week <span class="f">41</span></div>
+          <div class="row">Why <span class="f" style="flex:1">Example: covers the reliability routes for four weeks</span></div>
+          <div class="impact"><b>Effect from week 41:</b> Mechanical capacity 320 → 280 h · Reliability 200 → 240 h · weeks 38–40 unchanged · <span class="btn solid">Save</span></div>
+        </div>
+        <div class="tl">
+          <div class="ev next"><span class="wk">Week 41 · scheduled</span> Person A moves Mechanical → Reliability<small>draft above · not saved</small></div>
+          <div class="ev"><span class="wk">Week 40</span> 5.4.3 target set to 85 % · name "Plan Attainment" kept as alias<small>Jose C. · 23 Sep · "same target as the current KPI web app"</small></div>
+          <div class="ev"><span class="wk">Week 40</span> Standing order flagged: Inspections and reports <small>Jose C. · 23 Sep · counts in 5.4.5 from week 40; weeks 31–39 recomputed only if chosen</small></div>
+          <div class="ev"><span class="wk">Week 38</span> Initial set-up: Mechanical 8, Reliability 5, Electrical 5, Contract 4, 2 leads<small>imported with the history · electrician names pending</small></div>
+        </div>
+        <div class="grpname">Current values of the KPI targets and names</div>
+        <table class="cfg">
+          <tr><th>SMRP</th><th>Formula</th><th>Display name(s)</th><th>Target</th></tr>
+          <tr><td>5.4.3</td><td class="lock">Scheduled hours executed ÷ scheduled hours · fixed</td><td class="edit">Schedule Compliance – Hours · Plan Attainment</td><td class="edit n">≥ 85 %</td></tr>
+          <tr><td>5.4.1</td><td class="lock">Reactive hours ÷ total hours · fixed</td><td class="edit">Reactive Work · Unplanned Jobs</td><td class="edit n">≤ 15 %</td></tr>
+          <tr><td>5.5.8</td><td class="lock">Overtime hours ÷ total hours · fixed</td><td class="edit">Overtime</td><td class="edit n pend">not set</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">In all three: only editors change the configuration; every change has a start week and is logged with who and when; a closed week keeps the configuration it was closed with, so its KPIs never move. People come from CATS_DA and the tool flags anyone with hours on maintenance orders who belongs to no crew. Leads are listed but never count in capacity. Contract people have no CATS hours: their default weekly hours pre-fill the week close. A reason or a standing order is retired, never deleted, so old weeks still read correctly. SMRP formulas cannot be edited; display names and targets can.</p>
+<div class="note"><b>The practical difference.</b> A is the simplest to build and to read, and fits a page opened a few times a year. B makes the crew decision visual and shows the capacity effect while dragging; it suits a team whose crews change often. C treats every change as an event with a week and a reason, which answers "why did Mechanical capacity drop in week 41" months later, at the cost of one extra step per edit. A and B can keep C's log underneath; the choice is how often crews change and how often someone asks why.</div>
+
+</div>
+</body>
+</html>
