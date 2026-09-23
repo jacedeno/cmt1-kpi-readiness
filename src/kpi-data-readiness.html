@@ -261,7 +261,7 @@
       <tr class="grp"><td colspan="4">Headline · Capacity and people</td></tr>
       <tr><td class="code">5.5.8</td><td class="nm">Overtime Maintenance Hours</td><td>Hours per person and week · 40 h threshold (8 h/day)</td><td><span class="s ok">CATS_DA REG</span> there is no "OT" attendance type; it is computed. Mechanics booked <span class="num">40.7–64.1 h</span> last week. Call-out hours (<span class="code">CALO</span>) count as worked time (see <a href="#attendance">attendance types</a> below)</td></tr>
       <tr><td class="code">—</td><td class="nm">Available hours per crew (denominator)</td><td>Crew roster · PTO / holidays per person</td><td><span class="s ok">CATS_DA</span> PTO and HOLI per person and day · <span class="s app">Crew of each person</span> CATS covers 275 people plant-wide; Corrective / Reliability / Electrical does not exist in SAP</td></tr>
-      <tr><td class="code">5.5.72</td><td class="nm">Contractor Hours</td><td>Contractor hours (Turkey, OCC)</td><td><span class="s no">Not in CATS</span> · <span class="s app">Entered by the planner</span> or from invoices later</td></tr>
+      <tr><td class="code">5.5.72</td><td class="nm">Contractor Hours</td><td>Contractor hours (Turkey, OCC)</td><td><span class="s no">Not in SAP</span> · <span class="s app">Typed in the tool</span> by the two mechanical supervisors, as today in the weekly workbook</td></tr>
 
       <tr class="grp"><td colspan="4">Supporting measures (no SMRP code)</td></tr>
       <tr><td class="code">—</td><td class="nm">Break-ins (count) · Schedule Utilization / Efficiency</td><td>Freeze + CATS_DA</td><td><span class="s no">Freeze</span> · <span class="s ok">CATS_DA</span></td></tr>
@@ -272,13 +272,10 @@
   </table>
   </div>
 
-  <h2>To verify in SAP <small>One open question. Seven more were answered after the first draft (at the end of this list).</small></h2>
+  <h2>Checked in SAP <small>All the questions raised in the first draft are answered (list below).</small></h2>
   <div class="checklist">
-    <ol>
-      <li><b>Contractors.</b> Whether any SAP source (PO, service entry sheet) carries their hours; otherwise manual entry.</li>
-    </ol>
-    <p style="margin:12px 0 6px"><b>Answered since the first draft</b></p>
     <ul style="margin:0;padding-left:22px">
+      <li><b>Contractor hours.</b> Not controlled in SAP. Contractors (Turkey and OCC today) are requested for some days or tasks at the planner's discretion, and the two mechanical supervisors record the hours they worked. The tool keeps that entry: per company, with the people of the week, no fixed default.</li>
       <li><b>SCHD, user status, Revision.</b> SCHD is not configured in our system and never appeared in an export; no export shows user status or Revision. The freeze lives in the tool and does not need SCHD. No request to IT.</li>
       <li><b>Crew rosters.</b> The 13 mechanics (Mechanical 8, Reliability 5) come from ZEME047; the 5 electricians have their own time-card reviewer, the electrical supervisor. Which crew each person belongs to is kept in the tool.</li>
       <li><b>Where preventive time is booked.</b> Mostly on ZP02 orders, not on ZP01 and not on the internal Y-orders (those are the shop orders). In 8 weeks the crews booked 202 h to ZP01 (all of it in the three weeks since 31 Aug) and about 1,600 h to ZP02 orders that are routes and inspections: "Do inspections and reports for the cement plant", quarterly compressor and mill inspections, belt inspections, lubrication routes. Preventive Maintenance Hours (5.1.4) is therefore understated today, and one route order carries priority 1, which inflates Reactive Work (5.4.1). The planner flags those orders once in the tool as preventive or standing (5.4.5).</li>

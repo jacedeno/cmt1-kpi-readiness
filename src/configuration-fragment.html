@@ -105,9 +105,9 @@
               <tr><td>Robert B.</td><td class="edit">Electrical</td><td>Yes</td><td class="n">38</td><td>CATS_DA</td></tr>
               <tr><td colspan="5" style="color:#5c6862">… Jason G., Eduardo V., Eric M., Eric W.</td></tr>
               <tr class="grp"><td colspan="5">Contract · 4 · hours typed at the close</td></tr>
-              <tr><td>Turkey · 2 people</td><td class="edit">Contract</td><td>Yes</td><td class="n">38</td><td>Typed · 40 h each default</td></tr>
-              <tr><td>OCC · 2 people</td><td class="edit">Contract</td><td>Yes</td><td class="n">38</td><td>Typed · 40 h each default</td></tr>
-              <tr><td colspan="5" style="color:#5c6862">Contractors float and change often: counted per company and week, names optional at the close</td></tr>
+              <tr><td>Turkey · 2 people</td><td class="edit">Contract</td><td>Yes</td><td class="n">38</td><td>Typed by the mechanical supervisors</td></tr>
+              <tr><td>OCC · 2 people</td><td class="edit">Contract</td><td>Yes</td><td class="n">38</td><td>Typed by the mechanical supervisors</td></tr>
+              <tr><td colspan="5" style="color:#5c6862">Contractors float: requested for some days or tasks at the planner's discretion; their hours are not in SAP</td></tr>
               <tr class="grp"><td colspan="5">Leads · not in capacity</td></tr>
               <tr><td>Jose C.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
               <tr><td>Victor S.</td><td class="edit">Lead</td><td>No</td><td class="n">38</td><td>—</td></tr>
@@ -128,7 +128,7 @@
         <li>Open <b>Configuration</b>. The board shows the crews for the week being planned (week 40); the <b>pool</b> holds people with hours on maintenance orders and no crew.</li>
         <li><b>Drag</b> a card into a crew. The top of each column shows people × 40 h minus that week's PTO, so the planner sees the capacity effect before saving.</li>
         <li>Each card can show the person's CATS hours of the last closed week: <b>gold</b> above 40 h, <b>grey</b> on PTO in the week shown (hidden in this public mockup).</li>
-        <li><b>Leads</b> have their own column and never count in capacity. <b>Contract</b> is kept per company, not per person: contractors float and their names change, so each company has a headcount and default weekly hours that pre-fill the close.</li>
+        <li><b>Leads</b> have their own column and never count in capacity. <b>Contract</b> is kept per company: the planner requests contractor people for some days or tasks, and the mechanical supervisors type the hours they worked; there is no fixed weekly default.</li>
         <li>The panels below hold <b>capacity rules</b>, <b>standing orders</b>, <b>reasons</b>, <b>KPI targets and names</b> and <b>on-call</b>; each opens in place.</li>
         <li><b>Save</b> asks for the week it starts, as in A.</li>
       </ol>
@@ -161,9 +161,9 @@
             <div class="pc">Eric M.</div>
             <div class="pc">Eric W.</div>
           </div>
-          <div class="col"><h5>Contract · 4</h5><div class="cap">160 h typed at the close</div><div class="capbar"><i style="width:100%"></i></div>
-            <div class="pc">Turkey <small>2 × 40 h</small></div>
-            <div class="pc">OCC <small>2 × 40 h</small></div>
+          <div class="col"><h5>Contract · 4</h5><div class="cap">hours typed by the supervisors</div><div class="capbar"><i style="width:100%"></i></div>
+            <div class="pc">Turkey <small>2 people</small></div>
+            <div class="pc">OCC <small>2 people</small></div>
             <div class="pc pend">names change week to week</div>
           </div>
           <div class="col lead"><h5>Leads</h5><div class="cap">not in capacity</div>
@@ -220,5 +220,5 @@
 
 </div>
 
-<p class="subtitle" style="margin-top:14px">In all three: only editors change the configuration; every change has a start week and is logged with who and when; a closed week keeps the configuration it was closed with, so its KPIs never move. People come from CATS_DA and the tool flags anyone with hours on maintenance orders who belongs to no crew. Leads are listed but never count in capacity. Contractors have no CATS hours and float between names, so they are kept per company (headcount and default weekly hours that pre-fill the week close); people are identified by their personnel number, never by name, since two people can share one. A reason or a standing order is retired, never deleted, so old weeks still read correctly. SMRP formulas cannot be edited; display names and targets can.</p>
+<p class="subtitle" style="margin-top:14px">In all three: only editors change the configuration; every change has a start week and is logged with who and when; a closed week keeps the configuration it was closed with, so its KPIs never move. People come from CATS_DA and the tool flags anyone with hours on maintenance orders who belongs to no crew. Leads are listed but never count in capacity. Contractors have no SAP hours and float between names and weeks, so they are kept per company; the mechanical supervisors type the hours they worked; people are identified by their personnel number, never by name, since two people can share one. A reason or a standing order is retired, never deleted, so old weeks still read correctly. SMRP formulas cannot be edited; display names and targets can.</p>
 <div class="note"><b>The practical difference.</b> A is the simplest to build and to read, and fits a page opened a few times a year. B makes the crew decision visual and shows the capacity effect while dragging; it suits a team whose crews change often. C treats every change as an event with a week and a reason, which answers "why did Mechanical capacity drop in week 41" months later, at the cost of one extra step per edit. A and B can keep C's log underneath; the choice is how often crews change and how often someone asks why.</div>
