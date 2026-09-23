@@ -251,7 +251,7 @@
       <tr><td class="code">5.4.1</td><td class="nm">Reactive Work</td><td>Hours per order · reactive flag (priority 1 today; outside the freeze once it exists)</td><td><span class="s ok">CATS_DA + ZEMR031 Priority</span> already computed: about <span class="num">28 %</span> over 8 weeks</td></tr>
       <tr><td class="code">5.3.1</td><td class="nm">Planned Work</td><td>Planned hours per order · total hours in the week</td><td><span class="s part">Estimated Hours</span> good on ZP02, 0 on ZP01 until task lists carry work values · <span class="s ok">CATS_DA</span></td></tr>
       <tr><td class="code">5.1.4</td><td class="nm">Preventive Maintenance Hours</td><td>Actual hours on ZP01 orders / total</td><td><span class="s part">CATS_DA</span> ZP01 gets 0–10 % of hours; most preventive work is booked to ZP02 route and inspection orders (about 1,600 h in 8 weeks) · <span class="s app">Preventive flag</span> set once by the planner on those orders</td></tr>
-      <tr><td class="code">5.4.5</td><td class="nm">Standing Work Orders</td><td>Hours on standing orders (routes, "inspections and reports", Z3GA) / total</td><td><span class="s ok">ZEMR031 Order Type + CATS_DA</span> · <span class="s app">List of standing orders</span> flagged once by the planner</td></tr>
+      <tr><td class="code">5.4.5</td><td class="nm">Standing Work Orders</td><td>Hours on standing orders (routes, "inspections and reports") / total</td><td><span class="s ok">ZEMR031 Order Type + CATS_DA</span> · <span class="s app">List of standing orders</span> flagged once by the planner</td></tr>
 
       <tr class="grp"><td colspan="4">Headline · Planning quality and backlog</td></tr>
       <tr><td class="code">5.3.4 / 5.3.5</td><td class="nm">Actual Hours to Planning Estimate · Planning Variance Index</td><td>Estimated and actual hours per closed order, by closing week</td><td><span class="s ok">ZEMR031 closed</span> 5,695 orders with Date Completed; current actual / estimate ratio about <span class="num">1.76</span></td></tr>
@@ -275,6 +275,7 @@
   <h2>Checked in SAP <small>All the questions raised in the first draft are answered (list below).</small></h2>
   <div class="checklist">
     <ul style="margin:0;padding-left:22px">
+      <li><b>Order type Z3GA.</b> The ~7,000 Z3GA orders are the charge codes per equipment and discipline (electrical, mechanical, production), created in bulk and with no hours booked to them. They are not work: the tool leaves them out of the backlog and the KPIs.</li>
       <li><b>Contractor hours.</b> Not controlled in SAP. Contractors (Turkey and OCC today) are requested for some days or tasks at the planner's discretion, and the two mechanical supervisors record the hours they worked. The tool keeps that entry: per company, with the people of the week, no fixed default.</li>
       <li><b>SCHD, user status, Revision.</b> SCHD is not configured in our system and never appeared in an export; no export shows user status or Revision. The freeze lives in the tool and does not need SCHD. No request to IT.</li>
       <li><b>Crew rosters.</b> The 13 mechanics (Mechanical 8, Reliability 5) come from ZEME047; the 5 electricians have their own time-card reviewer, the electrical supervisor. Which crew each person belongs to is kept in the tool.</li>
