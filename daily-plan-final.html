@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily plan: chosen layout</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    --paper: #f6f8f4;
+    --surface: #ffffff;
+    --ink: #1c2420;
+    --muted: #5c6862;
+    --line: #d9e0d8;
+    --line-soft: #e8ede7;
+    --green: #2d6a2e;
+    --green-ink: #1e4d1f;
+    --green-soft: #e4efe3;
+    --gold: #e8a817;
+    --gold-soft: #fbf0d3;
+    --ok-bg: #dcf3df; --ok-fg: #14532d;
+    --part-bg: #fdf0c9; --part-fg: #7c4a03;
+    --no-bg: #fbdcdc; --no-fg: #8f1d1d;
+    --app-bg: #e1e6fb; --app-fg: #2f3a8f;
+    --code: #1e40af;
+    --grp: #eef2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+      --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+      --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+      --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+      --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+      --code: #93b4ff; --grp: #222b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #131816; --surface: #1b221e; --ink: #e8ece7; --muted: #a3ada6;
+    --line: #2f3a34; --line-soft: #26302a; --green: #6fbf72; --green-ink: #9ad69c;
+    --green-soft: #1f2f21; --gold: #e8a817; --gold-soft: #3a2f12;
+    --ok-bg: #1f3d26; --ok-fg: #a7e3b1; --part-bg: #3d3011; --part-fg: #f2cf7a;
+    --no-bg: #3f1f1f; --no-fg: #f1a3a3; --app-bg: #242a4d; --app-fg: #b6bff5;
+    --code: #93b4ff; --grp: #222b25;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 56px; padding-inline: 16px; }
+  header { border-bottom: 3px solid var(--green); padding-bottom: 18px; margin-bottom: 28px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; font-weight: 700; text-wrap: balance; }
+  h2 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+  .lede { max-width: 68ch; color: var(--muted); margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  a { color: var(--green); }
+  .back { display: inline-block; margin-bottom: 18px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .subtitle { color: var(--muted); max-width: 72ch; margin: 0 0 20px; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .option { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; }
+  .option .letter { background: var(--green-soft); color: var(--green-ink); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .option .content { flex: 1; min-width: 0; }
+  .option .content h3 { font-size: 17px; margin: 2px 0 6px; }
+  .option .content > p { color: var(--muted); font-size: 14px; margin: 0 0 6px; max-width: 72ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire + .wire { margin-top:10px; }
+  .option .letter { width:auto; padding:0 7px; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .row { display:flex; gap:5px; min-width:760px; }
+  .jobs { width:30%; flex-shrink:0; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; }
+  .jobs h5, .people h5 { margin:0 0 4px; font-size:9.5px; color:#5c6862; }
+  .jobs .f { display:flex; flex-wrap:wrap; gap:3px; margin-bottom:4px; }
+  .jobs .f span { flex:1 1 40%; border:1px solid #d9e0d8; border-radius:3px; padding:1px 3px; background:#fff; color:#9aa39c; }
+  .jobs .f span.q { flex-basis:100%; }
+  .tabs { display:flex; gap:3px; margin-bottom:4px; }
+  .tabs span { border:1px solid #d9e0d8; border-radius:3px; padding:1px 6px; color:#5c6862; background:#fff; }
+  .tabs span.on { background:#2d6a2e; border-color:#2d6a2e; color:#fff; font-weight:600; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:4px; padding:3px 5px; margin-bottom:4px; }
+  .card.pm { border-left-color:#3b6fd6; } .card.p1 { border-left-color:#d05252; } .card.bi { border-left-color:#e8a817; border-style:dashed; }
+  .card small { display:block; color:#5c6862; }
+  .card .left { float:right; font-weight:700; color:#7c4a03; }
+  .card .done { float:right; font-weight:700; color:#14532d; }
+  .people { flex:1; min-width:0; }
+  .person { display:flex; align-items:center; gap:4px; border:1px solid #e3e9e2; border-radius:4px; padding:3px 4px; margin-bottom:3px; background:#fff; }
+  .person .who { width:64px; flex-shrink:0; font-weight:600; }
+  .person .who small { display:block; font-weight:400; color:#5c6862; }
+  .person.pto { background:#f0f2ef; color:#9aa39c; }
+  .person.pto .who { font-weight:400; }
+  .chip { border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:3px; padding:1px 5px; background:#fff; white-space:nowrap; }
+  .chip.pm { border-left-color:#3b6fd6; } .chip.p1 { border-left-color:#d05252; } .chip.bi { border-left-color:#e8a817; }
+  .chip .hin { display:inline-block; min-width:16px; margin-left:3px; border:1px solid #b9c3b8; border-radius:2px; padding:0 2px; text-align:right; background:#fbfcfa; }
+  .person .nt { flex:1; min-width:60px; border:1px dashed #cfd6cf; border-radius:3px; padding:1px 4px; color:#5c6862; font-style:italic; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+  .person .nt.empty { color:#b3bab4; }
+  .person .h { font-weight:700; color:#5c6862; white-space:nowrap; }
+  .person .h.ot { color:#7c4a03; } .person .h.free { color:#8f1d1d; }
+  .paper { background:#fff; border:1px solid #cfd6cf; box-shadow:0 1px 4px rgba(0,0,0,.08); padding:10px 12px; min-width:760px; }
+  .paper .ph { display:flex; justify-content:space-between; border-bottom:2px solid #2d6a2e; padding-bottom:4px; margin-bottom:6px; }
+  .paper .ph b { font-size:12px; }
+  .paper .ph span { color:#5c6862; }
+  table.sheet { width:100%; border-collapse:collapse; }
+  table.sheet th, table.sheet td { border:1px solid #d9e0d8; padding:3px 4px; text-align:left; vertical-align:top; }
+  table.sheet th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.sheet td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.sheet tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.sheet td.mono { font-family:ui-monospace, Menlo, monospace; font-size:9.5px; }
+  table.sheet td.ot { color:#7c4a03; font-weight:700; }
+  table.sheet tr.tot td { background:#fbf0d3; font-weight:700; }
+  .paper .foot { margin-top:6px; color:#5c6862; font-size:9px; display:flex; justify-content:space-between; }
+
+  .wire { overflow-x: auto; }
+  .steps { margin: 6px 0 12px; padding-left: 20px; font-size: 14px; line-height: 1.45; max-width: 72ch; }
+  .steps li { margin-bottom: 3px; }
+  .steps b { color: var(--green-ink); }
+  .note { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .note b { color: var(--green-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; Back to the KPI data readiness brief</a>
+  <header>
+    <div class="eyebrow">Capitol Aggregates · Cement plant CMT1 · Maintenance planning · Design proposal</div>
+    <h1>Daily plan: chosen layout</h1>
+    <p class="lede">Every morning the planner builds the day from the people who are in, adjusts hours and notes per person, and prints a detailed sheet per crew that carries the WO number each person books.</p>
+    <div class="meta"><span><b>Chosen</b> 25 Sep 2026 by the planning team</span><span><b>Screen</b> 2 of 6</span><span><b>Example</b> Wednesday 16 Sep 2026</span></div>
+  </header>
+  <div class="legend"><span><i style="background:#2d6a2e"></i>Corrective order</span><span><i style="background:#d05252"></i>Priority 1</span><span><i style="background:#3b6fd6"></i>Preventive (ZP01)</span><span><i style="background:#e8a817"></i>Planned overtime / break-in</span></div>
+<h2>A on screen, C on paper</h2>
+<p class="subtitle">Chosen by the planning team on 25 Sep 2026: layout A (people first) to build the day, the full backlog with screen 1's filters for break-ins, and the printed sheet in layout C's format. The example is the real Wednesday of week 38 (16 Sep 2026).</p>
+
+<div class="options">
+
+  <div class="option">
+    <div class="letter">A+C</div>
+    <div class="content">
+      <h3>People first on screen, the detailed sheet on paper</h3>
+      <p>The screen is layout A: today's jobs on the left, one row per person on the right. The left panel also opens the whole backlog with screen 1's filters and search, so a break-in can be picked from every open order. Each person line takes a note, and the hours of each assignment can be typed. Print turns the day into layout C's sheet.</p>
+      <ol class="steps">
+        <li>Pick the day. The crew that is in appears one row per person; people on <b>PTO</b> (planned in configuration, or booked in CATS_DA) are greyed out, not deleted.</li>
+        <li>Left, <b>today's jobs</b> from the week board with the hours still to assign. Switch to <b>Backlog</b> to search every open order with screen 1's filters; an order added from there is a break-in (gold, dashed).</li>
+        <li><b>Drag</b> a job onto a person. It lands with the hours still open (up to 8 h); <b>type over the hours</b> to split a person's day (e.g. 6 h on one job, 2 h on another). This is the day's assignment only; the order's estimated Work stays in SAP.</li>
+        <li>Each row <b>adds up to 8 h</b>. Below 8 h it shows "free hours" in red; above, planned overtime in gold.</li>
+        <li>Write a <b>note</b> on the person's line: tools, permits, "with Cameron N.", "after lunch".</li>
+        <li><b>Print</b>: one page per crew in layout C's format, with person, equipment, WO number, description, job, hours and notes. The WO number is what the person books in CATS.</li>
+        <li>Mid-day change: <b>move the chip</b> and print again. The tool keeps the last version of the day.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Wednesday 16 Sep</b> · 8 mechanics, 5 Reliability, 4 contractors · 17 in, 1 on PTO</span><span><span class="btn solid">Print</span></span></div>
+        <div class="row">
+          <div class="jobs">
+            <div class="tabs"><span class="on">Today · 7</span><span>Backlog · 402</span></div>
+            <div class="f"><span class="q">Search order / equipment</span><span>Planner grp</span><span>Prio</span><span>Type</span><span>Order type</span></div>
+            <div class="card">4458227 · CP-20A<small>Replace outboard bearing · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4458342 · DC-320A<small>Leaking diaphragm, comp. 7 · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4441200 · C-305 / C-55<small>Belt inspection · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4457562 · K-900<small>Blind off outlet chute · 16 h</small><span class="done">covered</span></div>
+            <div class="card">4442388 · F-902/916/917<small>Build fan bearing guard · 16 h</small><span class="done">covered</span></div>
+            <div class="card pm">4452641 · CA-950/951<small>Compressor inspection · 8 h</small><span class="done">covered</span></div>
+            <div class="card bi">4457558 · BN-24<small>Hole in chute · break-in from backlog · 2 h</small><span class="done">covered</span></div>
+            <div class="card bi">— · FM-9<small>Internal repairs · no SAP order</small><span class="left">blocked</span></div>
+          </div>
+          <div class="people">
+            <h5>Crew · hours are editable · note per line</h5>
+            <div class="person"><span class="who">Jesse V.</span><span class="chip pm">CA-950/951<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Daniel M.</span><span class="chip">CP-20A<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">David C.</span><span class="chip bi">FM-9 no order</span><span class="nt">Blocked until the order exists</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Eugene L.</span><span class="chip bi">FM-9 no order</span><span class="nt empty">note…</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Brandon T.</span><span class="chip bi">FM-9 no order</span><span class="nt empty">note…</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">David H.</span><span class="chip">DC-320A<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Adam Z.</span><span class="chip pm">C-305 belt<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Alexander V.</span><span class="chip">K-900 chute<span class="hin">8</span></span><span class="chip bi">BN-24<span class="hin">2</span></span><span class="nt">BN-24 after the chute</span><span class="h ot">10 h</span></div>
+            <div class="person pto"><span class="who">1 person<small>Mechanical</small></span><span>PTO (planned)</span><span class="nt empty"></span><span class="h">—</span></div>
+            <div class="person"><span class="who">Javier M.<small>Reliability</small></span><span class="chip">CP-20A<span class="hin">8</span></span><span class="nt">Lockout with production</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Lou C.<small>Reliability</small></span><span class="chip">F-902 guard<span class="hin">8</span></span><span class="nt">With Cameron N.</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cameron N.<small>Reliability</small></span><span class="chip">F-902 guard<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Juan R.<small>Reliability</small></span><span class="chip pm">Inspection route<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Cesar V.<small>Reliability</small></span><span class="chip pm">Lube route<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Nieves H.<small>Contract</small></span><span class="chip pm">C-305 belt<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Ruben H.<small>Contract</small></span><span class="chip bi">FM-9 no order</span><span class="nt empty">note…</span><span class="h free">0 h · needs order</span></div>
+            <div class="person"><span class="who">Irain<small>Contract</small></span><span class="chip">K-900 chute<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+            <div class="person"><span class="who">Eric M.<small>Contract</small></span><span class="chip">DC-320A<span class="hin">8</span></span><span class="nt empty">note…</span><span class="h">8 h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wire">
+        <div class="top"><span><b>Print preview</b> · one page per crew · layout C's format</span><span><span class="btn">Mechanical</span><span class="btn">Reliability</span><span class="btn">Contract</span></span></div>
+        <div class="paper">
+          <div class="ph"><b>Daily Plan · Wednesday 16 Sep 2026</b><span>CMT1 Maintenance · printed 06:40</span></div>
+          <table class="sheet">
+            <tr><th style="width:12%">Person</th><th style="width:11%">Equipment</th><th style="width:9%">WO number</th><th style="width:22%">Description (SAP)</th><th>Job</th><th style="width:6%">Hours</th><th style="width:17%">Notes</th></tr>
+            <tr class="grp"><td colspan="7">Mechanical</td></tr>
+            <tr><td>Jesse V.</td><td>CA-950/951</td><td class="mono">4452641</td><td>Compressor inspection</td><td>Inspect both compressors per task list</td><td class="n">8</td><td></td></tr>
+            <tr><td>Daniel M.</td><td>CP-20A</td><td class="mono">4458227</td><td>Replace outboard bearing assembly</td><td>Pull coupling, change bearing</td><td class="n">8</td><td></td></tr>
+            <tr><td>David C.</td><td>FM-9</td><td class="mono">—</td><td>No SAP order yet</td><td>Internal repairs</td><td class="n"></td><td>Blocked until the order exists</td></tr>
+            <tr><td>Eugene L.</td><td>FM-9</td><td class="mono">—</td><td>No SAP order yet</td><td>Internal repairs</td><td class="n"></td><td></td></tr>
+            <tr><td>Brandon T.</td><td>FM-9</td><td class="mono">—</td><td>No SAP order yet</td><td>Internal repairs</td><td class="n"></td><td></td></tr>
+            <tr><td>David H.</td><td>DC-320A</td><td class="mono">4458342</td><td>Leaking diaphragm, compartment 7</td><td>Replace diaphragm, compartment 7</td><td class="n">8</td><td></td></tr>
+            <tr><td>Adam Z.</td><td>C-305 / C-55</td><td class="mono">4441200</td><td>Belt inspection</td><td>Inspect belts and idlers</td><td class="n">8</td><td></td></tr>
+            <tr><td rowspan="2">Alexander V.</td><td>K-900</td><td class="mono">4457562</td><td>Blind off outlet chute</td><td>Fit blind to outlet chute</td><td class="n">8</td><td></td></tr>
+            <tr><td>BN-24</td><td class="mono">4457558</td><td>Hole in chute</td><td>Patch hole (break-in)</td><td class="n ot">2</td><td>BN-24 after the chute</td></tr>
+            <tr class="tot"><td colspan="5">Mechanical · assigned</td><td class="n">42</td><td>3 people wait on FM-9</td></tr>
+          </table>
+          <div class="foot"><span>Book CATS hours against the WO number on your line.</span><span>Page 1 of 3</span></div>
+        </div>
+      </div>
+
+      <div class="note"><b>What was combined.</b> From A: building the day from the people who are in, dragging jobs onto them, and PTO greyed out. From screen 1: the backlog with its filters and search, for break-ins. New: a note on each person's line and hours typed per assignment. From C: the printed sheet, grouped by crew with equipment, WO number, description, job, hours and notes. Nothing from B.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">As before: only orders from today's column of the week board, plus break-ins from the backlog marked gold; the roster and booked PTO come from SAP, planned PTO from configuration; 8 h per person is the line, above it is planned overtime. FM-9 internal repairs stays on purpose: on 16 Sep four people worked on it with no SAP order, and the rule "no order, no row" stops those lines until the order is created.</p>
+
+</div>
+</body>
+</html>

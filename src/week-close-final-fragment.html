@@ -1,0 +1,94 @@
+<h2>B with search and feedback</h2>
+<p class="subtitle">Chosen by the planning team on 25 Sep 2026: layout B's frozen vs actual table, with screen 1's filters and search to find any order, and a Feedback column per order. Example: week 38 (14–18 Sep), closed Thursday 24 Sep from the CATS_DA export of that morning.</p>
+
+<style>
+  .option .letter { width:auto; padding:0 7px; }
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .top { display:flex; flex-wrap:wrap; gap:4px; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { display:inline-block; border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .wire .btn.off { border-color:#b9c3b8; color:#9aa39c; }
+  .kpi { display:flex; gap:6px; margin:0 0 6px; flex-wrap:wrap; }
+  .kpi div { flex:1 1 90px; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .kpi b { display:block; font-size:8.5px; color:#5c6862; text-transform:uppercase; letter-spacing:.4px; }
+  .kpi span { font-size:13px; font-weight:700; }
+  .f { display:flex; flex-wrap:wrap; gap:3px; margin-bottom:6px; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; }
+  .f span { flex:1 1 80px; border:1px solid #d9e0d8; border-radius:3px; padding:1px 4px; background:#fff; color:#9aa39c; }
+  .f span.q { flex:2 1 180px; }
+  .f span.on { flex:0 1 auto; background:#2d6a2e; border-color:#2d6a2e; color:#fff; font-weight:600; }
+  .f span.chip { flex:0 1 auto; color:#2d6a2e; border-color:#2d6a2e; font-weight:600; }
+  .tw { overflow-x:auto; }
+  table.rec { width:100%; min-width:760px; border-collapse:collapse; }
+  table.rec th, table.rec td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.rec th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.rec td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.rec tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  table.rec tr.sum td { background:#fbf0d3; }
+  table.rec td.mono { font-family:ui-monospace, Menlo, monospace; font-size:9.5px; color:#1e40af; }
+  table.rec td.fb { color:#1c2420; font-style:italic; }
+  table.rec td.fb.empty { color:#9aa39c; font-style:normal; border-style:dashed; }
+  td.flag { color:#7c4a03; font-weight:700; }
+  .st { display:inline-block; border-radius:3px; padding:0 5px; font-weight:700; font-size:9px; }
+  .st.ok { background:#dcf3df; color:#14532d; } .st.part { background:#fbf0d3; color:#7c4a03; } .st.no { background:#fbdcdc; color:#8f1d1d; } .st.bi { background:#fbf0d3; color:#7c4a03; border:1px dashed #e8a817; }
+  td.pick { color:#9aa39c; border-style:dashed !important; }
+  .foot { margin-top:6px; display:flex; flex-direction:column; gap:3px; }
+  .foot div { border:1px solid #e3e9e2; border-radius:4px; padding:3px 6px; background:#f6f8f4; }
+  .foot div b { color:#1e4d1f; }
+  .foot div.abs { background:#fbf0d3; border-color:#e8a817; }
+</style>
+
+<div class="options">
+
+  <div class="option">
+    <div class="letter">B+</div>
+    <div class="content">
+      <h3>Frozen vs actual table, with search and a Feedback column</h3>
+      <p>One row per order that was frozen or worked, with frozen hours, booked hours, status, a reason cell only where one is needed, and a free-text Feedback cell on every row. Above the table are screen 1's filters and a search box, so any order can be found without leaving the screen. The KPI figures sit on top and change as reasons are filled in.</p>
+      <ol class="steps">
+        <li><b>Upload</b> the morning's CATS_DA and ZEMR031 closed exports. The table fills: frozen hours from the snapshot, booked hours per order from CATS_DA, and a status computed for each row (done, partial, not worked, break-in).</li>
+        <li><b>Filter</b> to "needs a reason". Break-ins and rows not worked show a dashed reason cell; pick from the list.</li>
+        <li><b>Search</b> by order number or equipment, or filter by planner group, priority or type, the same as on the week board.</li>
+        <li><b>Write feedback</b> on any order: a comment or a justification. It is stored with the closed week and shown when the week is opened from the KPI page.</li>
+        <li><b>Check</b> the rows flagged above the estimate (5.3.5). They need no answer; they are there to be seen.</li>
+        <li><b>Review</b> the lines below the table: overtime, contractor hours (typed by the mechanical supervisors) and differences between planned absences and CATS_DA.</li>
+        <li><b>Type the headline</b> and press Close week. The week stays visible as this table, and reopening it asks for a reason.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Week 38 · 14–18 Sep</b> · frozen Thu 10 Sep · 31 orders · 512 h · booked 583 h</span><span><span class="btn off">Close week (2 reasons left)</span></span></div>
+        <div class="kpi">
+          <div><b>5.4.3 hours</b><span>78 %</span></div><div><b>5.4.4 orders</b><span>77 %</span></div><div><b>5.4.1 reactive</b><span>19 %</span></div><div><b>5.5.8 overtime</b><span>10.5 %</span></div><div><b>5.3.5 variance</b><span>1.4</span></div><div><b>5.5.72 contractor</b><span>160 h</span></div>
+        </div>
+        <div class="f"><span class="q">Search order / equipment</span><span>Planner grp</span><span>Prio</span><span>Type</span><span>Order type</span><span class="chip">Needs a reason (2)</span><span class="chip">Has feedback (4)</span></div>
+        <div class="tw">
+        <table class="rec">
+          <tr><th>Order</th><th>Equipment · job</th><th>Frozen</th><th>Booked</th><th>Status</th><th style="width:16%">Reason</th><th style="width:30%">Feedback</th></tr>
+          <tr class="grp"><td colspan="7">Finish mill 9 · down Mon–Tue</td></tr>
+          <tr><td class="mono">4452645</td><td>CP-900 · Pump inspection</td><td class="n">16</td><td class="n">14.5</td><td><span class="st ok">done</span></td><td></td><td class="fb empty">add feedback…</td></tr>
+          <tr><td class="mono">4457562</td><td>K-900 · Blind off outlet chute</td><td class="n">16</td><td class="n flag">22</td><td><span class="st ok">done · +6 h</span></td><td></td><td class="fb">Chute liner worn more than expected; extra plate cut and welded on site.</td></tr>
+          <tr><td class="mono">4459362</td><td>CT-900 · Not removing heat</td><td class="n">—</td><td class="n">9</td><td><span class="st bi">break-in</span></td><td>Production</td><td class="fb">Fan tripped Wednesday; production asked for it before the weekend run.</td></tr>
+          <tr class="grp"><td colspan="7">Raw mill / Kiln</td></tr>
+          <tr><td class="mono">4451397</td><td>RM-310A · Internal inspection</td><td class="n">16</td><td class="n">16</td><td><span class="st ok">done</span></td><td></td><td class="fb empty">add feedback…</td></tr>
+          <tr><td class="mono">4443722</td><td>VG-310 · Inspect the flappers</td><td class="n">16</td><td class="n">0</td><td><span class="st no">not worked</span></td><td class="pick">pick reason…</td><td class="fb empty">add feedback…</td></tr>
+          <tr><td class="mono">4458342</td><td>DC-320A · Leaking diaphragm</td><td class="n">—</td><td class="n">16</td><td><span class="st bi">break-in</span></td><td>Mechanical</td><td class="fb empty">add feedback…</td></tr>
+          <tr class="grp"><td colspan="7">Clinker / Conveyors</td></tr>
+          <tr><td class="mono">4455559</td><td>C-55 · Tail pulley and counterweight</td><td class="n">60</td><td class="n">0</td><td><span class="st no">not worked</span></td><td>Parts · to week 39</td><td class="fb">Pulley on order, due 29 Sep. Counterweight frame checked, safe to run until then.</td></tr>
+          <tr><td class="mono">4441200</td><td>C-305 · Belt inspection</td><td class="n">16</td><td class="n">8</td><td><span class="st part">partial</span></td><td></td><td class="fb">Belt stopped only half a shift; finished next week with the route.</td></tr>
+          <tr><td class="mono">4458271</td><td>IC-360 · Remove cover (call-out)</td><td class="n">—</td><td class="n">16</td><td><span class="st bi">break-in · OT</span></td><td class="pick">pick reason…</td><td class="fb empty">add feedback…</td></tr>
+          <tr class="sum"><td colspan="2"><b>Week total</b> · 31 frozen, 9 break-ins</td><td class="n"><b>512</b></td><td class="n"><b>583</b></td><td colspan="3">401 of 512 frozen h worked · 142 h of break-ins</td></tr>
+        </table>
+        </div>
+        <div class="foot">
+          <div><b>Overtime</b> · Corrective · 46 h above 40 h/person · "FM-9 down days, two shifts on the mill" (typed at the freeze) · plus IC-360 call-out Tue night, 15 h, not planned</div>
+          <div><b>Contractor hours</b> (not in CATS, typed by the mechanical supervisors) · Turkey · 2 people · 80 h &nbsp; OCC · 2 people · 80 h</div>
+          <div class="abs"><b>Absences vs CATS_DA · 2 differences</b> · Mechanical, 1 person: PTO planned Fri 18, 8 h REG booked · Electrical, 1 person: PTO booked Wed 16, not planned. CATS_DA wins for the KPIs.</div>
+        </div>
+      </div>
+      <div class="note"><b>What was combined.</b> From B: the whole week as one frozen vs actual table, the "needs a reason" filter and the reason cells. From screen 1: the filters and the search box, so any order can be found from here. New: the Feedback column, stored with the closed week, and the line for absences that CATS_DA does not confirm. Nothing from A or C: their answer queue and guided steps are replaced by the "needs a reason" filter.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">As before: the inputs are the two SAP exports and the frozen list, and the tool computes hours, statuses and every KPI. The planner types only reasons, feedback, contractor hours and the headline. Close week writes one immutable KPI record per week that the KPI page (screen 5) reads, and a KPI point opens this table for its week, feedback included.</p>

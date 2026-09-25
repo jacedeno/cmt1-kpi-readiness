@@ -1,0 +1,109 @@
+<h2>A with free editing, C's ledger underneath</h2>
+<p class="subtitle">Chosen by the planning team on 25 Sep 2026: layout A's readiness checks. Before the lock, next week's rows can be edited freely. The planner freezes after the Thursday meeting, not in front of the group. Example: week 39, frozen Thursday 17 Sep 2026 after the meeting.</p>
+
+<style>
+  .option .letter { width:auto; padding:0 7px; }
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .wire .inner { min-width:700px; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .wire .btn.off { border-color:#b9c3b8; color:#9aa39c; }
+  .wire h5 { margin:8px 0 4px; font-size:9.5px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; }
+  .checks { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+  .check { border:1px solid #e3e9e2; border-radius:5px; padding:4px 6px; display:flex; gap:6px; align-items:flex-start; background:#f6f8f4; }
+  .check i { font-style:normal; font-weight:700; width:14px; text-align:center; }
+  .check.block { border-color:#d05252; background:#fbdcdc; } .check.block i { color:#8f1d1d; }
+  .check.warn { border-color:#e8a817; background:#fbf0d3; } .check.warn i { color:#7c4a03; }
+  .check.ok { border-color:#9fd3a8; background:#dcf3df; } .check.ok i { color:#14532d; }
+  .check small { display:block; color:#5c6862; }
+  table.plan { width:100%; border-collapse:collapse; }
+  table.plan th, table.plan td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; }
+  table.plan th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.plan td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  table.plan td.act { white-space:nowrap; color:#5c6862; text-align:center; }
+  table.plan td.act span { display:inline-block; border:1px solid #d9e0d8; border-radius:3px; padding:0 4px; margin:0 1px; background:#fff; }
+  table.plan tr.edit td { background:#eef5ee; }
+  table.plan tr.edit td.typing { outline:2px solid #2d6a2e; outline-offset:-2px; background:#fff; }
+  table.plan tr.new td { background:#fbf0d3; }
+  table.plan tr.del td { background:#fbdcdc; text-decoration:line-through; color:#8f1d1d; }
+  table.plan tr.del td.act { text-decoration:none; }
+  table.plan tr.bad td.o { color:#8f1d1d; font-weight:700; }
+  table.plan tr.addrow td { color:#2d6a2e; font-weight:600; background:#fff; border-style:dashed; }
+  .tag { display:inline-block; font-size:8px; border-radius:3px; padding:0 4px; margin-left:3px; background:#e8ede7; color:#5c6862; font-weight:600; }
+  .bar { display:flex; gap:6px; margin:6px 0 0; }
+  .cap { flex:1; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .cap b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; }
+  .meter { height:6px; background:#e8ede7; border-radius:3px; margin-top:3px; position:relative; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#2d6a2e; }
+  .lock { display:inline-block; background:#1e4d1f; color:#fff; border-radius:3px; padding:1px 6px; font-weight:700; }
+  .ledger { margin-top:8px; border-top:1px dashed #cfd6cf; padding-top:6px; }
+  .ev { display:grid; grid-template-columns:78px 120px 1fr; gap:6px; padding:2px 0; border-bottom:1px solid #eef1ed; }
+  .ev b { font-weight:700; }
+  .ev b.add { color:#7c4a03; } .ev b.rm { color:#8f1d1d; } .ev b.lk { color:#1e4d1f; }
+  .ev small { color:#5c6862; }
+  .ev code { font-family:ui-monospace, Menlo, monospace; color:#1e40af; font-size:9px; }
+</style>
+
+<div class="options">
+
+  <div class="option">
+    <div class="letter">A+C</div>
+    <div class="content">
+      <h3>Edit freely, check, freeze after the meeting; every later change on the ledger</h3>
+      <p>On Thursday next week's plan is an editable table: rows can be written, deleted and added from the backlog. Layout A's checks run on every change. Red items block the Freeze button, gold items only warn. The planner makes the changes the room asked for, then presses Freeze. The lock is not taken in front of the group. Once frozen, the week keeps layout C's ledger underneath.</p>
+      <ol class="steps">
+        <li><b>Open</b> next week (39) on Thursday. It holds what was planned on the week board, and the checks run at once.</li>
+        <li><b>At the meeting</b>, show the week as it is and note what the room asks for. Nothing has to be locked there.</li>
+        <li><b>After the meeting</b>, edit the table: change hours or days in a row (✎), delete a row (✕), or add one from the filtered backlog (+ Add order).</li>
+        <li><b>Clear the red items</b>: create the missing order or put its hours in SAP and re-upload, or delete the row. Gold items stay visible and do not block.</li>
+        <li>Press <b>Freeze</b>. The week gets a lock with date, time and who; that snapshot is what 5.4.3 and 5.4.4 measure against.</li>
+        <li><b>Until Sunday night</b>, unfreeze and freeze again with a reason. <b>From Monday</b>, every addition is a break-in and every removal a deferral, each with its reason, recorded on the ledger that week close (screen 4) reads.</li>
+      </ol>
+      <div class="wire"><div class="inner">
+        <div class="top"><span><b>Week 39 · 21–25 Sep</b> · draft, editing · Thu 17 Sep 11:20, after the meeting</span><span><span class="btn">+ Add order</span><span class="btn off">Freeze (1 blocker)</span></span></div>
+
+        <div class="checks">
+          <div class="check block"><i>✕</i><div>1 row without a SAP order<small>P-139 · Cooling system (24 h). Create the order in SAP or delete the row.</small></div></div>
+          <div class="check ok"><i>✓</i><div>FM-9 internal repairs now carries 4459120<small>Order created in SAP after the meeting and re-uploaded.</small></div></div>
+          <div class="check warn"><i>!</i><div>Corrective over capacity Mon and Tue<small>110 / 72 h and 88 / 72 h: 54 h planned overtime (SMRP 5.5.8).</small></div></div>
+          <div class="check warn"><i>!</i><div>3 orders with parts not confirmed<small>4455559 C-55 · 4456154 DC-320A · 4458227 CP-20A. Parts Status @00@.</small></div></div>
+        </div>
+
+        <h5>Next week's plan · editable until the freeze</h5>
+        <table class="plan">
+          <tr><th>Crew</th><th>Order</th><th>Equipment · job</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>Σ</th><th></th></tr>
+          <tr><td>Corrective</td><td class="o">4451397</td><td>RM-310A · Internal inspection</td><td></td><td></td><td></td><td class="n">16</td><td></td><td class="n">16</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr class="edit"><td>Corrective</td><td class="o">4459120</td><td>FM-9 · Internal repairs <span class="tag">order added</span></td><td class="n">16</td><td class="n typing">8</td><td></td><td></td><td></td><td class="n">24</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr class="bad"><td>Corrective</td><td class="o">no order</td><td>P-139 · Cooling system</td><td></td><td></td><td></td><td></td><td class="n">24</td><td class="n">24</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr class="del"><td>Corrective</td><td class="o">4443722</td><td>VG-310 · Inspect the flappers <span class="tag">asked in the meeting</span></td><td></td><td></td><td class="n">8</td><td></td><td></td><td class="n">8</td><td class="act"><span>undo</span></td></tr>
+          <tr class="new"><td>Reliability</td><td class="o">4457558</td><td>BN-24 · Hole in chute <span class="tag">added from backlog</span></td><td></td><td class="n">8</td><td></td><td></td><td></td><td class="n">8</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr><td>Reliability</td><td class="o">4441200</td><td>C-305 · Belt inspection</td><td></td><td></td><td class="n">16</td><td></td><td></td><td class="n">16</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr><td>Electrical</td><td class="o">4456931</td><td>ID-310A · Heat exchanger oil leak</td><td></td><td></td><td></td><td class="n">8</td><td></td><td class="n">8</td><td class="act"><span>✎</span><span>✕</span></td></tr>
+          <tr class="addrow"><td colspan="10">+ Add order from the backlog (filters and search as on the week board)</td></tr>
+        </table>
+
+        <div class="bar">
+          <div class="cap"><b>Corrective · 9</b>304 / 352 h<div class="meter"><i style="width:86%"></i></div></div>
+          <div class="cap"><b>Reliability · 5</b>162 / 200 h<div class="meter"><i style="width:81%"></i></div></div>
+          <div class="cap"><b>Electrical · 5</b>49 / 192 h<div class="meter"><i style="width:26%"></i></div></div>
+        </div>
+
+        <div class="ledger">
+          <div class="top" style="margin-bottom:3px"><span><b>After the freeze · week ledger</b> · <span class="lock">FROZEN</span> Thu 17 Sep 11:48 · 27 orders · 486 h</span><span><span class="btn">Unfreeze (reason)</span><span class="btn">Add with reason</span></span></div>
+          <div class="ev"><b class="lk">Frozen</b><small>Thu 17 Sep 11:48</small><span>27 orders · 486 h <small>· after the meeting; VG-310 dropped, BN-24 added, as agreed</small></span></div>
+          <div class="ev"><b class="add">Break-in</b><small>Mon 21 Sep 07:15</small><span><code>4459362</code> CT-900 not removing heat · 8 h <small>· Production</small></span></div>
+          <div class="ev"><b class="rm">Deferred</b><small>Tue 22 Sep 09:00</small><span><code>4455559</code> C-55 tail pulley · 60 h <small>· Parts not on site, to week 40</small></span></div>
+          <div class="ev"><b>Moved</b><small>Tue 22 Sep 09:05</small><span><code>4441200</code> C-305 belt inspection · Wed → Thu</span></div>
+          <div class="ev"><b class="add">Break-in</b><small>Wed 23 Sep 06:50</small><span><code>4458342</code> DC-320A diaphragm · 16 h <small>· Mechanical, found on route</small></span></div>
+        </div>
+      </div></div>
+      <div class="note"><b>What was combined.</b> From A: the checks, with red blocking the Freeze button and gold only warning, and the capacity bars. Added: free editing of the rows (write, delete, add from the backlog) until the planner presses Freeze. There is no fixed moment for the lock; it is normally taken Thursday after the meeting. From C: the ledger, kept underneath as a list rather than a screen of its own, because week close reads it. Dropped: B's meeting screen and freezing in front of the group.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">As before: the freeze stores one snapshot (orders, hours per day, crew, capacity), the only thing the Schedule Compliance KPIs read. The freeze can be redone until Sunday night with a reason; from Monday every addition is a break-in and every removal a deferral, each with its reason.</p>

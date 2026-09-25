@@ -1,0 +1,92 @@
+<h2>A with a new Absences section</h2>
+<p class="subtitle">Chosen by the planning team on 25 Sep 2026: layout A, settings by section. On-call moves into a new <b>Absences</b> section, where planned PTO is typed before it reaches CATS. The absence rows are unnamed examples.</p>
+
+<style>
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .option .letter { width:auto; padding:0 7px; }
+  .wire .top { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:6px; font-size:9.5px; color:#5c6862; }
+  .wire .top b { color:#1c2420; font-size:11px; }
+  .wire .btn { display:inline-block; border:1px solid #2d6a2e; color:#2d6a2e; border-radius:4px; padding:2px 7px; font-weight:600; margin-left:4px; }
+  .wire .btn.solid { background:#2d6a2e; color:#fff; }
+  .sgrid { display:grid; grid-template-columns:128px 1fr; gap:8px; min-width:680px; }
+  .nav div { border:1px solid #e3e9e2; border-radius:4px; padding:3px 5px; margin-bottom:3px; color:#5c6862; }
+  .nav div.on { background:#2d6a2e; border-color:#2d6a2e; color:#fff; font-weight:700; }
+  .nav div small { display:block; font-size:8px; opacity:.85; }
+  .nav div.warn { border-color:#e8a817; }
+  .nav div.new::after { content:"new"; float:right; font-size:7.5px; font-weight:700; text-transform:uppercase; background:#e8a817; color:#fff; border-radius:3px; padding:0 3px; }
+  table.cfg { width:100%; border-collapse:collapse; }
+  table.cfg th, table.cfg td { border:1px solid #e3e9e2; padding:2px 4px; text-align:left; vertical-align:top; }
+  table.cfg th { background:#f6f8f4; font-weight:600; color:#5c6862; font-size:9px; }
+  table.cfg td.edit { border-style:dashed; border-color:#b9c3b8; }
+  table.cfg tr.grp td { background:#eef2ec; font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.4px; }
+  .st { display:inline-block; border-radius:9px; padding:0 6px; font-size:8.5px; font-weight:600; }
+  .st.plan { background:#e8f0e8; color:#1e4d1f; }
+  .st.cats { background:#e7edf9; color:#1e40af; }
+  .st.diff { background:#fbf0d3; color:#7c4a03; border:1px solid #e8a817; }
+  .alert { border:1px solid #e8a817; border-left:3px solid #e8a817; background:#fbf0d3; border-radius:4px; padding:3px 6px; margin-bottom:6px; color:#7c4a03; }
+  .alert b { color:#7c4a03; }
+  .src { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; }
+  .src > div { border:1px solid #e3e9e2; border-radius:5px; padding:4px 6px; }
+  .src b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.3px; color:#5c6862; margin-bottom:2px; }
+  .save { border:1px dashed #2d6a2e; border-radius:4px; padding:3px 6px; background:#f6f8f4; margin-top:6px; }
+  .save b { color:#1e4d1f; }
+</style>
+
+<div class="options">
+
+  <div class="option">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Settings by section, with planned absences typed ahead</h3>
+      <p>A plain settings page opened a few times a year, plus a weekly look at Absences. The six sections are Crews, Capacity, Absences, Standing orders, Reasons, and KPI targets and names. Each one is a table edited in place, and only editors can change it.</p>
+      <ol class="steps">
+        <li>Open <b>Configuration</b>. A gold mark on a section means something needs attention.</li>
+        <li><b>Crews</b>: each person's crew, whether they count in capacity, and the week that starts. The gold banner lists the people <b>CATS_DA</b> found with hours on maintenance orders and no crew. Assign them, or mark them "not maintenance".</li>
+        <li><b>Capacity</b>: 8 h per day, 5 days, overtime above 40 h, and which CATS types count as absence (PTO, HOLI) or as worked time (REG, CALO).</li>
+        <li><b>Absences</b> (new): add a row for a person with the type (PTO, HOLI or On-call) and the from and to dates, as soon as it is known, before anything is booked in SAP.</li>
+        <li>A planned PTO lowers that crew's capacity on the <b>week board</b> and greys the person out on the <b>daily plan</b>. On-call is shown there as a marker and does not change capacity.</li>
+        <li>After the week is booked, the Status column compares each row with CATS_DA: <b>Planned</b>, <b>Booked in CATS</b>, or <b>Differs</b>. When they differ, CATS wins for the KPIs and the week close flags it.</li>
+        <li><b>Standing orders</b>, <b>Reasons</b>, and <b>KPI targets and names</b> work the same way: edit a cell, then save.</li>
+        <li>Every save asks for the <b>week it starts</b>. A closed week keeps the configuration it was closed with.</li>
+      </ol>
+      <div class="wire">
+        <div class="top"><span><b>Configuration · Absences</b> · from week 39</span><span><span class="btn">Add absence</span><span class="btn solid">Save · from week 40</span></span></div>
+        <div class="sgrid">
+          <div class="nav">
+            <div class="warn">Crews<small>4 crews · 2 to review</small></div>
+            <div>Capacity<small>8 h × 5 d · OT above 40 h</small></div>
+            <div class="on new">Absences<small>PTO · HOLI · on-call</small></div>
+            <div>Standing orders<small>ZP02 routes flagged</small></div>
+            <div>Reasons<small>break-in 4 · not worked 4</small></div>
+            <div>KPI targets and names<small>7 codes · formulas locked</small></div>
+          </div>
+          <div>
+            <div class="alert"><b>1 row differs from CATS_DA in week 39.</b> The week close will ask which one is right; for the KPIs, CATS is used.</div>
+            <table class="cfg">
+              <tr><th>Person</th><th>Crew</th><th>Type</th><th>From</th><th>To</th><th>Status vs CATS</th></tr>
+              <tr class="grp"><td colspan="6">Week 39 · booked</td></tr>
+              <tr><td>Person 1</td><td>Mechanical</td><td>PTO</td><td>Mon 21 Sep</td><td>Tue 22 Sep</td><td><span class="st cats">Booked in CATS</span></td></tr>
+              <tr><td>Person 2</td><td>Reliability</td><td>PTO</td><td>Fri 25 Sep</td><td>Fri 25 Sep</td><td><span class="st diff">Differs · not in CATS</span></td></tr>
+              <tr class="grp"><td colspan="6">Week 40 onwards · planned</td></tr>
+              <tr><td>Person 3</td><td>Mechanical</td><td class="edit">PTO</td><td class="edit">Fri 2 Oct</td><td class="edit">Fri 2 Oct</td><td><span class="st plan">Planned</span></td></tr>
+              <tr><td>Person 4</td><td>Electrical</td><td class="edit">On-call</td><td class="edit">Mon 28 Sep</td><td class="edit">Sun 4 Oct</td><td><span class="st plan">Planned</span></td></tr>
+              <tr><td>Person 5</td><td>Electrical</td><td class="edit">PTO</td><td class="edit">Mon 5 Oct</td><td class="edit">Fri 9 Oct</td><td><span class="st plan">Planned</span></td></tr>
+              <tr><td>Person 6</td><td>Mechanical</td><td class="edit">On-call</td><td class="edit">Mon 5 Oct</td><td class="edit">Sun 11 Oct</td><td><span class="st plan">Planned</span></td></tr>
+              <tr><td>All crews</td><td>—</td><td class="edit">HOLI</td><td class="edit">Thu 26 Nov</td><td class="edit">Fri 27 Nov</td><td><span class="st plan">Planned</span></td></tr>
+            </table>
+            <div class="src">
+              <div><b>Comes from CATS_DA</b>People with hours on maintenance orders and no crew (the gold banner in Crews). PTO and HOLI already booked in SAP.</div>
+              <div><b>Typed by an editor</b>Crews, capacity rules, planned absences and on-call, standing orders, reasons, KPI targets and display names.</div>
+            </div>
+            <div class="save"><b>Save asks:</b> applies from week <b>40</b> (the next week not yet frozen) · who and when are logged.</div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>What changed.</b> The team read this screen as data coming from CATS_DA. It is not: CATS_DA only reports who booked hours with no crew and the PTO already booked, and everything else is typed here by an editor. The On-call section of layout A becomes <b>Absences</b>, where PTO is entered weeks ahead so the week board and the daily plan show it before the week is planned. Nothing from B or C, except that every save is still logged with its start week.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">As before: only editors change configuration; people are keyed by their personnel number, never by name; leads are listed but never count in capacity; SMRP formulas are fixed and only display names and targets are editable.</p>
