@@ -1,0 +1,92 @@
+<h2>A and C combined</h2>
+<p class="subtitle">Chosen by the planning team on 25 Sep 2026: layout A's filtered backlog, with the week grouped by crew as in layout C. Examples use real week-38 jobs.</p>
+
+<style>
+  .wire { background:#fff; border:1px solid #cfd6cf; border-radius:8px; padding:8px; font-size:10px; line-height:1.25; color:#1c2420; }
+  .wire * { box-sizing:border-box; }
+  .bar { display:flex; gap:6px; margin-bottom:6px; }
+  .cap { flex:1; border:1px solid #d9e0d8; border-radius:5px; padding:3px 6px; }
+  .cap b { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.4px; color:#5c6862; }
+  .meter { height:6px; background:#e8ede7; border-radius:3px; margin-top:3px; position:relative; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#2d6a2e; }
+  .card { background:#fff; border:1px solid #d9e0d8; border-left:3px solid #2d6a2e; border-radius:4px; padding:3px 5px; margin-bottom:4px; }
+  .card.pm { border-left-color:#3b6fd6; } .card.p1 { border-left-color:#d05252; }
+  .card small { display:block; color:#5c6862; }
+  .option .letter { width:auto; padding:0 7px; }
+  .row { display:flex; min-width:760px; }
+  .backlog { width:26%; flex-shrink:0; background:#f6f8f4; border:1px solid #e3e9e2; border-radius:5px; padding:4px; margin-right:5px; }
+  .backlog h5 { margin:0 0 4px; font-size:9.5px; color:#5c6862; }
+  .backlog .f { display:flex; flex-wrap:wrap; gap:3px; margin-bottom:4px; }
+  .backlog .f span { flex:1 1 40%; border:1px solid #d9e0d8; border-radius:3px; padding:1px 3px; background:#fff; color:#9aa39c; }
+  .backlog .f span.q { flex-basis:100%; }
+  .lanes { flex:1; display:grid; grid-template-columns: 66px repeat(5, 1fr); gap:3px; align-content:start; }
+  .lanes .h { font-size:9px; color:#5c6862; text-align:center; padding:2px; }
+  .lanes .crew { font-size:9.5px; font-weight:700; color:#1e4d1f; padding:4px 2px; }
+  .lanes .crew small { display:block; font-weight:400; color:#5c6862; }
+  .lanes .cell { background:#f6f8f4; border:1px solid #e3e9e2; border-radius:4px; padding:3px; min-height:46px; }
+  .lanes .cell em { display:block; font-style:normal; font-size:8.5px; color:#5c6862; text-align:right; }
+  .lanes .cell em.ot { color:#7c4a03; font-weight:700; }
+  .lanes .cell .abs { display:block; font-size:8.5px; color:#5c6862; background:#eceeec; border-radius:3px; padding:1px 4px; margin-bottom:3px; }
+</style>
+
+<div class="options">
+
+  <div class="option">
+    <div class="letter">A+C</div>
+    <div class="content">
+      <h3>Filtered backlog on the left, crew lanes by day on the right</h3>
+      <p>The backlog keeps layout A's filters and a search box. The week is three crew lanes (Corrective, Reliability, Electrical) by five days, as in layout C. Each cell shows its hours against that crew's capacity for that day, and planned absences lower the capacity before anyone is booked.</p>
+      <ol class="steps">
+        <li><b>Upload</b> the ZEMR031 export; the backlog fills with the open orders.</li>
+        <li><b>Filter</b> by planner group, priority, type or order type, or search by order number or equipment.</li>
+        <li><b>Drag</b> an order onto "this crew, this day". A multi-day order is split across days.</li>
+        <li><b>Watch</b> the cells: gold means planned overtime, allowed and visible. Move jobs between days to level the load.</li>
+        <li><b>Check</b> the capacity bars on top for the whole week per crew.</li>
+        <li><b>Planned PTO</b> typed in configuration shows in the cell and lowers its capacity (Friday, Corrective: 72 → 64 h).</li>
+      </ol>
+      <div class="wire">
+        <div class="bar">
+          <div class="cap"><b>Corrective · 9</b>312 / 352 h<div class="meter"><i style="width:89%"></i></div></div>
+          <div class="cap"><b>Reliability · 5</b>154 / 200 h<div class="meter"><i style="width:77%"></i></div></div>
+          <div class="cap"><b>Electrical · 5</b>49 / 192 h<div class="meter"><i style="width:26%"></i></div></div>
+        </div>
+        <div class="row">
+          <div class="backlog">
+            <h5>Backlog · 402 open orders</h5>
+            <div class="f"><span class="q">Search order / equipment</span><span>Planner grp</span><span>Prio</span><span>Type</span><span>Order type</span></div>
+            <div class="card p1">4457558 · BN-24<small>Hole in chute · P1 · 8 h</small></div>
+            <div class="card">4457472 · SILO-12<small>Air cut in manifold · P3 · 8 h</small></div>
+            <div class="card pm">4443720 · DC-310<small>1M Inspection · PM · 8 h</small></div>
+            <div class="card">4452704 · C-1<small>Impact rollers · P2 · 24 h</small></div>
+            <div class="card pm">4451397 · RM-310A<small>Internal inspection · PM</small></div>
+          </div>
+          <div class="lanes">
+            <div></div><div class="h">Mon 14</div><div class="h">Tue 15</div><div class="h">Wed 16</div><div class="h">Thu 17</div><div class="h">Fri 18</div>
+            <div class="crew">Corrective<small>9 · 72 h/day</small></div>
+            <div class="cell"><div class="card">FM-9 · Dam ring<small>16 h</small></div><div class="card">CP-900 · Pump<small>16 h</small></div><em class="ot">110 / 72 h</em></div>
+            <div class="cell"><div class="card">FM-9 · Housing<small>8 h</small></div><div class="card">K-900 · Cooler<small>16 h</small></div><em class="ot">88 / 72 h</em></div>
+            <div class="cell"><div class="card pm">C-306 · Belt<small>8 h</small></div><div class="card">ID-310A · Leak<small>8 h</small></div><em>24 / 72 h</em></div>
+            <div class="cell"><div class="card">C-1 · Rollers<small>24 h</small></div><em>50 / 72 h</em></div>
+            <div class="cell"><span class="abs">1 on PTO (planned)</span><div class="card">P-139 · Cooling<small>24 h</small></div><em>40 / 64 h</em></div>
+            <div class="crew">Reliability<small>5 · 40 h/day</small></div>
+            <div class="cell"><div class="card pm">KL-330 route<small>4 h</small></div><div class="card pm">Lube route<small>8 h</small></div><em>24 / 40 h</em></div>
+            <div class="cell"><div class="card pm">RM-310 route<small>4 h</small></div><div class="card">CA-951 align<small>8 h</small></div><em>36 / 40 h</em></div>
+            <div class="cell"><div class="card pm">FM-9 route<small>8 h</small></div><em>32 / 40 h</em></div>
+            <div class="cell"><div class="card pm">RM-310 route<small>6 h</small></div><em>30 / 40 h</em></div>
+            <div class="cell"><div class="card pm">Lube route<small>8 h</small></div><em>32 / 40 h</em></div>
+            <div class="crew">Electrical<small>5 · 40 h/day</small></div>
+            <div class="cell"><span class="abs">1 on PTO (in CATS)</span><div class="card">CP-22 · Commission<small>2 h</small></div><em>2 / 32 h</em></div>
+            <div class="cell"><div class="card">CEMS-320 · Checks<small>2 h</small></div><em>5 / 40 h</em></div>
+            <div class="cell"><div class="card">SWH · Switch house<small>5 h</small></div><em>12 / 40 h</em></div>
+            <div class="cell"><div class="card">KL-330 · Camera PM<small>2 h</small></div><em>11 / 40 h</em></div>
+            <div class="cell"><div class="card">AN-331 · Analyzer<small>2 h</small></div><em>19 / 40 h</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>What was combined.</b> From A: the backlog always visible with its filters, now with a search box, and the week capacity bars. From C: the week split by crew, so each crew's load is judged cell by cell and the crew is decided while planning. Nothing from B.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:14px">As before: a card is a SAP order (no order, no card); red marks priority 1, blue preventive, gold planned overtime. Planned PTO and on-call come from the new Absences section of configuration; once the hours are booked in CATS, CATS wins.</p>
